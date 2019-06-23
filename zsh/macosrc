@@ -1,0 +1,16 @@
+# Mac OSX specific application alias.
+alias studio='open -a /Applications/Android\ Studio.app'
+alias rmine='open -a /Applications/RubyMine.app'
+alias goland='open -a /Applications/GoLand.app'
+alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
+alias sl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh

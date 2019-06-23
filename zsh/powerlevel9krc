@@ -1,0 +1,7 @@
+POWERLEVEL9K_MODE="nerdfont-complete"
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
+POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND=(red1 orangered1 darkorange orange1 gold1 yellow1 yellow2 greenyellow chartreuse1 chartreuse2 green1)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir context newline vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(battery nvm rvm)

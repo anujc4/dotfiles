@@ -1,0 +1,16 @@
+# Common aliases
+alias ohmyzsh="code ~/.oh-my-zsh"
+alias ezsh='code ~/.zshrc'
+alias rzsh='source ~/.zshrc'
+alias rtmux='tmux source ~/.tmux.conf'
+
+# General purpose alias
+alias tmuxls='tmux list-sessions'
+alias tmuxattach='tmux attach-session -t $1'
+alias tmuxkillsession='tmux kill-session -t $1'
+alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
+alias gitdelete="git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
+
+dbash() { docker exec -it $1 bash} # Open bash in a docker container
+alias docker='nocorrect docker'
+alias dockerkillall='docker stop $(docker ps -a -q)'
