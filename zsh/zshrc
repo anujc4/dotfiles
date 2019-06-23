@@ -1,0 +1,41 @@
+source ./pathrc
+
+# Path to your oh-my-zsh installation.
+export ZSH="/Users/$(whoami)/.oh-my-zsh"
+
+ZSH_THEME="powerlevel9k/powerlevel9k"
+
+ENABLE_CORRECTION="true"
+
+plugins=(git zsh-autosuggestions z zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.dotfiles/lib/zsh-autoenv/autoenv.zsh
+
+# Check if the OS is MAC or Linux
+sw_vers -productName 2> /dev/null && source ./macosrc || source ./linuxrc
+
+export LANG=en_US.UTF-8
+
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+
+export NVM_DIR="$HOME/.nvm"
+  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Prevent zsh from showing the system name before each command
+prompt_context () { }
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
