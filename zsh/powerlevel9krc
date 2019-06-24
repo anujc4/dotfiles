@@ -2,6 +2,27 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 POWERLEVEL9K_PROMPT_ON_NEWLINE=true
 POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
 POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="↳ "
-POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND=(red1 orangered1 darkorange orange1 gold1 yellow1 yellow2 greenyellow chartreuse1 chartreuse2 green1)
+# POWERLEVEL9K_BATTERY_LEVEL_BACKGROUND=(red1 orangered1 darkorange orange1 gold1 yellow1 yellow2 greenyellow chartreuse1 chartreuse2 green1)
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
+
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="white"
+POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="yellow"
+
+zsh_wifi_signal() {
+  sw_vers -productName 2>/dev/null && zsh_wifi_signal_mac || zsh_wifi_signal_linux
+}
+
+zsh_wifi_signal_mac() {
+
+}
+
+zsh_wifi_signal_linux() {
+  local signal=$(nmcli device wifi | grep '*' | awk '{print $7}')
+  local color='%F{yellow}'
+  [[ $signal -gt 75 ]] && color='%F{green}'
+  [[ $signal -lt 50 ]] && color='%F{red}'
+  echo -n "$signal %{$color%}MBit/s"
+}
+
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir context newline vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(battery nvm rvm)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(battery nvm rvm custom_wifi_signal)
