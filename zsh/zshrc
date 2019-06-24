@@ -8,6 +8,7 @@ source $(echo $FILE_DIR)/pathrc
 export ZSH="/home/$(whoami)/.oh-my-zsh"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
+source $(echo $FILE_DIR)/powerlevel9krc
 
 ENABLE_CORRECTION="true"
 
@@ -34,6 +35,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 
 # Prevent zsh from showing the system name before each command
 prompt_context () { }
+
+source $(echo $FILE_DIR)/common_aliasrc
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
