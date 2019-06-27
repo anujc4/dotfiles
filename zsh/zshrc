@@ -1,13 +1,30 @@
 export TERM="xterm-256color"
-ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
-FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-
-source $(echo $FILE_DIR)/pathrc
-
-# Path to your oh-my-zsh installation.
-export ZSH="/home/$(whoami)/.oh-my-zsh"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
+
+isMac=$(sw_vers -productName 2>/dev/null)
+if [ "$isMac" = "Mac OS X" ]; then
+  export isMacOS=true
+else
+  export isMacOS=false
+fi
+
+# Check if the OS is MAC or Linux
+if [ "$isMacOS" = true ]; then
+  # Get the absolute path of the symlinked zshrc to read the other rc files
+  ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
+  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+  export ZSH="/Users/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
+  source $(echo $FILE_DIR)/macosrc
+else
+  # Get the absolute path of the symlinked zshrc to read the other rc files
+  ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
+  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+  export ZSH="/home/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
+  source $(echo $FILE_DIR)/linuxrc
+fi
+
+source $(echo $FILE_DIR)/pathrc
 source $(echo $FILE_DIR)/powerlevel9krc
 
 ENABLE_CORRECTION="true"
@@ -15,9 +32,6 @@ ENABLE_CORRECTION="true"
 plugins=(git zsh-autosuggestions z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-
-# Check if the OS is MAC or Linux
-sw_vers -productName 2> /dev/null && source $(echo $FILE_DIR)/macosrc || source $(echo $FILE_DIR)/linuxrc
 
 export LANG=en_US.UTF-8
 
