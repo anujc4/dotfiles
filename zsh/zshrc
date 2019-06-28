@@ -1,9 +1,14 @@
+# To use this zshrc as your default zshrc file, create a symlink of this file
+# in your home folder. Just create  a symlink of the zshrc file and it will
+# source the other files on it's own. The command usually looks like
+# ln -s ~/Personal/dotfiles/zsh/zshrc ~/.zshrc
+
 export TERM="xterm-256color"
 
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
-isMac=$(sw_vers -productName 2>/dev/null)
-if [ "$isMac" = "Mac OS X" ]; then
+os=$(sw_vers -productName 2>/dev/null)
+if [ "$os" = "Mac OS X" ]; then
   export isMacOS=true
 else
   export isMacOS=false
@@ -29,6 +34,8 @@ source $(echo $FILE_DIR)/powerlevel9krc
 
 ENABLE_CORRECTION="true"
 
+# git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 plugins=(git zsh-autosuggestions z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
@@ -51,6 +58,4 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 prompt_context () { }
 
 source $(echo $FILE_DIR)/common_aliasrc
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+source $(echo $FILE_DIR)/secretsrc
