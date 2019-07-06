@@ -3,6 +3,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/Users/$(whoami)/Library/Python/2.7/bin:$PATH
 export PATH=$PATH:/usr/local/go/bin
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
+export PATH="/usr/local/opt/protobuf@3.1/bin:$PATH"
 export PATH="/Users/$(whoami)/maven/bin:$PATH"
 export PATH="/Users/$(whoami)/anaconda2/bin:$PATH"
 export PATH="$PATH:/Users/$(whoami)/development/flutter/bin"
