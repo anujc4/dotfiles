@@ -1,5 +1,6 @@
 # open terminal
-cmd + shift - return : open -a Terminal "`~`"
+# cmd + shift - return : open -na /Applications/Utilities/Terminal.app
+ctrl + alt - r : brew services restart yabai
 
 # focus window
 ctrl + shift - left : yabai -m window --focus west
@@ -128,13 +129,13 @@ alt - x : yabai -m space --mirror x-axis
 alt - a : yabai -m space --toggle padding; yabai -m space --toggle gap
 
 # toggle window parent zoom
-alt - d : yabai -m window --toggle zoom-parent
+# alt - d : yabai -m window --toggle zoom-parent
 
 # toggle window fullscreen zoom
 ctrl + shift - space : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-# shift + alt - f : yabai -m window --toggle native-fullscreen
+ctrl + shift - f : yabai -m window --toggle native-fullscreen
 
 # toggle window border
 # shift + alt - b : yabai -m window --toggle border
@@ -154,5 +155,5 @@ alt - e : yabai -m window --toggle split
 #           yabai -m window --grid 5:5:4:0:1:1
 
 # change layout of desktop
-ctrl + alt - a : yabai -m space --layout bsp
-ctrl + alt - d : yabai -m space --layout float
+ctrl + shift - a : yabai -m space --layout bsp
+ctrl + shift - d : yabai -m space --layout float
