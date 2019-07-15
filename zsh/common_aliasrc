@@ -1,6 +1,6 @@
 # Common aliases
 alias ohmyzsh="code ~/.oh-my-zsh"
-alias ezsh='code ~/.zshrc'
+alias ezsh='code $FILE_DIR'
 alias rzsh='source ~/.zshrc'
 alias rtmux='tmux source ~/.tmux.conf'
 
@@ -14,3 +14,4 @@ alias gitdelete="git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ 
 dbash() { docker exec -it $1 bash} # Open bash in a docker container
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
+alias cat='bat'
