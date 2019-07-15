@@ -10,8 +10,8 @@ if [ -z "$FIRST_RUN" ]; then
   printf "${GREEN}Installing zsh-autosuggestions\n${NC}"
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-  printf "${GREEN}Installing zsh-autosuggestions\n${NC}"
-  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+  printf "${GREEN}Installing zsh-completions\n${NC}"
+  git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 
   printf "${GREEN}Installing tmux plugin manager\n${NC}"
   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
