@@ -1,6 +1,6 @@
 # open terminal
 # cmd + shift - return : open -na /Applications/Utilities/Terminal.app
-ctrl + alt - r : brew services restart yabai
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # focus window
 ctrl + shift - left : yabai -m window --focus west
