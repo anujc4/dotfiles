@@ -14,6 +14,10 @@ else
   export isMacOS=false
 fi
 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
 # Check if the OS is MAC or Linux
 if [ "$isMacOS" = true ]; then
   # Get the absolute path of the symlinked zshrc to read the other rc files
@@ -34,7 +38,8 @@ source $(echo $FILE_DIR)/powerlevel9krc
 
 ENABLE_CORRECTION="true"
 
-plugins=(git zsh-autosuggestions z zsh-syntax-highlighting)
+plugins=(git zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
+autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
@@ -55,8 +60,11 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Prevent zsh from showing the system name before each command
 prompt_context () { }
 
+# Disable that pesky auto correct
+unsetopt correct_all
+
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
