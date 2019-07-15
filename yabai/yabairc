@@ -6,7 +6,8 @@ yabai -m config status_bar_text_font         "Helvetica Neue:Bold:12.0"
 yabai -m config status_bar_icon_font         "Hack Nerd Font:Regular:12.0"
 yabai -m config status_bar_background_color  0xff202020
 yabai -m config status_bar_foreground_color  0xffa8a8a8
-yabai -m config status_bar_space_icon_strip         VIII IX X
+yabai -m config status_bar_space_icon_strip         VII IX
+                                             1  2 3  4 5 6  7  8   9
 yabai -m config status_bar_power_icon_strip   
 yabai -m config status_bar_space_icon        
 yabai -m config status_bar_clock_icon        
@@ -38,5 +39,31 @@ yabai -m config bottom_padding               0
 yabai -m config left_padding                 0
 yabai -m config right_padding                0
 yabai -m config window_gap                   0
+
+yabai -m rule --add app="^Google Chrome$" space=1
+yabai -m rule --add app="^System Preferences$" manage=off space=1
+yabai -m rule --add app="^Pritunl$" manage=off space=1
+yabai -m rule --add app="^App Store$" space=1
+yabai -m rule --add app="^Sublime Text$" space=2
+
+# Jetbrains popup screens should not be managed by yabai
+yabai -m rule --add title="^Commit Changes$" manage=off
+yabai -m rule --add title="^Revert Changes$" manage=off
+yabai -m rule --add title="^Push Commits$" manage=off
+yabai -m rule --add title="^Send Code Snippet$" manage=off
+yabai -m rule --add title="^Choose Plugins to Install or Enable$" manage=off
+
+yabai -m rule --add app="^Code$" space=2
+yabai -m rule --add app="^RubyMine$" space=3
+yabai -m rule --add app="^GoLand$" space=3
+yabai -m rule --add app="^Android Studio$" space3
+yabai -m rule --add app="^Terminal$" space=4
+yabai -m rule --add app="^Robo 3T$" space=5
+yabai -m rule --add app="^Sourcetree$" space=5
+yabai -m rule --add app="^Franz$" space=6
+yabai -m rule --add app="^DingTalk$" space=6
+yabai -m rule --add app="^Slack$" space=6
+yabai -m rule --add app="^Spotify$" space=7
+yabai -m rule --add app="^Google Play Music Desktop Player$" space=7
 
 echo "yabai configuration loaded.."
