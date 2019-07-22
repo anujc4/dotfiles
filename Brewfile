@@ -1,25 +1,74 @@
-# Install Cask
-install caskroom/cask/brew-cask
-
-tap homebrew/cask-fonts
-
-cask install visual-studio-code
-cask install google-chrome
-cask install sublime-text
-cask install font-hack-nerd-font
-cask install sequel-pro
-
-# Install Brew dependencies
-install bash-completion
-install fzf
-install go
-install midnight-commander
-install mysql
-install redis
-install ripgrep
-install speedtest-cli
-install tldr
-install unrar
-install watch
-install wifi-password
-
+tap "caskroom/cask"
+tap "heroku/brew"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "koekeishiya/formulae"
+tap "sambadevi/powerlevel9k"
+cask "adoptopenjdk8"
+brew "archey"
+brew "autoconf"
+brew "automake"
+brew "autossh"
+brew "bat"
+brew "brew-cask-completion"
+brew "readline"
+brew "sqlite"
+brew "python"
+brew "calc"
+brew "cmake"
+brew "coreutils"
+brew "druid"
+brew "flow"
+brew "fswatch"
+brew "fzf"
+brew "gawk"
+brew "hstr"
+brew "htop"
+brew "usbmuxd", args: ["HEAD"]
+brew "libimobiledevice", args: ["HEAD"]
+brew "ideviceinstaller"
+brew "jenv"
+brew "kafka"
+brew "lastpass-cli"
+brew "libksba"
+brew "libtool"
+brew "libyaml"
+brew "links"
+brew "mackup"
+brew "maven"
+brew "midnight-commander"
+brew "python@2"
+brew "mongodb", restart_service: true
+brew "mysql@5.7", restart_service: true, link: true
+brew "nginx"
+brew "node"
+brew "nvm"
+brew "openssl@1.1"
+brew "pkg-config"
+brew "protobuf@3.1"
+brew "reattach-to-user-namespace"
+brew "redis", restart_service: true
+brew "shfmt"
+brew "speedtest-cli"
+brew "tmux"
+brew "unison"
+brew "watch"
+brew "zlib"
+brew "zsh-completions"
+brew "zsh-syntax-highlighting"
+brew "heroku/brew/heroku"
+brew "koekeishiya/formulae/skhd"
+brew "koekeishiya/formulae/yabai"
+brew "sambadevi/powerlevel9k/powerlevel9k"
+cask "alacritty"
+cask "amethyst"
+cask "android-platform-tools"
+cask "db-browser-for-sqlite"
+cask "font-fira-code"
+cask "font-hack-nerd-font"
+cask "java"
+cask "java6"
