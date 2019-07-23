@@ -13,8 +13,11 @@ if [ -z "$FIRST_RUN" ]; then
   printf "${GREEN}Installing zsh-completions\n${NC}"
   git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 
-  printf "${GREEN}Installing tmux plugin manager\n${NC}"
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  printf "${GREEN}Installing zsh-syntax-highlighting\n${NC}"
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+  printf "${GREEN}Installing powerlevel9k theme\n${NC}"
+  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
   if [ "$isMacOS" = true ]; then
     printf "${BLUE}System running MacOS. Attempting to install Nerd Fonts. You need to change terminal font manually.\n${NC}"

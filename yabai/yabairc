@@ -72,5 +72,6 @@ yabai -m rule --add title="^Send Code Snippet$" manage=off
 yabai -m rule --add title="^Choose Plugins to Install or Enable$" manage=off
 yabai -m rule --add title="^Authy$" manage=off
 yabai -m rule --add app="^Postgres$" manage=off
+yabai -m rule --add app="^Activity Monitor*" manage=off
 
 echo "yabai configuration loaded.."
