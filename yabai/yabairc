@@ -41,6 +41,7 @@ yabai -m config right_padding                0
 yabai -m config window_gap                   0
 
 yabai -m rule --add app="^Google Chrome$" space=1
+yabai -m rule --add app="^Finder$" space=1
 yabai -m rule --add app="^System Preferences$" manage=off
 yabai -m rule --add app="^Pritunl$" manage=off space=1
 yabai -m rule --add app="^App Store$" space=1
@@ -69,9 +70,11 @@ yabai -m rule --add title="^Preferences$" manage=off
 yabai -m rule --add title="^Revert Changes$" manage=off
 yabai -m rule --add title="^Push Commits$" manage=off
 yabai -m rule --add title="^Send Code Snippet$" manage=off
+yabai -m rule --add title="^DingTalk Preferencesb$" manage=off
 yabai -m rule --add title="^Choose Plugins to Install or Enable$" manage=off
 yabai -m rule --add title="^Authy$" manage=off
 yabai -m rule --add app="^Postgres$" manage=off
+yabai -m rule --add app="^VLC$" manage=off
 yabai -m rule --add app="^Activity Monitor*" manage=off
 
 echo "yabai configuration loaded.."
