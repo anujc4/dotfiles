@@ -5,6 +5,23 @@ alias goland='open -a /Applications/GoLand.app'
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias sl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .'
 
+alias zkstart='zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties'
+alias kafkastart='kafka-server-start /usr/local/etc/kafka/server.properties'
+alias kafkaproducer='kafka-console-producer --broker-list localhost:9092 --topic $1'
+alias kafkatopiccreate='kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic $1'
+
+function portscan()
+{
+  lsof -i :$1
+}
+alias portscan='portscan'
+
+function kafkaconsumer () {
+  kafka-console-consumer --bootstrap-server localhost:9092 --topic $1 --from-beginning
+}
+alias kafkaconsumer='kafkaconsumer'
+
+
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
 [[ -f /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/$(whoami)/.nvm/versions/node/v10.15.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
