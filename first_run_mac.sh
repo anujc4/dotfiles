@@ -6,6 +6,9 @@ GREEN='\033[0;32m'
 
 # Install ZSH if it is not yet installed
 if ! [ -d "$ZSH" ]; then
+  printf "${GREEN}Creating symlink for zshconfig\n${NC}"
+  ln -s $(pwd)/zsh/zshrc $(echo $HOME)/.zshrc
+  printf "${RED}Missing dependency: ZSH. This script WILL EXIT if you decide to change default shell after oh-my-zsh installation. You will need to run it again.\n${NC}"
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 
@@ -18,6 +21,8 @@ fi
 
 # Check if tmux is installed
 if ! [ -x "$(command -v tmux)" ]; then
+  printf "${GREEN}Creating symlink for .tmux.conf\n${NC}"
+  ln -s $(pwd)/tmux.conf $(echo $HOME)/.tmux.conf
   printf "${RED}Missing dependency: Tmux\n${NC}"
   printf "${GREEN}Installing tmux\n${NC}"
   brew install tmux
@@ -48,19 +53,18 @@ while true; do
   read -p "Choice:" yn
   case $yn in
   [1]*)
-    printf "${GREEN}Installing Yabai and Skhd\n${NC}"
     brew tap koekeishiya/formulae
     brew install koekeishiya/formulae/skhd
     brew install yabai
     sudo yabai --install-sa
     printf "${GREEN}Renaming any previouisly created configurations\n${NC}"
-    mv ~/.yabairc ~/.yabairc_backup
-    mv ~/.skhdrc ~/.skhdrc_backup
+    mv $(echo $HOME)/.yabairc $(echo $HOME)/.yabairc_backup
+    mv $(echo $HOME)/.skhdrc $(echo $HOME)/.skhdrc_backup
 
     printf "${RED}You need to disable System Integrity Protection on your system. Please check yabai/README.md for instructions"
     printf "${GREEN}Creating symlink file associations\n${NC}"
-    ln -s $(echo $DIR)/yabai/yabairc ~/.yabairc
-    ln -s $(echo $DIR)/yabai/skhdrc ~/.skhdrc
+    ln -s $(echo $DIR)/yabai/yabairc $(echo $HOME)/.yabairc
+    ln -s $(echo $DIR)/yabai/skhdrc $(echo $HOME)/.skhdrc
     break
     ;;
   [2]*)
