@@ -36,6 +36,9 @@ fi
 source $(echo $FILE_DIR)/pathrc
 source $(echo $FILE_DIR)/powerlevel9krc
 
+# Export the directory where the dotfiles are stored
+export DOT_SOURCE=${FILE_DIR%????}
+
 ENABLE_CORRECTION="true"
 
 plugins=(git zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
