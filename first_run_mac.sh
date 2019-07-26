@@ -30,7 +30,7 @@ fi
 # Check if tmux is installed
 if ! [ -x "$(command -v tmux)" ]; then
   printf "${GREEN}Creating symlink for .tmux.conf\n${NC}"
-  ln -sf $(pwd)/tmux.conf $(echo $HOME)/.tmux.conf
+  ln -sf $(pwd)/tmux/tmux.conf $(echo $HOME)/.tmux.conf
   printf "${RED}Missing dependency: Tmux\n${NC}"
   printf "${GREEN}Installing tmux\n${NC}"
   brew install tmux
