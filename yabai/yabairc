@@ -43,7 +43,7 @@ yabai -m config window_gap                   0
 yabai -m rule --add app="^Google Chrome$" space=1
 yabai -m rule --add app="^Finder$" space=1
 yabai -m rule --add app="^System Preferences$" manage=off
-yabai -m rule --add app="^Pritunl$" manage=off space=1
+yabai -m rule --add app="^Pritunl*" manage=off space=1
 yabai -m rule --add app="^App Store$" space=1
 yabai -m rule --add app="^Sublime Text$" space=2
 yabai -m rule --add app="^Code$" space=2
@@ -66,6 +66,8 @@ yabai -m rule --add app="^Amazon Music$" space=7
 # Jetbrains popup screens should not be managed by yabai
 yabai -m rule --add title="^Commit Changes$" manage=off
 yabai -m rule --add title="^Paths Affected*" manage=off
+yabai -m rule --add title="^Google Play Musi$*" manage=off
+yabai -m rule --add title="^Welcome to Android Studio$*" manage=off
 yabai -m rule --add title="^Preferences$" manage=off
 yabai -m rule --add title="^Revert Changes$" manage=off
 yabai -m rule --add title="^Push Commits$" manage=off
