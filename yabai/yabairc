@@ -66,6 +66,7 @@ yabai -m rule --add app="^Amazon Music$" space=7
 # Jetbrains popup screens should not be managed by yabai
 yabai -m rule --add title="^Commit Changes$" manage=off
 yabai -m rule --add title="^Paths Affected*" manage=off
+yabai -m rule --add title="^Preview Image*" manage=off
 yabai -m rule --add title="^Google Play Musi$*" manage=off
 yabai -m rule --add title="^Welcome to Android Studio$*" manage=off
 yabai -m rule --add title="^Preferences$" manage=off
