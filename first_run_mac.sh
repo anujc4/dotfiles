@@ -49,20 +49,10 @@ if ! [ -x "$(command -v tmux)" ]; then
   fi
 fi
 
-while true; do
-  read -p "Do you wish to run the Brewfile? This will install most of the required dependencies required by your system." yn
-  case $yn in
-  [Yy]*)
-    printf "${GREEN}Executing Brewfile\n${NC}"
+printf "${GREEN}Executing Brewfile\n${NC}"
     brew bundle
     $(brew --prefix)/opt/fzf/install
     brew cleanup --force
-    break
-    ;;
-  [Nn]*) break ;;
-  *) echo "Please answer yes or no." ;;
-  esac
-done
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
