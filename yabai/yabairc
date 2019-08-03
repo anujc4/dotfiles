@@ -47,7 +47,7 @@ yabai -m rule --add app="^Pritunl*" manage=off space=1
 yabai -m rule --add app="^App Store$" space=1
 yabai -m rule --add app="^Sublime Text$" space=2
 yabai -m rule --add app="^Code$" space=2
-yabai -m rule --add app="^RubyMine$" space=3
+yabai -m rule --add app="^RubyMine$" space=3 manage=off
 yabai -m rule --add app="^GoLand$" space=3
 yabai -m rule --add app="^Android Studio$" space3
 yabai -m rule --add app="^Terminal$" space=4
