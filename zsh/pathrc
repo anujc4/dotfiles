@@ -8,9 +8,5 @@ export PATH="/Users/$(whoami)/maven/bin:$PATH"
 export PATH="/Users/$(whoami)/anaconda2/bin:$PATH"
 export PATH="$PATH:/Users/$(whoami)/development/flutter/bin"
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home
-export GOROOT=/usr/local/go
-export EDITOR=vi
-export PATH="$HOME/.jenv/bin:$PATH"
-#  eval "$(jenv init -)"
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export GOPATH=$HOME/go
 export PATH="$PATH:$HOME/.rvm/bin"
