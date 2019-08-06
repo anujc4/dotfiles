@@ -50,9 +50,9 @@ if ! [ -x "$(command -v tmux)" ]; then
 fi
 
 printf "${GREEN}Executing Brewfile\n${NC}"
-    brew bundle
-    $(brew --prefix)/opt/fzf/install
-    brew cleanup --force
+brew bundle
+$(brew --prefix)/opt/fzf/install
+brew cleanup --force
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
@@ -90,7 +90,7 @@ printf "${BLUE}Installing missing developer dependencies..\n${NC}"
 
 if ! [ -x "$(command -v nvm)" ]; then
   printf "${GREEN}Installing NVM(Node Version Manager)\n${NC}"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash #NVM
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | zsh #NVM
 fi
 
 if ! [ -x "$(command -v rvm)" ]; then
