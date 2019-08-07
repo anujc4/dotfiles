@@ -1,28 +1,30 @@
 RED='\033[0;31m'
 NC='\033[0m'
-BLUE='\033[0;34m'
-YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 
-if [ -z "$FIRST_RUN" ]; then
-  printf "${BLUE}Script is executing for the first time. Setting up terminal dependencies.\n${NC}"
-
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
   printf "${GREEN}Installing zsh-autosuggestions\n${NC}"
   git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+fi
 
+if [ ! -d "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions" ]; then
   printf "${GREEN}Installing zsh-completions\n${NC}"
   git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+fi
 
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]; then
   printf "${GREEN}Installing zsh-syntax-highlighting\n${NC}"
   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+fi
 
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel9k" ]; then
   printf "${GREEN}Installing powerlevel9k theme\n${NC}"
   git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
-
-  if [ "$isMacOS" = true ]; then
-    printf "${BLUE}System running MacOS. Attempting to install Nerd Fonts. You need to change terminal font manually.\n${NC}"
-    brew tap homebrew/cask-fonts
-    brew cask install font-hack-nerd-font
-  fi
-
 fi
+
+cd zsh # Go to the zsh folder
+if [ ! -f secretsrc ]; then
+  printf "${GREEN}Creating a secretsrc file. You should only put SENSITIVE aliases here. DO NOT PUT any credentials in the other files.\n${NC}"
+  touch secretsrc
+fi
+cd .. # Go back to the root folder
