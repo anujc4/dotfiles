@@ -11,7 +11,15 @@ alias tmuxkillsession='tmux kill-session -t $1'
 alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 alias gitdelete="git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
 
-dbash() { docker exec -it $1 bash} # Open bash in a docker container
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
 alias cat='bat'
+alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
+
+unalias z 2>/dev/null
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
+
+dbash() { docker exec -it $1 bash } # Open bash in a docker container
