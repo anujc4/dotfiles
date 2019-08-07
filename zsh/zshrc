@@ -68,6 +68,8 @@ prompt_context () { }
 # ZSH completions for Alacritty
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
+source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
+
 # Disable that pesky auto correct
 unsetopt correct_all
 
