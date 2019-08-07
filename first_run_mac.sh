@@ -14,11 +14,14 @@ is_app_installed() {
 
 # Install ZSH if it is not yet installed
 if ! [ -d "$ZSH" ]; then
-  printf "${GREEN}Creating symlink for zshconfig\n${NC}"
-  ln -sf $(pwd)/zsh/zshrc $(echo $HOME)/.zshrc
   printf "${RED}Missing dependency: ZSH. This script WILL EXIT if you decide to change default shell after oh-my-zsh installation. You will need to run it again.\n${NC}"
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
+
+printf "${GREEN}Creating symlink for zshconfig\n${NC}"
+ln -sf $(pwd)/zsh/zshrc $(echo $HOME)/.zshrc
+sh ./zsh/first_install.sh
+source ~/.zshrc
 
 # Check if brew is installed. Before installing newer dependencies
 if ! [ -x "$(command -v brew)" ]; then
@@ -64,7 +67,7 @@ while true; do
     brew tap koekeishiya/formulae
     brew install koekeishiya/formulae/skhd
     brew install yabai
-    sudo yabai --install-sa
+    # sudo yabai --install-sa
     printf "${GREEN}Renaming any previouisly created configurations\n${NC}"
     mv $(echo $HOME)/.yabairc $(echo $HOME)/.yabairc_backup
     mv $(echo $HOME)/.skhdrc $(echo $HOME)/.skhdrc_backup
