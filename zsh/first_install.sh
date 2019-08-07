@@ -22,6 +22,11 @@ if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/themes/powerlevel9k" ]; then
   git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 fi
 
+if [ ! -d "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd" ]; then
+  printf "${GREEN}Installing Interactive ZSH\n${NC}"
+  git clone https://github.com/changyuheng/zsh-interactive-cd.git ~/.oh-my-zsh/custom/zsh-interactive-cd
+fi
+
 cd zsh # Go to the zsh folder
 if [ ! -f secretsrc ]; then
   printf "${GREEN}Creating a secretsrc file. You should only put SENSITIVE aliases here. DO NOT PUT any credentials in the other files.\n${NC}"
