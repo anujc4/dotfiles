@@ -139,6 +139,7 @@ ctrl + shift - f : yabai -m window --toggle native-fullscreen
 
 # toggle window border
 # shift + alt - b : yabai -m window --toggle border
+cmd - h : yabai -m window --toggle border
 
 # toggle window split type
 alt - e : yabai -m window --toggle split
