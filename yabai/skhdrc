@@ -1,5 +1,5 @@
 # open terminal
-# cmd + shift - return : open -na /Applications/Utilities/Terminal.app
+alt - return : open -na /Applications/Alacritty.app
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # focus window
