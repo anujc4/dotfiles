@@ -99,6 +99,9 @@ fi
 if ! [ -x "$(command -v rvm)" ]; then
   printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
   curl -sSL https://get.rvm.io | bash -s stable --ruby
+  # Useful gems for system... Need to decide the right place for this
+  # Probably make a Gemfile and use bundle install
+  gem install mdless
 fi
 
 printf "\n${YELLOW}All done. Enjoy :)\n${NC}"
