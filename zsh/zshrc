@@ -35,11 +35,11 @@ else
   source $(echo $FILE_DIR)/linuxrc
 fi
 
+export DOT_SOURCE=${FILE_DIR%????} # Export the directory where the dotfiles are stored
+
 source $(echo $FILE_DIR)/pathrc
 source $(echo $FILE_DIR)/powerlevel9krc
 
-# Export the directory where the dotfiles are stored
-export DOT_SOURCE=${FILE_DIR%????}
 
 ENABLE_CORRECTION="true"
 
