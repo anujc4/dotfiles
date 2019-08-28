@@ -6,8 +6,8 @@ yabai -m config status_bar_text_font         "Helvetica Neue:Bold:12.0"
 yabai -m config status_bar_icon_font         "Hack Nerd Font:Regular:12.0"
 yabai -m config status_bar_background_color  0xff202020
 yabai -m config status_bar_foreground_color  0xffa8a8a8
-yabai -m config status_bar_space_icon_strip         VII IX
-                                            #  1  2 3  4 5 6  7  8   9
+yabai -m config status_bar_space_icon_strip   ﬏       IX
+                                          # 1  2  3 4 5 6  7  8 9
 yabai -m config status_bar_power_icon_strip   
 yabai -m config status_bar_space_icon        
 yabai -m config status_bar_clock_icon        
@@ -27,7 +27,7 @@ yabai -m config insert_window_border_color   0xffd75f5f
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.90
 yabai -m config split_ratio                  0.50
-yabai -m config auto_balance                 off
+yabai -m config auto_balance                 on
 yabai -m config mouse_modifier               fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
@@ -43,7 +43,7 @@ yabai -m config window_gap                   0
 yabai -m rule --add app="^Google Chrome$" space=1
 yabai -m rule --add app="^Finder$" space=1
 yabai -m rule --add app="^System Preferences$" manage=off
-yabai -m rule --add app="^Pritunl*" manage=off space=1
+yabai -m rule --add title="^Pritunl$" manage=off space=1
 yabai -m rule --add app="^App Store$" space=1
 yabai -m rule --add app="^Sublime Text$" space=2
 yabai -m rule --add app="^Code$" space=2
@@ -59,6 +59,7 @@ yabai -m rule --add app="^Postman$" space=5
 yabai -m rule --add app="^MySQLWorkbench$" space=5
 yabai -m rule --add app="^Franz$" space=6
 yabai -m rule --add app="^DingTalk$" space=6
+yabai -m signal --add event=window_created app="^DingTalk$" action='~/Personal/dotfiles/yabai/jetbrains.sh'
 yabai -m rule --add app="^Slack$" space=6
 yabai -m rule --add app="^Spotify$" space=7
 yabai -m rule --add app="^Google Play Music Desktop Player$" space=7
