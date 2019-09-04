@@ -15,6 +15,7 @@ alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
 alias cat='bat'
 alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
+alias rm='rm -i'
 
 unalias z 2>/dev/null
 z() {
