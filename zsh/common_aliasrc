@@ -8,6 +8,7 @@ alias rtmux='tmux source ~/.tmux.conf'
 alias tmuxls='tmux list-sessions'
 alias tmuxattach='tmux attach-session -t $1'
 alias tmuxkillsession='tmux kill-session -t $1'
+alias tmuxkillall='tmux kill-server'
 alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 alias gitdelete="git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
 
