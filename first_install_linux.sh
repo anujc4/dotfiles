@@ -45,6 +45,10 @@ if ! [ -x "$(command -v tmux)" ]; then
   fi
 fi
 
+# Modify these to point to correct directory
+ln -sf /home/anuj/Personal/dotfiles/regolith/i3/config /home/anuj/.config/regolith/i3/config
+ln -sf /home/anuj/Personal/dotfiles/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
 printf "${BLUE}Installing missing developer dependencies..\n${NC}"
