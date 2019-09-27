@@ -29,7 +29,7 @@ if ! [ -x "$(command -v tmux)" ]; then
   ln -sf $(pwd)/tmux/tmux.conf $(echo $HOME)/.tmux.conf
   printf "${RED}Missing dependency: Tmux\n${NC}"
   printf "${GREEN}Installing tmux\n${NC}"
-  brew install tmux
+  sudo apt install tmux
   printf "${GREEN}Installing tmux plugin manager\n${NC}"
   if [ ! -e "$HOME/.tmux/plugins/tpm" ]; then
     printf "${YELLOW}WARNING: Cannot found TPM (Tmux Plugin Manager) at default location: \$HOME/.tmux/plugins/tpm.\n${NC}"
@@ -45,45 +45,9 @@ if ! [ -x "$(command -v tmux)" ]; then
   fi
 fi
 
-printf "${GREEN}Executing Brewfile\n${NC}"
-brew bundle
-$(brew --prefix)/opt/fzf/install
-brew cleanup --force
-
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
-while true; do
-  printf "${BLUE}Do you want to install a tiling manager? Press 1 for Yabai, 2 for Amethyst and anything else for none\n${NC}"
-  read -p "Choice:" yn
-  case $yn in
-  [1]*)
-    brew tap koekeishiya/formulae
-    brew install koekeishiya/formulae/skhd
-    brew install yabai
-    # sudo yabai --install-sa
-    printf "${GREEN}Renaming any previouisly created configurations\n${NC}"
-    mv $(echo $HOME)/.yabairc $(echo $HOME)/.yabairc_backup
-    mv $(echo $HOME)/.skhdrc $(echo $HOME)/.skhdrc_backup
-
-    printf "${RED}You need to disable System Integrity Protection on your system. Please check yabai/README.md for instructions"
-    printf "${GREEN}Creating symlink file associations\n${NC}"
-    ln -sf $(echo $DIR)/yabai/yabairc $(echo $HOME)/.yabairc
-    ln -sf $(echo $DIR)/yabai/skhdrc $(echo $HOME)/.skhdrc
-    break
-    ;;
-  [2]*)
-    printf "${GREEN}Installing Amethyst\n${NC}"
-    brew cask install amethyst
-    break
-    ;;
-  *)
-    break
-    ;;
-  esac
-done
-
 printf "${BLUE}Installing missing developer dependencies..\n${NC}"
-
 
 while true; do
   printf "${BLUE}Do you want to install a ruby manager?\nPress 1 for rvm, 2 for rbenv and anything else for none\n${NC}"
@@ -91,7 +55,7 @@ while true; do
   case $yn in
   [1]*)
     printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
-    curl -sSL https://get.rvm.io | bash -s stable --ruby
+    curl -sSL https://get.rvm.io | zsh -s stable --ruby
     break
     ;;
   [2]*)
@@ -108,14 +72,6 @@ done
 if ! [ -x "$(command -v nvm)" ]; then
   printf "${GREEN}Installing NVM(Node Version Manager)\n${NC}"
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | zsh #NVM
-fi
-
-if ! [ -x "$(command -v rvm)" ]; then
-  printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
-  curl -sSL https://get.rvm.io | bash -s stable --ruby
-  # Useful gems for system... Need to decide the right place for this
-  # Probably make a Gemfile and use bundle install
-  gem install mdless
 fi
 
 printf "\n${YELLOW}All done. Enjoy :)\n${NC}"
