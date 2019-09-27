@@ -20,17 +20,20 @@ set_from_resource $ws8  i3-wm.workspace.08.name "8"
 set_from_resource $ws9  i3-wm.workspace.09.name "9"
 set_from_resource $ws10 i3-wm.workspace.10.name "10"
 
-# set $ws1 "1"
-# set $ws2 "2"
-# set $ws3 "3"
-# set $ws5 "5"
-# set $ws9 "9"
+# set $ws1 "1 "
+# set $ws2 "2 ﬏"
+# set $ws3 "3 "
+# set $ws3 "4 "
+# set $ws5 "5 "
+# set $ws5 "6 "
+# set $ws5 "7 "
+# set $ws9 "8 "
 
 # assign to workspaces
-assign [class="Google Chrome"] $ws1
+assign [class="Google-chrome"] $ws1
 assign [class="Firefox"] $ws1
 
-assign [class="Visual Studio Code"] $ws2
+assign [class="Code"] $ws2
 
 assign [class="Intellij IDEA"] $ws3
 assign [class="Android Studio"] $ws3
@@ -56,7 +59,7 @@ bindsym $mod+Return exec /usr/bin/alacritty
 bindsym $mod+Shift+Return exec /usr/bin/sensible-browser
 
 # kill focused window
-bindsym $mod+Shift+q kill
+bindsym $mod+Ctrl+q kill
 
 set_from_resource $rofiTheme rofi.theme "regolith-theme"
 
@@ -66,15 +69,15 @@ bindsym $mod+Shift+space exec rofi -show run -theme $rofiTheme
 bindsym $mod+Ctrl+space exec rofi -show window -theme $rofiTheme
 
 # change focus
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+bindsym $mod+Ctrl+Left focus left
+bindsym $mod+Ctrl+Down focus down
+bindsym $mod+Ctrl+Up focus up
+bindsym $mod+Ctrl+Right focus right
 
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+bindsym $mod+Ctrl+h focus left
+bindsym $mod+Ctrl+j focus down
+bindsym $mod+Ctrl+k focus up
+bindsym $mod+Ctrl+l focus right
 
 # move windows in workspaces
 bindsym $mod+Shift+Left move left
@@ -125,8 +128,8 @@ bindsym $mod+0 workspace $ws10
 bindsym $mod+Tab workspace next
 bindsym $mod+Shift+Tab workspace prev
 
-bindsym $mod+Ctrl+Right workspace next
-bindsym $mod+Ctrl+Left workspace prev
+bindsym $mod+Right workspace next
+bindsym $mod+Left workspace prev
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -260,7 +263,7 @@ set_from_resource $i3-wm.bar.workspace.urgent.border.color i3-wm.bar.workspace.u
 set_from_resource $i3-wm.bar.workspace.urgent.background.color i3-wm.bar.workspace.urgent.background.color "#dc322f"
 set_from_resource $i3-wm.bar.workspace.urgent.text.color i3-wm.bar.workspace.urgent.text.color "#fdf6e3"
 
-set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Source Code Pro Medium 13, FontAwesome 13"
+set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Hack Nerd Font Medium 13, FontAwesome 13"
 
 # Configure the bar
 bar {
