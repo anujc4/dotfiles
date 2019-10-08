@@ -1,8 +1,9 @@
 ## If you come from bash you might have to change your $PATH.
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$HOME/confluent-hub/bin:$PATH"
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/protobuf@3.1/bin:$PATH"
 export GOPATH=$HOME/go
 export GO_ENV=development
-export PATH="/Users/anujchandra/mongodb/bin:$PATH"
+export PATH="$HOME/mongodb/bin:$PATH"
