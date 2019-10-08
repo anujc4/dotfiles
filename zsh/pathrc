@@ -6,3 +6,4 @@ export PATH="/usr/local/opt/protobuf@3.1/bin:$PATH"
 export GOPATH=$HOME/go
 export GO_ENV=development
 export PATH="/Users/anujchandra/mongodb/bin:$PATH"
+export PATH="$HOME/RubyMine-2019.2.3/bin:$PATH"

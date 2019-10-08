@@ -59,7 +59,7 @@ bindsym $mod+Return exec /usr/bin/alacritty
 bindsym $mod+Shift+Return exec /usr/bin/sensible-browser
 
 # kill focused window
-bindsym $mod+Ctrl+q kill
+bindsym $mod+q kill
 
 set_from_resource $rofiTheme rofi.theme "regolith-theme"
 
