@@ -1,0 +1,32 @@
+swipe:
+  3:
+    left:
+      command: 'i3-msg workspace next'
+    right:
+      command: 'i3-msg workspace prev'
+    up:
+      command: ''
+    down:
+      command: ''
+  4:
+    left:
+      command: ''
+    right:
+      command: ''
+    up:
+      command: ''
+    down:
+      command: ''
+pinch:
+  in:
+    command: ''
+  out:
+     command: ''
+
+threshold:
+  swipe: 0.4
+  pinch: 0.4
+
+interval:
+  swipe: 0.8
+  pinch: 0.1
