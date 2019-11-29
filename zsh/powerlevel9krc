@@ -7,10 +7,11 @@ POWERLEVEL9K_CUSTOM_WIFI_SIGNAL="zsh_wifi_signal"
 
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_BACKGROUND="black"
 POWERLEVEL9K_CUSTOM_WIFI_SIGNAL_FOREGROUND="yellow"
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir context newline vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm rvm os_icon)
-# Removed and moved to tmux status custom_wifi_signal
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir context newline vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+# POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status nvm rvm os_icon)
 
+# Removed and moved to tmux status custom_wifi_signal
 zsh_wifi_signal() {
   if [ "$isMacOS" = true ]; then
     zsh_wifi_signal_mac
