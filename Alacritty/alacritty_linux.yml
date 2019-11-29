@@ -21,7 +21,7 @@ window:
   # by DPI and the specified value is always added at both opposing sides.
   padding:
     x: 5
-    y: 5
+    y: 0
 
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: false
@@ -120,37 +120,39 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Gruvbox dark)
+# Colors (Base16 Default Dark)
 colors:
   # Default colors
   primary:
-    # hard contrast: background = '0x1d2021'
-    background: '0x282828'
-    # soft contrast: background = '0x32302f'
-    foreground: '0xebdbb2'
+    background: '0x181818'
+    foreground: '0xd8d8d8'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0xd8d8d8'
+    cursor: '0xd8d8d8'
 
   # Normal colors
   normal:
-    black:   '0x282828'
-    red:     '0xcc241d'
-    green:   '0x98971a'
-    yellow:  '0xd79921'
-    blue:    '0x458588'
-    magenta: '0xb16286'
-    cyan:    '0x689d6a'
-    white:   '0xa89984'
+    black:   '0x181818'
+    red:     '0xab4642'
+    green:   '0xa1b56c'
+    yellow:  '0xf7ca88'
+    blue:    '0x7cafc2'
+    magenta: '0xba8baf'
+    cyan:    '0x86c1b9'
+    white:   '0xd8d8d8'
 
   # Bright colors
   bright:
-    black:   '0x928374'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xebdbb2'
-
+    black:   '0x585858'
+    red:     '0xab4642'
+    green:   '0xa1b56c'
+    yellow:  '0xf7ca88'
+    blue:    '0x7cafc2'
+    magenta: '0xba8baf'
+    cyan:    '0x86c1b9'
+    white:   '0xf8f8f8'
 
 # Visual Bell
 #
@@ -178,7 +180,7 @@ visual_bell:
   duration: 0
   color: '0xffffff'
 
-background_opacity: 0.8
+background_opacity: 1.0
 
 # Mouse bindings
 #
@@ -396,29 +398,14 @@ debug:
 #   - AppKeypad
 key_bindings:
   # (Windows/Linux only)
-  #- { key: V,        mods: Control|Shift, action: Paste            }
-  #- { key: C,        mods: Control|Shift, action: Copy             }
+  - { key: V,        mods: Control|Shift, action: Paste            }
+  - { key: C,        mods: Control|Shift, action: Copy             }
   #- { key: Insert,   mods: Shift,         action: PasteSelection   }
-  #- { key: Key0,     mods: Control,       action: ResetFontSize    }
-  #- { key: Equals,   mods: Control,       action: IncreaseFontSize }
-  #- { key: Add,      mods: Control,       action: IncreaseFontSize }
-  #- { key: Subtract, mods: Control,       action: DecreaseFontSize }
-  #- { key: Minus,    mods: Control,       action: DecreaseFontSize }
-  #- { key: Return,   mods: Alt,           action: ToggleFullscreen }
-
-  # (macOS only)
-  #- { key: Key0,   mods: Command,         action: ResetFontSize    }
-  #- { key: Equals, mods: Command,         action: IncreaseFontSize }
-  #- { key: Add,    mods: Command,         action: IncreaseFontSize }
-  #- { key: Minus,  mods: Command,         action: DecreaseFontSize }
-  #- { key: K,      mods: Command,         action: ClearHistory     }
-  #- { key: K,      mods: Command,         chars: "\x0c"            }
-  #- { key: V,      mods: Command,         action: Paste            }
-  #- { key: C,      mods: Command,         action: Copy             }
-  #- { key: H,      mods: Command,         action: Hide             }
-  #- { key: Q,      mods: Command,         action: Quit             }
-  #- { key: W,      mods: Command,         action: Quit             }
-  #- { key: F,      mods: Command|Control, action: ToggleFullscreen }
+  - { key: Key0,     mods: Control,       action: ResetFontSize    }
+  - { key: Equals,   mods: Control,       action: IncreaseFontSize }
+  - { key: Add,      mods: Control,       action: IncreaseFontSize }
+  - { key: Subtract, mods: Control,       action: DecreaseFontSize }
+  - { key: Minus,    mods: Control,       action: DecreaseFontSize }
 
   - { key: Paste,                   action: Paste                            }
   - { key: Copy,                    action: Copy                             }
