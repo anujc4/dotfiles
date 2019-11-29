@@ -46,11 +46,12 @@ if ! [ -x "$(command -v tmux)" ]; then
 fi
 
 # Modify these to point to correct directory
-ln -sf /home/anuj/Personal/dotfiles/regolith/i3/config /home/anuj/.config/regolith/i3/config
-ln -sf /home/anuj/Personal/dotfiles/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
-ln -sf /home/anuj/Personal/dotfiles/fusuma/config.yml /home/anuj/.config/fusuma/config.yml
-ln -sf ~/Personal/dotfiles/regolith/Xresources/.Xresources-regolith ~/.Xresources-regolith
-ln -sf ~/Personal/dotfiles/regolith/Xresources/Xresources.d ~/.Xresources.d
+ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/.Xresources-regolith ~/.Xresources-regolith
+ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/Xresources.d ~/.Xresources.d
+ln -sf $(echo $DOT_SOURCE)/regolith/i3/config /home/anuj/.config/regolith/i3/config
+ln -sf $(echo $DOT_SOURCE)/regolith/compton /home/anuj/.config/compton
+ln -sf $(echo $DOT_SOURCE)/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
+ln -sf $(echo $DOT_SOURCE)/fusuma/config.yml /home/anuj/.config/fusuma/config.yml
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
