@@ -20,22 +20,14 @@ set_from_resource $ws8  i3-wm.workspace.08.name "8"
 set_from_resource $ws9  i3-wm.workspace.09.name "9"
 set_from_resource $ws10 i3-wm.workspace.10.name "10"
 
-# set $ws1 "1 "
-# set $ws2 "2 ﬏"
-# set $ws3 "3 "
-# set $ws3 "4 "
-# set $ws5 "5 "
-# set $ws5 "6 "
-# set $ws5 "7 "
-# set $ws9 "8 "
-
 # assign to workspaces
 assign [class="Google-chrome"] $ws1
 assign [class="Firefox"] $ws1
 
 assign [class="Code"] $ws2
 
-assign [class="Intellij IDEA"] $ws3
+assign [class="jetbrains-idea-ce"] $ws3
+assign [class="java-lang-Thread"] $ws3
 assign [class="Android Studio"] $ws3
 
 assign [class="Alacritty"] $ws4
@@ -46,6 +38,8 @@ assign [class="Postman"] $ws5
 
 for_window [class="Rambox"] move to workspace $ws6
 for_window [class="Slack"] move to workspace $ws6
+
+assign [class="Soptify"] $ws7
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -59,7 +53,7 @@ bindsym $mod+Return exec /usr/bin/alacritty
 bindsym $mod+Shift+Return exec /usr/bin/sensible-browser
 
 # kill focused window
-bindsym $mod+Ctrl+q kill
+bindsym $mod+q kill
 
 set_from_resource $rofiTheme rofi.theme "regolith-theme"
 
@@ -290,7 +284,7 @@ bar {
 # Run programs when i3 starts
 
 # Composite manager
-exec --no-startup-id compton -f --config /etc/xdg/compton.conf
+exec --no-startup-id compton -f --config /home/anuj/.config/compton/compton.conf
 
 # Fusuma for touchpad gestures
 exec --no-startup-id fusuma -d

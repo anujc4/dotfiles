@@ -14,29 +14,8 @@ shift + alt - down : yabai -m window --swap south
 shift + alt - up : yabai -m window --swap north
 shift + alt - right : yabai -m window --swap east
 
-# move window
-# shift + cmd - h : yabai -m window --warp west
-# shift + cmd - j : yabai -m window --warp south
-# shift + cmd - k : yabai -m window --warp north
-# shift + cmd - l : yabai -m window --warp east
-
 # balance size of windows
 ctrl + shift - z : yabai -m space --balance
-
-# make floating window fill screen
-# shift + alt - up     : yabai -m window --grid 1:1:0:0:1:1
-
-# make floating window fill left-half of screen
-# shift + alt - left   : yabai -m window --grid 1:2:0:0:1:1
-
-# make floating window fill right-half of screen
-# shift + alt - right  : yabai -m window --grid 1:2:1:0:1:1
-
-# create desktop, move window and follow focus
-# shift + cmd - n : yabai -m space --create;\
-#                   id=$(yabai -m query --displays --display | grep "spaces");\
-#                   yabai -m window --space $(echo ${id:10:${#id}-10});\
-#                   yabai -m space --focus $(echo ${id:10:${#id}-10})
 
 # create desktop and follow focus
 ctrl + shift - n : yabai -m space --create;\
@@ -104,18 +83,6 @@ shift + alt - s : yabai -m window --resize bottom:0:20
 shift + alt - w : yabai -m window --resize top:0:-20
 shift + alt - d : yabai -m window --resize right:20:0
 
-# decrease window size
-# shift + cmd - a : yabai -m window --resize left:20:0
-# shift + cmd - s : yabai -m window --resize bottom:0:-20
-# shift + cmd - w : yabai -m window --resize top:0:20
-# shift + cmd - d : yabai -m window --resize right:-20:0
-
-# set insertion point in focused container
-# ctrl + alt - h : yabai -m window --insert west
-# ctrl + alt - j : yabai -m window --insert south
-# ctrl + alt - k : yabai -m window --insert north
-# ctrl + alt - l : yabai -m window --insert east
-
 # rotate tree
 alt - r : yabai -m space --rotate 90
 
@@ -145,15 +112,8 @@ cmd - h : yabai -m window --toggle border
 alt - e : yabai -m window --toggle split
 
 # float / unfloat window and center on screen
-# alt - t : yabai -m window --toggle float;\
-#           yabai -m window --grid 4:4:1:1:2:2
-
-# toggle sticky
-# alt - s : yabai -m window --toggle sticky
-
-# toggle sticky, float and resize to picture-in-picture size
-# alt - p : yabai -m window --toggle sticky;\
-#           yabai -m window --grid 5:5:4:0:1:1
+alt - t : yabai -m window --toggle float;\
+          yabai -m window --grid 4:4:1:1:2:2
 
 # change layout of desktop
 ctrl + shift - a : yabai -m space --layout bsp

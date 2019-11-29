@@ -1,6 +1,6 @@
 # System Integrity Protection on a Mac
 
-**Warning: This is really dangerous and should not recommended**
+## Warning: This is really dangerous and should not recommended**
 
 ## To disable SIP on your system
 

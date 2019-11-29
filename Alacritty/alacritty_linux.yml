@@ -38,7 +38,7 @@ window:
   #title: Alacritty
 
   # Window class (Linux only):
-  #class: Alacritty
+  class: Alacritty
 
 scrolling:
   # Maximum number of lines in the scrollback buffer.
@@ -78,29 +78,17 @@ font:
     style: Regular
 
   # Bold font face
-  # bold:
-    # Font family
-    #
-    # If the bold family is not specified, it will fall back to the
-    # value specified for the normal font.
-    #family: monospace
-
-    # The `style` can be specified to pick a specific face.
-    #style: Bold
+  bold:
+    family: Hack Nerd Font
+    style: Bold
 
   # Italic font face
-  #italic:
-    # Font family
-    #
-    # If the italic family is not specified, it will fall back to the
-    # value specified for the normal font.
-    #family: monospace
-
-    # The `style` can be specified to pick a specific face.
-    #style: Italic
+  italic:
+    family: Hack Nerd Font
+    style: Italic
 
   # Point size
-  size: 11.0
+  size: 9.0
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -217,8 +205,8 @@ mouse:
     #   - (macOS) open
     #   - (Linux) xdg-open
     #   - (Windows) explorer
-    #launcher:
-    #  program: xdg-open
+    launcher:
+     program: xdg-open
     #  args: []
 
     # URL modifiers
