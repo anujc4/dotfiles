@@ -48,6 +48,9 @@ fi
 # Modify these to point to correct directory
 ln -sf /home/anuj/Personal/dotfiles/regolith/i3/config /home/anuj/.config/regolith/i3/config
 ln -sf /home/anuj/Personal/dotfiles/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
+ln -sf /home/anuj/Personal/dotfiles/fusuma/config.yml /home/anuj/.config/fusuma/config.yml
+ln -sf ~/Personal/dotfiles/regolith/Xresources/.Xresources-regolith ~/.Xresources-regolith
+ln -sf ~/Personal/dotfiles/regolith/Xresources/Xresources.d ~/.Xresources.d
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
 
