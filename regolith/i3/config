@@ -267,6 +267,7 @@ set_from_resource $i3-wm.bar.font i3-wm.bar.font "pango:Hack Nerd Font Medium 13
 
 # Configure the bar
 bar {
+  position top
   font $i3-wm.bar.font
   separator_symbol " "
   status_command i3xrocks -c /etc/regolith/i3xrocks/config
