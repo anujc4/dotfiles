@@ -10,9 +10,9 @@ swipe:
       command: ''
   4:
     left:
-      command: ''
+      command: 'xdotool key alt+Right'
     right:
-      command: ''
+      command: 'xdotool key alt+Left'
     up:
       command: ''
     down:
