@@ -3,9 +3,9 @@
 ! -- Styles - Colors
 !
 ! Uncomment one and only one of the following color definitions:
-#include "/etc/regolith/styles/color-solarized-dark"
+!#include "/etc/regolith/styles/color-solarized-dark"
 !#include "/etc/regolith/styles/color-solarized-light"
-!#include "/etc/regolith/styles/color-gruvbox"
+#include "/etc/regolith/styles/color-gruvbox"
 !#include "/etc/regolith/styles/color-nord"
 
 ! -- Styles - Fonts
