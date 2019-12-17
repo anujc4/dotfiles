@@ -10,6 +10,8 @@ alias kafkastart='kafka-server-start /usr/local/etc/kafka/server.properties'
 alias kafkaproducer='kafka-console-producer --broker-list localhost:9092 --topic $1'
 alias kafkatopiccreate='kafka-topics --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic $1'
 
+alias ctags="`brew --prefix`/bin/ctags"
+
 function portscan()
 {
   lsof -i :$1
