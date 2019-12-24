@@ -54,10 +54,11 @@ if ! is_app_installed tmux; then
   fi
 fi
 
-sh ./regolith/setup.sh
+./regolith/setup.sh
+./fusuma/setup.sh
 
 ln -sf $(echo $DOT_SOURCE)/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
-ln -sf $(echo $DOT_SOURCE)/fusuma/config.yml /home/anuj/.config/fusuma/config.yml
+
 
 printf "${BLUE}Installing missing developer dependencies..\n${NC}"
 if ! [ -x "$(command -v rvm)" ]; then
