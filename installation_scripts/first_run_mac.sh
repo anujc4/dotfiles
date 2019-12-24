@@ -8,13 +8,15 @@ is_app_installed() {
   type "$1" &>/dev/null
 }
 
-# TODO Use this format
-# if ! is_app_installed tmux; then
-# fi
+if ! is_app_installed nix-env; then
+  printf "${RED}Installing nix-env for package management.\n${NC}"
+  curl https://nixos.org/nix/install | sh
+fi
 
 # Install ZSH if it is not yet installed
 if ! [ -d "$ZSH" ]; then
   printf "${RED}Missing dependency: ZSH. This script WILL EXIT if you decide to change default shell after oh-my-zsh installation. You will need to run it again.\n${NC}"
+  nix-env -i zsh
   sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 fi
 

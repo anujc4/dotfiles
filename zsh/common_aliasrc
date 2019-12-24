@@ -14,7 +14,6 @@ alias gitdelete="git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ 
 
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
-alias cat='bat'
 alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
 alias rm='rm -i'
 alias mc='mc --nocolor'
