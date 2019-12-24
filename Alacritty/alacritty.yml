@@ -150,34 +150,34 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Material Theme)
+# Colors (Monokai Dark)
 colors:
   # Default colors
   primary:
-    background: '0x1e282d'
-    foreground: '0xc4c7d1'
+    background: '0x272822'
+    foreground: '0xF8F8F2'
 
   # Normal colors
   normal:
-    black:   '0x666666'
-    red:     '0xeb606b'
-    green:   '0xc3e88d'
-    yellow:  '0xf7eb95'
-    blue:    '0x80cbc4'
-    magenta: '0xff2f90'
-    cyan:    '0xaeddff'
-    white:   '0xffffff'
+   black:   '0x272822'
+   red:     '0xF92672'
+   green:   '0xA6E22E'
+   yellow:  '0xF4BF75'
+   blue:    '0x66D9EF'
+   magenta: '0xAE81FF'
+   cyan:    '0xA1EFE4'
+   white:   '0xF8F8F2'
 
   # Bright colors
   bright:
-    black:   '0xff262b'
-    red:     '0xeb606b'
-    green:   '0xc3e88d'
-    yellow:  '0xf7eb95'
-    blue:    '0x7dc6bf'
-    magenta: '0x6c71c4'
-    cyan:    '0x35434d'
-    white:   '0xffffff'
+   black:   '0x75715E'
+   red:     '0xF92672'
+   green:   '0xA6E22E'
+   yellow:  '0xF4BF75'
+   blue:    '0x66D9EF'
+   magenta: '0xAE81FF'
+   cyan:    '0xA1EFE4'
+   white:   '0xF9F8F5'
 
 visual_bell:
   animation: EaseOutExpo
