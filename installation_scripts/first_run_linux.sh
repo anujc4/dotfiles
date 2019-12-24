@@ -8,6 +8,8 @@ is_app_installed() {
   type "$1" &>/dev/null
 }
 
+sudo apt install software-properties-common
+
 if ! is_app_installed curl; then
 sudo apt install curl
 fi
@@ -27,7 +29,7 @@ fi
 
 printf "${GREEN}Creating symlink for zshconfig\n${NC}"
 ln -sf $(pwd)/zsh/zshrc $(echo $HOME)/.zshrc
-sh ./zsh/first_install.sh
+./zsh/setup.sh
 source ~/.zshrc
 
 # Check if tmux is installed
@@ -57,12 +59,8 @@ sh ./regolith/setup.sh
 ln -sf $(echo $DOT_SOURCE)/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
 ln -sf $(echo $DOT_SOURCE)/fusuma/config.yml /home/anuj/.config/fusuma/config.yml
 
-DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null && pwd)"
-
 printf "${BLUE}Installing missing developer dependencies..\n${NC}"
-printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
-
-if ! [ -x "$(command -v nvm)" ]; then
+if ! [ -x "$(command -v rvm)" ]; then
   printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
   curl -sSL https://get.rvm.io | zsh -s stable --ruby
 fi
