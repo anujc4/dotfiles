@@ -8,6 +8,9 @@ sudo apt install regolith-desktop
 
 printf "${YELLOW}If you are on Ubuntu 19.10, check out https://github.com/regolith-linux/regolith-desktop/wiki/HowTo:-Upgrade-to-Ubuntu-19.10-(Eoan-Ermine).\n${NC}"
 
+mkdir -p `echo $HOME`/.config/regolith/i3
+mkdir -p `echo $HOME`/.config/compton
+
 # Modify these to point to correct directory
 ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/.Xresources-regolith ~/.Xresources-regolith
 ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/Xresources.d ~/.Xresources.d
