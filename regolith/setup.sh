@@ -12,7 +12,7 @@ mkdir -p `echo $HOME`/.config/regolith/i3
 mkdir -p `echo $HOME`/.config/compton
 
 # Modify these to point to correct directory
-ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/.Xresources-regolith ~/.Xresources-regolith
-ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/Xresources.d ~/.Xresources.d
-ln -sf $(echo $DOT_SOURCE)/regolith/i3/config /home/anuj/.config/regolith/i3/config
-ln -sf $(echo $DOT_SOURCE)/regolith/compton /home/anuj/.config/compton
+ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/.Xresources-regolith `echo $HOME`/.Xresources-regolith
+ln -sf $(echo $DOT_SOURCE)/regolith/Xresources/Xresources.d `echo $HOME`/.Xresources.d
+ln -sf $(echo $DOT_SOURCE)/regolith/i3/config `echo $HOME`/.config/regolith/i3/config
+ln -sf $(echo $DOT_SOURCE)/regolith/compton `echo $HOME`/.config/compton
