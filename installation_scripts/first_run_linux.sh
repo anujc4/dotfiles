@@ -56,8 +56,8 @@ fi
 
 ./regolith/setup.sh
 ./fusuma/setup.sh
+./alacritty/setup.sh
 
-ln -sf $(echo $DOT_SOURCE)/Alacritty/alacritty_linux.yml /home/anuj/.config/alacritty/alacritty.yml
 
 
 printf "${BLUE}Installing missing developer dependencies..\n${NC}"
