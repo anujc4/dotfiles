@@ -13,7 +13,6 @@ Has configurations for
 * [ohmyzsh](https://ohmyz.sh/): framework for managing your Zsh configuration
 * Brewfile for [Homebrew](https://brew.sh) to install batch packages in MacOS
 
-
 ## First time setup
 
 For a fresh mac/linux OS install on a machine, the aim was to run a script which installs terminal tweaks and base packages. The `first_run_*.sh` files are designed to do that.
