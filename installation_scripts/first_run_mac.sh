@@ -12,7 +12,7 @@ is_app_installed() {
 
 if ! is_app_installed nix-env; then
   printf "${RED}Installing nix-env for package management.\n${NC}"
-  curl https://nixos.org/nix/install | sh
+  sh <(curl https://nixos.org/nix/install)
 fi
 
 # Install ZSH if it is not yet installed
