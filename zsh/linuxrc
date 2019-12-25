@@ -10,5 +10,4 @@ export PATH="$HOME/Applications/jdk1.8.0_231/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/Applications/apache-maven-3.6.2/bin:$PATH"
 export PATH="$HOME/Applications/purescript:$PATH"
-
 export JAVA_HOME="$HOME/Applications/jdk1.8.0_231"
