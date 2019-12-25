@@ -37,36 +37,4 @@ source ~/.zshrc
 ./fusuma/setup.sh
 ./alacritty/setup.sh
 
-printf "${BLUE}Installing missing developer dependencies..\n${NC}"
-if ! [ -x "$(command -v rvm)" ]; then
-  printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
-  curl -sSL https://get.rvm.io | zsh -s stable --ruby
-fi
-
-if ! [ -x "$(command -v nvm)" ]; then
-  printf "${GREEN}Installing NVM(Node Version Manager)\n${NC}"
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | zsh #NVM
-fi
-
-
-# while true; do
-#   printf "${BLUE}Do you want to install a ruby manager?\nPress 1 for rvm, 2 for rbenv and anything else for none\n${NC}"
-#   read -p "Choice:" yn
-#   case $yn in
-#   [1]*)
-#     printf "${GREEN}Installing RVM(Ruby Version Manager)\n${NC}"
-#     curl -sSL https://get.rvm.io | zsh -s stable --ruby
-#     break
-#     ;;
-#   [2]*)
-#     printf "${GREEN}Installing RBENV\n${NC}"
-#     curl -fsSL https://github.com/rbenv/rbenv-installer/raw/master/bin/rbenv-installer | zsh
-#     break
-#     ;;
-#   *)
-#     break
-#     ;;
-#   esac
-# done
-
 printf "\n${YELLOW}All done. Enjoy :)\n${NC}"
