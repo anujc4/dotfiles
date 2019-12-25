@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 NC='\033[0m'
 YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
