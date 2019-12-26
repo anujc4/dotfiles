@@ -53,8 +53,6 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
 
-# For a full list of active aliases, run `alias`.
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Prevent zsh from showing the system name before each command
