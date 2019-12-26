@@ -1,6 +1,7 @@
 ## If you come from bash you might have to change your $PATH.
 
 export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
 export GO_ENV=development
 
 export PATH="$PATH:$HOME/.rvm/bin"
@@ -11,3 +12,4 @@ export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/usr/local/opt/protobuf@3.1/bin:$PATH"
 export PATH="$HOME/RubyMine-2019.2.3/bin:$PATH"
 export PATH="$HOME/mongodb/bin:$PATH"
+export PATH="$GOBIN:$PATH"
