@@ -30,6 +30,8 @@ ln -sf `echo $DOT_SOURCE`/vim/init.vim `echo $HOME`/.config/nvim/init.vim
 # sourcing it in the init.vim file
 ln -sf `echo $DOT_SOURCE`/vim/general.vim `echo $HOME`/.config/nvim/general.vim
 ln -sf `echo $DOT_SOURCE`/vim/plugin_config.vim `echo $HOME`/.config/nvim/plugin_config.vim
+ln -sf `echo $DOT_SOURCE`/vim/coc.vim `echo $HOME`/.config/nvim/coc.vim
+ln -sf `echo $DOT_SOURCE`/vim/go.vim `echo $HOME`/.config/nvim/go.vim
 
 # Make sure to call this after the files have been symlinked
 printf "${GREEN}Installing plugins.\n${NC}"
