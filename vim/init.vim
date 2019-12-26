@@ -27,3 +27,5 @@ call plug#end()
 
 source ~/.config/nvim/general.vim
 source ~/.config/nvim/plugin_config.vim
+source ~/.config/nvim/coc.vim
+source ~/.config/nvim/go.vim
