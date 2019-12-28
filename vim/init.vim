@@ -8,17 +8,19 @@ Plug 'tpope/vim-sensible'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'easymotion/vim-easymotion'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/vim-easy-align'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/vim-easy-align'
+" Plug 'nathanaelkane/vim-indent-guides'
 Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-surround'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'terryma/vim-multiple-cursors'
 
 " Language specific plugins
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
