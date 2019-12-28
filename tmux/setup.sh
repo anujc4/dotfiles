@@ -31,3 +31,9 @@ if ! is_app_installed tmux; then
     tmux kill-session -t __noop >/dev/null 2>&1 || true
   fi
 fi
+
+# Refer https://github.com/tmuxinator/tmuxinator
+if ! is_app_installed ruby; then
+  gem install tmuxinator
+  sudo wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -O /usr/local/share/zsh/site-functions/_tmuxinator
+fi
