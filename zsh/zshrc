@@ -4,6 +4,7 @@
 # ln -s ~/Personal/dotfiles/zsh/zshrc ~/.zshrc
 
 export TERM="xterm-256color"
+export EDITOR="nvim"
 
 ZSH_THEME="agnoster"
 
