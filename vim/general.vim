@@ -7,31 +7,28 @@ set autoread
 " Sets how many lines of history VIM has to remember
 set history=500
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
+set visualbell                  " Use visual bell instead of beeping when doing something wrong
+set t_vb=                       " Reset the terminal code for the visual bell.
+set mouse=a                     " Enable use of the mouse for all modes
+
 let mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" Enable filetype plugins
-syntax on
-filetype plugin indent on
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Always show current position
-set ruler
 
 " Height of the command bar
-set cmdheight=1
+set cmdheight=2
 
+set hidden
+set wildmenu " Better command-line completion
 
 " Replace tabs with spaces
 set tabstop=2 shiftwidth=2      " a tab is two spaces
 set expandtab                   " use spaces, not tabs
-set backspace=indent,eol,start  " backspace through everything in insert mode
 
 " Improve Searching
 set hlsearch                    " highlight the search
@@ -39,10 +36,23 @@ set incsearch                   " incremental searching
 set ignorecase                  " searches are case insensitive...
 set smartcase                   " ... unless they contain at least one capital letter
 set scrolloff=0                 " keep a 5 line padding when moving the cursor
-set autoindent                  " indent on enter
 set smartindent                 " do smart indenting when starting a new line
 set shiftround                  " indent to the closest shiftwidth
 set linebreak                   " break lines at word end
 set number relativenumber
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map Y y$                        " Map Y to copy line. Same as yy
+set wrap                        " Enable line wrapping.
+set ruler                       " Always show cursor position.
+
 set guifont=Hack_Nerd_Font:h11
+
+" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+
+" press Ctrl-Left or Ctrl-Right to go to the previous or next tabs
+" nnoremap <C-Left> :tabprevious<CR>
+" nnoremap <C-Right> :tabnext<CR>
