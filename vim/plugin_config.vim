@@ -43,3 +43,39 @@ nnoremap <Leader>0 :10b<CR>
 
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+" terryma/vim-multiple-cursors
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_start_word_key      = '<C-d>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-d>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
+" Use Ctrl-P to look for files
+nnoremap <C-p> :Files<Cr>
+nnoremap <C-g> :Rg<Cr>
+
+
+let g:fzf_layout = { 'down': '~30%' }
+
+" Customize fzf colors to match your color scheme
+" - fzf#wrap translates this to a set of `--color` options
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
