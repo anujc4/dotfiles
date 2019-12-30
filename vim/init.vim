@@ -8,9 +8,8 @@ Plug 'tpope/vim-sensible'
 
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
-" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 " Plug 'junegunn/vim-easy-align'
 " Plug 'nathanaelkane/vim-indent-guides'
@@ -21,9 +20,12 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 " Plug 'tpope/vim-surround'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'terryma/vim-multiple-cursors'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " Language specific plugins
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'vim-scripts/bash-support.vim'
+h
 
 call plug#end()
 
