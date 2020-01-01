@@ -56,3 +56,24 @@ set guifont=Hack_Nerd_Font:h11
 " press Ctrl-Left or Ctrl-Right to go to the previous or next tabs
 " nnoremap <C-Left> :tabprevious<CR>
 " nnoremap <C-Right> :tabnext<CR>
+
+
+"changes cursor shape according to active mode
+let &t_SI = "\[6 q"
+let &t_SR = "\[4 q"
+let &t_EI = "\[2 q"
+
+"Tabs
+map <C-t><C-k> :tabr<cr>
+map <C-t><C-j> :tabl<cr>
+map <C-t><C-h> :tabp<cr>
+map <C-t><C-l> :tabn<cr>
+
+" Enable colors in vim
+set termguicolors
+
+" Scroll 25 lines up or down using Control keys
+noremap <C-j> 25j
+noremap <C-k> 25k
+noremap <C-Down> 25j
+noremap <C-Up> 25k
