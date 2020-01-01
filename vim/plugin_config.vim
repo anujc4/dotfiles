@@ -42,15 +42,15 @@ nnoremap <Leader>0 :10b<CR>
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
 
 " terryma/vim-multiple-cursors
-let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_word_key      = '<C-d>'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-d>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+" let g:multi_cursor_use_default_mapping=0
+" let g:multi_cursor_start_word_key      = '<C-n>'
+" let g:multi_cursor_select_all_word_key = '<A-n>'
+" let g:multi_cursor_start_key           = 'g<C-n>'
+" let g:multi_cursor_select_all_key      = 'g<A-n>'
+" let g:multi_cursor_next_key            = '<C-d>'
+" let g:multi_cursor_prev_key            = '<C-p>'
+" let g:multi_cursor_skip_key            = '<C-x>'
+" let g:multi_cursor_quit_key            = '<Esc>'
 
 " Use Ctrl-P to look for files
 nnoremap <C-p> :Files<Cr>
@@ -76,3 +76,16 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+" indent guides enabled by default
+let g:indent_guides_enable_on_vim_startup = 1
+colorscheme gruvbox
+let g:gruvbox_contrast_light = 'medium'
+
+" fall back to Ack in case you use your vimrc on a system without Ag available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" don't jump to the first result automatically
+cnoreabbrev Ack Ack!
+nnoremap <Leader>/ :Ack!<Space>
