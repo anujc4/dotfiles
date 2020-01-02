@@ -89,3 +89,19 @@ endif
 " don't jump to the first result automatically
 cnoreabbrev Ack Ack!
 nnoremap <Leader>/ :Ack!<Space>
+
+nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
+
+nmap <Leader>gm <Plug>(git-messenger)
+let g:git_messenger_include_diff = 'current'
+let g:git_messenger_no_default_mappings = 'true'
+
+let g:UltiSnipsExpandTrigger="<tab>"
+
+nmap <expr> <silent> <C-d> <SID>select_current_word()
+function! s:select_current_word()
+  if !get(g:, 'coc_cursors_activated', 0)
+    return "\<Plug>(coc-cursors-word)"
+  endif
+  return "*\<Plug>(coc-cursors-word):nohlsearch\<CR>"
+endfunc

@@ -1,6 +1,14 @@
 set nocompatible
 set encoding=UTF-8
 syntax on
+set updatetime=100
+
+" Autoinstall vim-plug {{{
+if empty(glob('~/.nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.nvim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -25,6 +33,10 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'zivyangll/git-blame.vim'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'rhysd/git-messenger.vim'
+Plug 'SirVer/ultisnips'
 
 " Language specific plugins
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }

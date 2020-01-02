@@ -9,12 +9,12 @@ set history=500
 
 set visualbell                  " Use visual bell instead of beeping when doing something wrong
 set t_vb=                       " Reset the terminal code for the visual bell.
-set mouse=a                     " Enable use of the mouse for all modes
+set clipboard=unnamed           " Clipboard sharing
 
 let mapleader = ","
 
-" Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :w!<cr>          " Fast saving
+nmap <leader>q :q!<cr>          " Fast quitting
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -68,12 +68,14 @@ map <C-t><C-k> :tabr<cr>
 map <C-t><C-j> :tabl<cr>
 map <C-t><C-h> :tabp<cr>
 map <C-t><C-l> :tabn<cr>
+map <C-t><C-Up> :tabr<cr>
+map <C-t><C-Down> :tabl<cr>
+map <C-t><C-Left> :tabp<cr>
+map <C-t><C-Right> :tabn<cr>
 
 " Enable colors in vim
 set termguicolors
 
 " Scroll 25 lines up or down using Control keys
-noremap <C-j> 25j
-noremap <C-k> 25k
 noremap <C-Down> 25j
 noremap <C-Up> 25k
