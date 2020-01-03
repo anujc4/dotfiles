@@ -33,6 +33,9 @@ ln -sf `echo $DOT_SOURCE`/vim/general.vim `echo $HOME`/.config/nvim/general.vim
 ln -sf `echo $DOT_SOURCE`/vim/go.vim `echo $HOME`/.config/nvim/go.vim
 ln -sf `echo $DOT_SOURCE`/vim/plugin_config.vim `echo $HOME`/.config/nvim/plugin_config.vim
 
+# Symlink coc-settings.json
+ln -sf `echo $DOT_SOURCE`/vim/coc-settings.json `echo $HOME`/.config/nvim/coc-settings.json
+
 # Make sure to call this after the files have been symlinked
 printf "${GREEN}Installing plugins.\n${NC}"
 nvim +PlugInstall +qall

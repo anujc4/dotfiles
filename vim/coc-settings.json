@@ -5,5 +5,14 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "solargraph.hover": true,
+  "solargraph.commandPath": "/home/anuj/.rvm/gems/ruby-2.6.3/bin/solargraph",
+  "solargraph.diagnostics": true,
+  "solargraph.completion": true,
+  "solargraph.autoformat": true,
+  "solargraph.formatting": true,
+  "solargraph.definitions": true,
+  "solargraph.references": true
+
 }
