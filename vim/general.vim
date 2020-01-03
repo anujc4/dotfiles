@@ -1,3 +1,16 @@
+" REFERENCE: Overview of which map command works in which mode.
+"      COMMANDS            |      MODES ~
+" :map   :noremap  :unmap  | Normal, Visual, Select, Operator-pending
+" :nmap  :nnoremap :nunmap | Normal
+" :vmap  :vnoremap :vunmap | Visual and Select
+" :smap  :snoremap :sunmap | Select
+" :xmap  :xnoremap :xunmap | Visual
+" :omap  :onoremap :ounmap | Operator-pending
+" :map!  :noremap! :unmap! | Insert and Command-line
+" :imap  :inoremap :iunmap | Insert
+" :lmap  :lnoremap :lunmap | Insert, Command-line, Lang-Arg
+" :cmap  :cnoremap :cunmap | Command-line
+
 " Auto-reload buffers when files are changed on disk
 set autoread
 
@@ -19,12 +32,13 @@ nmap <leader>q :q!<cr>          " Fast quitting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Height of the command bar
-set cmdheight=2
+" Set the color theme
+colorscheme gruvbox
+let g:gruvbox_contrast_light = 'medium'
 
 set hidden
 set wildmenu " Better command-line completion
+set wildmode=longest:list,full
 
 " Replace tabs with spaces
 set tabstop=2 shiftwidth=2      " a tab is two spaces
@@ -51,27 +65,14 @@ set ruler                       " Always show cursor position.
 
 set guifont=Hack_Nerd_Font:h11
 
-" set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
-
 " press Ctrl-Left or Ctrl-Right to go to the previous or next tabs
-" nnoremap <C-Left> :tabprevious<CR>
-" nnoremap <C-Right> :tabnext<CR>
-
+nnoremap <C-{> :tabprevious<CR>
+nnoremap <C-}> :tabnext<CR>
 
 "changes cursor shape according to active mode
 let &t_SI = "\[6 q"
 let &t_SR = "\[4 q"
 let &t_EI = "\[2 q"
-
-"Tabs
-map <C-t><C-k> :tabr<cr>
-map <C-t><C-j> :tabl<cr>
-map <C-t><C-h> :tabp<cr>
-map <C-t><C-l> :tabn<cr>
-map <C-t><C-Up> :tabr<cr>
-map <C-t><C-Down> :tabl<cr>
-map <C-t><C-Left> :tabp<cr>
-map <C-t><C-Right> :tabn<cr>
 
 " Enable colors in vim
 set termguicolors
@@ -79,3 +80,9 @@ set termguicolors
 " Scroll 25 lines up or down using Control keys
 noremap <C-Down> 25j
 noremap <C-Up> 25k
+
+if exists('+colorcolumn')
+  set colorcolumn=80
+else
+  au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif

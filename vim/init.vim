@@ -12,35 +12,33 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+" Because it is sensible
 Plug 'tpope/vim-sensible'
 
-" Plug 'easymotion/vim-easymotion'
-" Plug 'junegunn/vim-easy-align'
-" Plug 'nathanaelkane/vim-indent-guides'
-" Plug 'scrooloose/nerdcommenter'
-" Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-surround'
-Plug 'airblade/vim-gitgutter'
-Plug 'bling/vim-airline'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/fzf.vim'
-Plug 'mileszs/ack.vim'
-Plug 'morhetz/gruvbox'
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'airblade/vim-gitgutter'                           " Show git changes in sidebar
+Plug 'bling/vim-airline'                                " Statusbar for vim
+Plug 'ctrlpvim/ctrlp.vim'                               " Open files inside project
+Plug 'easymotion/vim-easymotion'                        " Navigate inside files
+Plug 'mileszs/ack.vim'                                  " To search inside files
+Plug 'morhetz/gruvbox'                                  " Theme
+Plug 'nathanaelkane/vim-indent-guides'                  " Show indentation guides
+Plug 'ntpeters/vim-better-whitespace'                   " Show trailing whitespaces
+Plug 'ryanoasis/vim-devicons'                           " File icons inside NERDTree
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Sidebar to show files
+Plug 'SirVer/ultisnips'                                 " Snippets Engine
+Plug 'tpope/vim-fugitive'                               " Git tool
+Plug 'Xuyuanp/nerdtree-git-plugin'                      " Show files changes inside NERDTree
+
+" Linters and AutoComplete
+Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-Plug 'ryanoasis/vim-devicons'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'zivyangll/git-blame.vim'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'rhysd/git-messenger.vim'
-Plug 'SirVer/ultisnips'
 
 " Language specific plugins
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'vim-scripts/bash-support.vim'
+Plug 'uarun/vim-protobuf'
+Plug 'uber/prototool', { 'rtp':'vim/prototool' }
 
 call plug#end()
 
