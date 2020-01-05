@@ -27,6 +27,7 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Sidebar to show files
 Plug 'tpope/vim-fugitive'                               " Git tool
 Plug 'Xuyuanp/nerdtree-git-plugin'                      " Show files changes inside NERDTree
 Plug 'terryma/vim-multiple-cursors'                     " Multiple Cursors like Sublime
+Plug 'mhinz/vim-startify'                               " Start screen for vim
 
 " Linters and AutoComplete
 Plug 'dense-analysis/ale'
