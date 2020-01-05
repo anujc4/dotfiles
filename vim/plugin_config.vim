@@ -36,32 +36,6 @@ map <leader>e :bufdo e!<CR>                    " reload files in buffer
 " set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""""""""COC.NVIM"""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
-nmap <C-I> :Format<CR>
-
-" It's useful to show the buffer number in the status line.
-set laststatus=2 statusline=%02n:%<%f\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-
-" indent guides enabled by default
-let g:indent_guides_enable_on_vim_startup = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""" ACK """"""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -88,3 +62,21 @@ let g:ale_lint_on_text_changed = 'never'
 " <leader>f will format and fix your current file.
 " Change to PrototoolFormat to only format and not fix.
 nnoremap <silent> <leader>pf :call PrototoolFormatFix()<CR>
+
+" indent guides enabled by default
+let g:indent_guides_enable_on_vim_startup = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""VIM MULTI CURSOR"""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:multi_cursor_use_default_mapping=0
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-d>'
+let g:multi_cursor_select_all_word_key = '<A-d>'
+let g:multi_cursor_start_key           = 'g<C-d>'
+let g:multi_cursor_select_all_key      = 'g<A-d>'
+let g:multi_cursor_next_key            = '<C-d>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'

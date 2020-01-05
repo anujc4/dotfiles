@@ -22,7 +22,8 @@ set history=500
 
 set visualbell                  " Use visual bell instead of beeping when doing something wrong
 set t_vb=                       " Reset the terminal code for the visual bell.
-set clipboard=unnamed           " Clipboard sharing
+set clipboard=unnamedplus       " Clipboard sharing
+set nrformats-=octal            " Don't use octal numbers
 
 let mapleader = ","
 
@@ -86,3 +87,45 @@ if exists('+colorcolumn')
 else
   au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 endif
+
+" always highlight TBD TODO and FIXME no matter the filetype
+highlight link CustomHighlight_Warning Todo
+autocmd WinEnter,VimEnter * :silent! call matchadd('CustomHighlight_Warning', 'TBD\|TODO\|FIXME', -1)
+
+runtime macros/matchit.vim
+" :DoMatchParen
+
+map <End> g$
+imap <End> <c-o>g$
+map <Home> g^
+imap <Home> <c-o>g^
+
+" icrementally increase a number inside ctrl v boxes
+function! Increment()
+  let a = line('.') - line("'<")
+  let c = virtcol("'<")
+  if a > 0
+    execute 'normal! '.c.'|'.a."\<C-a>"
+  endif
+  normal `<
+endfunction
+vnoremap <C-a> :call Increment()<CR>
+
+" icrementally increase a number inside ctrl v boxes
+function! Decrement()
+  let a = line('.') - line("'<")
+  let c = virtcol("'<")
+  if a > 0
+    execute 'normal! '.c.'|'.a."\<C-x>"
+  endif
+  normal `<
+endfunction
+vnoremap <C-x> :call Decrement()<CR>
+
+" clipboard
+map <Leader>p "+gp
+vmap <Leader>y "+y
+map <Leader>y "+yy
+
+"Remove all trailing whitespace by pressing F5
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
