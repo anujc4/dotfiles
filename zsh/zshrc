@@ -42,7 +42,7 @@ source $(echo $FILE_DIR)/pathrc
 
 ENABLE_CORRECTION="true"
 
-plugins=(git zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
+plugins=(git zsh-autosuggestions z zsh-syntax-highlighting zsh-completions zsh-completions)
 autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
