@@ -15,19 +15,22 @@ call plug#begin('~/.vim/plugged')
 Plug 'tpope/vim-sensible'                               " Because it is sensible
 
 Plug 'airblade/vim-gitgutter'                           " Show git changes in sidebar
-Plug 'bling/vim-airline'                                " Statusbar for vim
 Plug 'ctrlpvim/ctrlp.vim'                               " Open files inside project
 Plug 'easymotion/vim-easymotion'                        " Navigate inside files
+Plug 'jiangmiao/auto-pairs'
+Plug 'mhinz/vim-startify'                               " Start screen for vim
 Plug 'mileszs/ack.vim'                                  " To search inside files
 Plug 'morhetz/gruvbox'                                  " Theme
 Plug 'nathanaelkane/vim-indent-guides'                  " Show indentation guides
 Plug 'ntpeters/vim-better-whitespace'                   " Show trailing whitespaces
+Plug 'preservim/nerdcommenter'
 Plug 'ryanoasis/vim-devicons'                           " File icons inside NERDTree
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " Sidebar to show files
+Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'tpope/vim-fugitive'                               " Git tool
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
 Plug 'Xuyuanp/nerdtree-git-plugin'                      " Show files changes inside NERDTree
-Plug 'terryma/vim-multiple-cursors'                     " Multiple Cursors like Sublime
-Plug 'mhinz/vim-startify'                               " Start screen for vim
 
 " Linters and AutoComplete
 Plug 'dense-analysis/ale'
@@ -47,3 +50,4 @@ source ~/.config/nvim/general.vim
 source ~/.config/nvim/plugin_config.vim
 source ~/.config/nvim/coc.vim
 source ~/.config/nvim/go.vim
+

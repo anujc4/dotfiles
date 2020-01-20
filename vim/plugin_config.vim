@@ -1,12 +1,21 @@
+" indent guides enabled by default
+let g:indent_guides_enable_on_vim_startup = 1
+let g:airline_theme='molokai'
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""" NERD Tree """"""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Close nvim if it is the only window available
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" If more than one window and previous buffer was NERDTree, go back to it.
+autocmd BufEnter * if bufname('#') =~# "^NERD_tree_" && winnr('$') > 1 | b# | endif
 
 " Toggle NERDTree with Control-N
 map <C-n> :NERDTreeToggle<CR>
 
 " Refresh NERDTree and CtrlP
 nmap <Leader>nr :NERDTreeFocus<cr>R<c-w><c-p>:CtrlPClearCache<cr>
-nmap <Leader>n :NERDTreeToggle<CR>
 
 " after a re-source, fix syntax matching issues (concealing brackets):
 if exists('g:loaded_webdevicons')
@@ -29,26 +38,6 @@ function! GitAnnotateToggle()
 endfunction
 
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
-if executable('ag')
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-map <leader>e :bufdo e!<CR>                    " reload files in buffer
-" set laststatus=2
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""" ACK """"""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" don't jump to the first result automatically
-cnoreabbrev Ack Ack!
-nnoremap <Leader>/ :Ack!<Space>
-
-" fall back to Ack in case you use your vimrc on a system without Ag available
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
-let g:UltiSnipsExpandTrigger="<tab>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""" ALE """"""""""""""""""""""""""""""
@@ -63,34 +52,34 @@ let g:ale_lint_on_text_changed = 'never'
 " Change to PrototoolFormat to only format and not fix.
 nnoremap <silent> <leader>pf :call PrototoolFormatFix()<CR>
 
-" indent guides enabled by default
-let g:indent_guides_enable_on_vim_startup = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""""""""""""""VIM MULTI CURSOR"""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:multi_cursor_use_default_mapping=0
-" Default mapping
-let g:multi_cursor_start_word_key      = '<C-d>'
-let g:multi_cursor_select_all_word_key = '<A-d>'
-let g:multi_cursor_start_key           = 'g<C-d>'
-let g:multi_cursor_select_all_key      = 'g<A-d>'
-let g:multi_cursor_next_key            = '<C-d>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
-
-
 let g:startify_custom_header = [
-    \ ' /$$   /$$                     /$$    /$$ /$$              ',
-    \ '| $$$ | $$                    | $$   | $$|__/              ',
-    \ '| $$$$| $$  /$$$$$$   /$$$$$$ | $$   | $$ /$$ /$$$$$$/$$$$ ',
-    \ '| $$ $$ $$ /$$__  $$ /$$__  $$|  $$ / $$/| $$| $$_  $$_  $$',
-    \ '| $$  $$$$| $$$$$$$$| $$  \ $$ \  $$ $$/ | $$| $$ \ $$ \ $$',
-    \ '| $$\  $$$| $$_____/| $$  | $$  \  $$$/  | $$| $$ | $$ | $$',
-    \ '| $$ \  $$|  $$$$$$$|  $$$$$$/   \  $/   | $$| $$ | $$ | $$',
-    \ '|__/  \__/ \_______/ \______/     \_/    |__/|__/ |__/ |__/',
+    \ ' /$$   /$$ /$$$$$$$$  /$$$$$$  /$$    /$$ /$$$$$$ /$$      /$$',
+    \ '| $$$ | $$| $$_____/ /$$__  $$| $$   | $$|_  $$_/| $$$    /$$$',
+    \ '| $$$$| $$| $$      | $$  \ $$| $$   | $$  | $$  | $$$$  /$$$$',
+    \ '| $$ $$ $$| $$$$$   | $$  | $$|  $$ / $$/  | $$  | $$ $$/$$ $$',
+    \ '| $$  $$$$| $$__/   | $$  | $$ \  $$ $$/   | $$  | $$  $$$| $$',
+    \ '| $$\  $$$| $$      | $$  | $$  \  $$$/    | $$  | $$\  $ | $$',
+    \ '| $$ \  $$| $$$$$$$$|  $$$$$$/   \  $/    /$$$$$$| $$ \/  | $$',
+    \ '|__/  \__/|________/ \______/     \_/    |______/|__/     |__/',
     \ ]
 
 
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" To open a new empty buffer
+" This replaces :tabnew
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>bq :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>

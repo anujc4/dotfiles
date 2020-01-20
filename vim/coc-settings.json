@@ -13,6 +13,9 @@
   "solargraph.autoformat": true,
   "solargraph.formatting": true,
   "solargraph.definitions": true,
-  "solargraph.references": true
-
+  "solargraph.references": true,
+  "suggest.noselect": false,
+  "diagnostic.errorSign": "",
+  "diagnostic.warningSign": "",
+  "diagnostic.infoSign": ""
 }
