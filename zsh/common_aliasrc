@@ -16,7 +16,9 @@ alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
 alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
 alias rm='rm -i'
-alias mc='mc --nocolor'
+alias tmuxs='tmuxinator start $1'
+alias tmuxx='tmuxinator stop $1'
+
 
 unalias z 2>/dev/null
 z() {
