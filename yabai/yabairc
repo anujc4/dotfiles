@@ -53,7 +53,7 @@ apps='^(IntelliJ IDEA|WebStorm|RubyMine)$'
 yabai -m rule --add app="${apps}" space=3  manage=off
 # add a signal that floats a window created by these apps when it's the only window
 yabai -m signal --add event=window_created app="${apps}" action='~/Personal/dotfiles/yabai/jetbrains.sh'
-yabai -m rule --add app="^Terminal$" space=4
+yabai -m rule --add app="^Terminal$" space=8
 yabai -m rule --add app="^Robo 3T$" space=5
 yabai -m rule --add app="^Sourcetree$" space=5
 yabai -m rule --add app="^Postman$" space=5
