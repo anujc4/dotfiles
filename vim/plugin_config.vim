@@ -45,12 +45,13 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
 let g:ale_linters = {
 \   'proto': ['prototool-lint'],
+" \   'ruby': ['standardrb', 'rubocop'],
 \}
 let g:ale_lint_on_text_changed = 'never'
 
 " <leader>f will format and fix your current file.
 " Change to PrototoolFormat to only format and not fix.
-nnoremap <silent> <leader>pf :call PrototoolFormatFix()<CR>
+nnoremap <leader>pf :call PrototoolFormatFix()<CR>
 
 let g:startify_custom_header = [
     \ ' /$$   /$$ /$$$$$$$$  /$$$$$$  /$$    /$$ /$$$$$$ /$$      /$$',
@@ -65,21 +66,13 @@ let g:startify_custom_header = [
 
 
 " Enable the list of buffers
+
 let g:airline#extensions#tabline#enabled = 1
 
-" To open a new empty buffer
-" This replaces :tabnew
-nmap <leader>T :enew<cr>
+" Use the silver searcher with ack
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --nocolor --column'
+endif
 
-" Move to the next buffer
-nmap <leader>l :bnext<CR>
-
-" Move to the previous buffer
-nmap <leader>h :bprevious<CR>
-
-" Close the current buffer and move to the previous one
-" This replicates the idea of closing a tab
-nmap <leader>bq :bp <BAR> bd #<CR>
-
-" Show all open buffers and their status
-nmap <leader>bl :ls<CR>
+cnoreabbrev Ack Ack!
+nnoremap <C-F> :Ack!<Space>

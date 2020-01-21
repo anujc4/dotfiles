@@ -21,9 +21,6 @@ set nrformats-=octal
 
 let mapleader = " "
 
-nmap <leader>w :w!<cr>          " Fast saving
-nmap <leader>q :q!<cr>          " Fast quitting
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -117,3 +114,24 @@ function! ToggleMouse()
 endfunc
 
 nmap <leader>m :call ToggleMouse()<CR>
+
+
+" To open a new empty buffer
+nmap <leader>T :enew<cr>
+
+" Move to the next buffer
+nmap <leader>l :bnext<CR>
+
+" Move to the previous buffer
+nmap <leader>h :bprevious<CR>
+
+" Fast saving
+nmap <leader>w :write<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>q :write <BAR> bd #<CR>
+
+" Helper function to check the performance of vim
+command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
+command! ProfileStop :profile pause
