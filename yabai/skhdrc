@@ -9,10 +9,10 @@ ctrl + shift - up : yabai -m window --focus north
 ctrl + shift - right : yabai -m window --focus east
 
 # swap window
-shift + alt - left : yabai -m window --swap west
-shift + alt - down : yabai -m window --swap south
-shift + alt - up : yabai -m window --swap north
-shift + alt - right : yabai -m window --swap east
+# shift + alt - left : yabai -m window --swap west
+# shift + alt - down : yabai -m window --swap south
+# shift + alt - up : yabai -m window --swap north
+# shift + alt - right : yabai -m window --swap east
 
 # balance size of windows
 ctrl + shift - z : yabai -m space --balance
@@ -86,7 +86,7 @@ alt - d : yabai -m window --toggle zoom-parent
 ctrl + shift - space : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-ctrl + shift - f : yabai -m window --toggle native-fullscreen
+# ctrl + shift - f : yabai -m window --toggle native-fullscreen
 
 # toggle window border
 # shift + alt - b : yabai -m window --toggle border
