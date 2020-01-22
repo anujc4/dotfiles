@@ -14,17 +14,17 @@ fi
 nix-env -iA nixos.alacritty
 
 # Create config directory if not already created
-mkdir -p $(echo $HOME/.config/alacritty)
+mkdir -p "$HOME"/.config/alacritty
 
 # Symlink the config file
 case $(uname) in
 Darwin)
   # Symlink MacOS Alacritty as config
-  ln -sf `echo $DOT_SOURCE`/Alacritty/alacritty.yml `echo $HOME`/.config/alacritty/alacritty.yml
+  ln -sf "$DOT_SOURCE"/Alacritty/alacritty.yml "$HOME"/.config/alacritty/alacritty.yml
   ;;
 Linux)
   # Symlink Linux Alacritty as config
-  ln -sf `echo $DOT_SOURCE`/Alacritty/alacritty_linux.yml `echo $HOME`/.config/alacritty/alacritty.yml
+  ln -sf "$DOT_SOURCE"/Alacritty/alacritty_linux.yml "$HOME"/.config/alacritty/alacritty.yml
   ;;
 esac
 

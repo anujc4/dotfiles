@@ -22,7 +22,7 @@ if ! [ -d "$ZSH" ]; then
 fi
 
 printf "${GREEN}Creating symlink for zshconfig\n${NC}"
-ln -sf $(pwd)/zsh/zshrc $(echo $HOME)/.zshrc
+ln -sf "$(pwd)"/zsh/zshrc "$HOME"/.zshrc
 ./zsh/setup.sh
 source ~/.zshrc
 
@@ -42,13 +42,13 @@ while true; do
     brew install yabai
     # sudo yabai --install-sa
     printf "${GREEN}Renaming any previouisly created configurations\n${NC}"
-    mv $(echo $HOME)/.yabairc $(echo $HOME)/.yabairc_backup
-    mv $(echo $HOME)/.skhdrc $(echo $HOME)/.skhdrc_backup
+    mv "$HOME"/.yabairc "$HOME"/.yabairc_backup
+    mv "$HOME"/.skhdrc "$HOME"/.skhdrc_backup
 
     printf "${RED}You need to disable System Integrity Protection on your system. Please check yabai/README.md for instructions"
     printf "${GREEN}Creating symlink file associations\n${NC}"
-    ln -sf $(echo $DIR)/yabai/yabairc $(echo $HOME)/.yabairc
-    ln -sf $(echo $DIR)/yabai/skhdrc $(echo $HOME)/.skhdrc
+    ln -sf "$DIR"/yabai/yabairc "$HOME"/.yabairc
+    ln -sf "$DIR"/yabai/skhdrc "$HOME"/.skhdrc
     break
     ;;
   [2]*)

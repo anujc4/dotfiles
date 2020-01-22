@@ -14,5 +14,5 @@ if ! [ -x "$(command -v fusuma)" ]; then
   nix-env -i fusuma
 fi
 
-mkdir -p `echo $HOME`/.config/fusuma
-ln -sf $(echo $DOT_SOURCE)/fusuma/config.yml `echo $HOME`/.config/fusuma/config.yml
+mkdir -p "$HOME"/.config/fusuma
+ln -sf  "$DOT_SOURCE"/fusuma/config.yml "$HOME"/.config/fusuma/config.yml

@@ -15,5 +15,5 @@ fi
 
 printf "${GREEN}Executing Brewfile\n${NC}"
 brew bundle
-$(brew --prefix)/opt/fzf/install
+"$(brew --prefix)"/opt/fzf/install
 brew cleanup --force

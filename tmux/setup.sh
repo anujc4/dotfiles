@@ -2,7 +2,6 @@
 
 RED='\033[0;31m'
 NC='\033[0m'
-BLUE='\033[0;34m'
 YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 
@@ -12,8 +11,9 @@ is_app_installed() {
 
 # Check if tmux is installed
 if ! is_app_installed tmux; then
+  printf "%sCreating symlink for .tmux.conf\n%s" "${GREEN}" "${NC}"
   printf "${GREEN}Creating symlink for .tmux.conf\n${NC}"
-  ln -sf $(pwd)/tmux/tmux.conf $(echo $HOME)/.tmux.conf
+  ln -sf "$(pwd)"/tmux/tmux.conf "$HOME"/.tmux.conf
   printf "${RED}Missing dependency: Tmux\n${NC}"
   printf "${GREEN}Installing tmux\n${NC}"
   nix-env -i tmux
@@ -26,7 +26,7 @@ if ! is_app_installed tmux; then
     # create dump __noop session in detached mode, and kill it when plugins are installed
     printf "${GREEN}Installing TPM plugins\n${NC}"
     tmux new -d -s __noop >/dev/null 2>&1 || true
-    tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "~/.tmux/plugins"
+    tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins"
     "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
     tmux kill-session -t __noop >/dev/null 2>&1 || true
   fi

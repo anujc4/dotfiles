@@ -11,7 +11,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/changyuheng/zsh-interactive-cd.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd &>/dev/null
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions &>/dev/null
 
-cd zsh # Go to the zsh folder
+cd zsh || return # Go to the zsh folder
 if [ ! -f secretsrc ]; then
   printf "${GREEN}Creating a secretsrc file. You should only put SENSITIVE aliases here. DO NOT PUT any credentials in the other files.\n${NC}"
   touch secretsrc

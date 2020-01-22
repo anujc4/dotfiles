@@ -2,7 +2,6 @@
 
 RED='\033[0;31m'
 NC='\033[0m'
-BLUE='\033[0;34m'
 YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 
@@ -19,7 +18,7 @@ fi
 if ! is_app_installed nix-env; then
   printf "${RED}Installing nix-env.\n${NC}"
   curl https://nixos.org/nix/install | sh
-  . /home/`whoami`/.nix-profile/etc/profile.d/nix.sh
+  . "$HOME"/.nix-profile/etc/profile.d/nix.sh
 fi
 
 # Install ZSH if it is not yet installed
@@ -30,7 +29,7 @@ if ! [ -d "$ZSH" ]; then
 fi
 
 printf "${GREEN}Creating symlink for zshconfig\n${NC}"
-ln -sf $(pwd)/zsh/zshrc $(echo $HOME)/.zshrc
+ln -sf "$(pwd)"/zsh/zshrc "$HOME"/.zshrc
 ./zsh/setup.sh
 source ~/.zshrc
 

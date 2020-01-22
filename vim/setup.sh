@@ -2,7 +2,6 @@
 
 RED='\033[0;31m'
 NC='\033[0m'
-YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 
 # Make sure that nvim is installed in the system.
@@ -15,7 +14,7 @@ if ! [ -x "$(command -v nvim)" ]; then
   # Install neovim and replace python3 with python2 for the python 2 packages
   nix-env -iA nixpkgs.neovim
   nix-env -iA nixpkgs.python3Packages.pynvim
-  mkdir -p `echo $HOME`/.config/nvim
+  mkdir -p "$HOME"/.config/nvim
 fi
 
 printf "${GREEN}Installing vim-plug.\n${NC}"
@@ -24,17 +23,17 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 printf "${GREEN}Creating symlinks.\n${NC}"
 # Add symlink for the main vimrc file
-ln -sf `echo $DOT_SOURCE`/vim/init.vim `echo $HOME`/.config/nvim/init.vim
+ln -sf "$DOT_SOURCE"/vim/init.vim "$HOME"/.config/nvim/init.vim
 
 # Make sure to symlink the newly created files here as well as
 # sourcing it in the init.vim file
-ln -sf `echo $DOT_SOURCE`/vim/coc.vim `echo $HOME`/.config/nvim/coc.vim
-ln -sf `echo $DOT_SOURCE`/vim/general.vim `echo $HOME`/.config/nvim/general.vim
-ln -sf `echo $DOT_SOURCE`/vim/go.vim `echo $HOME`/.config/nvim/go.vim
-ln -sf `echo $DOT_SOURCE`/vim/plugin_config.vim `echo $HOME`/.config/nvim/plugin_config.vim
+ln -sf "$DOT_SOURCE"/vim/coc.vim "$HOME"/.config/nvim/coc.vim
+ln -sf "$DOT_SOURCE"/vim/general.vim "$HOME"/.config/nvim/general.vim
+ln -sf "$DOT_SOURCE"/vim/go.vim "$HOME"/.config/nvim/go.vim
+ln -sf "$DOT_SOURCE"/vim/plugin_config.vim "$HOME"/.config/nvim/plugin_config.vim
 
 # Symlink coc-settings.json
-ln -sf `echo $DOT_SOURCE`/vim/coc-settings.json `echo $HOME`/.config/nvim/coc-settings.json
+ln -sf "$DOT_SOURCE"/vim/coc-settings.json "$HOME"/.config/nvim/coc-settings.json
 
 # Make sure to call this after the files have been symlinked
 printf "${GREEN}Installing plugins.\n${NC}"

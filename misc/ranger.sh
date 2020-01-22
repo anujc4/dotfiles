@@ -11,7 +11,7 @@ Linux)
   ;;
 esac
 
-ln -sf `echo $DOT_SOURCE`/misc/rc.conf `echo $HOME`/.config/ranger/rc.conf
+ln -sf "$DOT_SOURCE"/misc/rc.conf "$HOME"/.config/ranger/rc.conf
 
 git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons
 cd ~/.config/ranger/plugins/ranger_devicons && make install
