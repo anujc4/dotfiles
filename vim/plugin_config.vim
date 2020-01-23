@@ -42,10 +42,11 @@ let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""" ALE """"""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'ruby': ['standardrb', 'rubocop'],
+let g:airline#extensions#ale#enabled = 1
 let g:ale_linters = {
 \   'proto': ['prototool-lint'],
-" \   'ruby': ['standardrb', 'rubocop'],
 \}
 let g:ale_lint_on_text_changed = 'never'
 
