@@ -1,6 +1,7 @@
 # open terminal
 ctrl + shift - t : open -na /Applications/Alacritty.app
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
+ctrl + alt + cmd - x : brew services stop yabai && brew services stop skhd
 
 # focus window
 ctrl + shift - left : yabai -m window --focus west
