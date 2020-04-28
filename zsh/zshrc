@@ -21,11 +21,6 @@ setopt HIST_SAVE_NO_DUPS
 
 ZSH_THEME="agnoster"
 
-source $ZSH/oh-my-zsh.sh
-
-# Prevent zsh from showing the system name before each command
-prompt_context () { }
-
 plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
 
 case `uname` in
@@ -56,11 +51,16 @@ export DOT_SOURCE=${FILE_DIR%????} # Export the directory where the dotfiles are
 
 source $(echo $FILE_DIR)/pathrc
 
-# Every time compinit is invoked, it often checks its configurations and re-generates in case of change
-# autoload -U compinit && compinit
+source $ZSH/oh-my-zsh.sh
 
+# Prevent zsh from showing the system name before each command
+prompt_context () { }
+
+
+# Every time compinit is invoked, it often checks its configurations and re-generates in case of change
+# This only checks zcompdump if is more than 24 hours old
 autoload -Uz compinit
-if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
   compinit
 else
   compinit -C
