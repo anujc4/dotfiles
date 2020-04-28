@@ -3,8 +3,14 @@
 # source the other files on it's own. The command usually looks like
 # ln -s ~/Personal/dotfiles/zsh/zshrc ~/.zshrc
 
+# To profile zsh in case of slow startup, uncomment the line below and move the
+# second command to the bottom of this file
+# zmodload zsh/zprof
+# zprof
+
 export TERM="xterm-256color"
 export EDITOR="nvim"
+export LANG=en_US.UTF-8
 
 setopt EXTENDED_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
@@ -15,6 +21,13 @@ setopt HIST_SAVE_NO_DUPS
 
 ZSH_THEME="agnoster"
 
+source $ZSH/oh-my-zsh.sh
+
+# Prevent zsh from showing the system name before each command
+prompt_context () { }
+
+plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
+
 case `uname` in
   Darwin)
     export isMacOS=true
@@ -23,10 +36,6 @@ case `uname` in
     export isMacOS=false
   ;;
 esac
-
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-fi
 
 # Check if the OS is MAC or Linux
 if [ "$isMacOS" = true ]; then
@@ -47,19 +56,21 @@ export DOT_SOURCE=${FILE_DIR%????} # Export the directory where the dotfiles are
 
 source $(echo $FILE_DIR)/pathrc
 
-ENABLE_CORRECTION="true"
+# Every time compinit is invoked, it often checks its configurations and re-generates in case of change
+# autoload -U compinit && compinit
 
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
-autoload -U compinit && compinit
-
-source $ZSH/oh-my-zsh.sh
-
-export LANG=en_US.UTF-8
+autoload -Uz compinit
+if [ $(date +'%j') != $(/usr/bin/stat -f '%Sm' -t '%j' ${ZDOTDIR:-$HOME}/.zcompdump) ]; then
+  compinit
+else
+  compinit -C
+fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Prevent zsh from showing the system name before each command
-prompt_context () { }
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
 
 # ZSH completions for Alacritty
 fpath+=${ZDOTDIR:-~}/.zsh_functions
@@ -71,7 +82,3 @@ unsetopt correct_all
 
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
