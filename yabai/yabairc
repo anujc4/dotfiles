@@ -1,59 +1,34 @@
 #!/usr/bin/env sh
 
-# bar settings
-yabai -m config status_bar                   on
-yabai -m config status_bar_text_font         "Helvetica Neue:Bold:12.0"
-yabai -m config status_bar_icon_font         "Hack Nerd Font:Regular:12.0"
-yabai -m config status_bar_background_color  0xff202020
-yabai -m config status_bar_foreground_color  0xffa8a8a8
-yabai -m config status_bar_space_icon_strip  1 2﬏ 3 4 5 6 7 8 FS1 FS2
-                                          # 1  2  3 4 5 6  7  8 9
-yabai -m config status_bar_power_icon_strip   
-yabai -m config status_bar_space_icon        
-yabai -m config status_bar_clock_icon        
-
 # global settings
 yabai -m config mouse_follows_focus          off
 yabai -m config focus_follows_mouse          off
 yabai -m config window_placement             second_child
-yabai -m config window_topmost               off
-yabai -m config window_opacity               off
-yabai -m config window_opacity_duration      0.0
 yabai -m config window_shadow                float
-yabai -m config window_border                off
-yabai -m config window_border_placement      inset
-yabai -m config window_border_width          2
-yabai -m config window_border_radius         -1.0
-yabai -m config active_window_border_color   0xff775759
-yabai -m config normal_window_border_color   0xff505050
-yabai -m config insert_window_border_color   0xffd75f5f
+yabai -m config window_opacity               off
 yabai -m config active_window_opacity        1.0
 yabai -m config normal_window_opacity        0.90
 yabai -m config split_ratio                  0.50
-yabai -m config auto_balance                 off
+yabai -m config auto_balance                 on
 yabai -m config mouse_modifier                fn
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
 # general space settings
+yabai -m external_bar                       all:26:0
 yabai -m config layout                       bsp
-yabai -m config top_padding                  10
+yabai -m config top_padding                  36
 yabai -m config bottom_padding               10
 yabai -m config left_padding                 10
 yabai -m config right_padding                10
 yabai -m config window_gap                   10
 
 yabai -m rule --add app="^Google Chrome$" space=1
-yabai -m rule --add app="^System Preferences$" manage=off
-# yabai -m rule --add title="^Pritunl$" manage=off space=1
 yabai -m rule --add app="^Sublime Text$" space=2
 yabai -m rule --add app="^Code$" space=2
-# regex that matches JetBrains apps
-apps='^(IntelliJ IDEA|WebStorm|RubyMine)$'
+apps='^(IntelliJ IDEA|WebStorm|RubyMine)$' # regex that matches JetBrains apps
 yabai -m rule --add app="${apps}" space=3  manage=off
-# add a signal that floats a window created by these apps when it's the only window
-yabai -m signal --add event=window_created app="${apps}" action='~/Personal/dotfiles/yabai/jetbrains.sh'
-yabai -m rule --add app="^Terminal$" space=8
+yabai -m signal --add event=window_created app="${apps}" action='~/Personal/dotfiles/yabai/jetbrains.sh' # add a signal that floats a window created by these apps when it's the only window
 yabai -m rule --add app="^Robo 3T$" space=5
 yabai -m rule --add app="^Sourcetree$" space=5
 yabai -m rule --add app="^Postman$" space=5
@@ -64,7 +39,9 @@ yabai -m rule --add app="^Slack$" space=6
 yabai -m rule --add app="^Spotify$" space=7
 yabai -m rule --add app="^Amazon Music$" space=7
 
-yabai -m rule --add title="^Authy$" manage=off
+# yabai -m rule --add title="^Pritunl$" manage=off space=1
+yabai -m rule --add app="^System Preferences$" manage=off
+yabai -m rule --add app="^Authy Desktop$" manage=off
 yabai -m rule --add app="^Postgres$" manage=off
 yabai -m rule --add app="^VLC$" manage=off
 
