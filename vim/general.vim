@@ -24,9 +24,12 @@ let mapleader = " "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set the color theme
-colorscheme gruvbox
-let g:gruvbox_contrast_light = 'medium'
+colorscheme material
+let g:material_theme_style = 'darker'
+let g:airline_theme = 'material'
+if (has('termguicolors'))
+  set termguicolors
+endif
 
 " Better command-line completion
 set wildmenu
