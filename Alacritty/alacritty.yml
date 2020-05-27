@@ -129,42 +129,41 @@ font:
 # If `true`, bold text is drawn using the bright color variants.
 draw_bold_text_with_bright_colors: true
 
-# Colors (Monokai Dark)
+# Colors (Base16 Default Dark)
 colors:
   # Default colors
   primary:
-    background: '0x272822'
-    foreground: '0xF8F8F2'
+    background: '#181818'
+    foreground: '#d8d8d8'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '#d8d8d8'
+    cursor: '#d8d8d8'
 
   # Normal colors
   normal:
-   black:   '0x272822'
-   red:     '0xF92672'
-   green:   '0xA6E22E'
-   yellow:  '0xF4BF75'
-   blue:    '0x66D9EF'
-   magenta: '0xAE81FF'
-   cyan:    '0xA1EFE4'
-   white:   '0xF8F8F2'
+    black:   '#181818'
+    red:     '#ab4642'
+    green:   '#a1b56c'
+    yellow:  '#f7ca88'
+    blue:    '#7cafc2'
+    magenta: '#ba8baf'
+    cyan:    '#86c1b9'
+    white:   '#d8d8d8'
 
   # Bright colors
   bright:
-   black:   '0x75715E'
-   red:     '0xF92672'
-   green:   '0xA6E22E'
-   yellow:  '0xF4BF75'
-   blue:    '0x66D9EF'
-   magenta: '0xAE81FF'
-   cyan:    '0xA1EFE4'
-   white:   '0xF9F8F5'
-
-visual_bell:
-  animation: EaseOutExpo
-  duration: 0
-  color: '0xffffff'
+    black:   '#585858'
+    red:     '#ab4642'
+    green:   '#a1b56c'
+    yellow:  '#f7ca88'
+    blue:    '#7cafc2'
+    magenta: '#ba8baf'
+    cyan:    '#86c1b9'
+    white:   '#f8f8f8'
 
 # Background opacity
-#
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
 background_opacity: 0.9
