@@ -5,16 +5,16 @@ YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 
 printf "${GREEN}Installing regolith linux if not already installed.\n${NC}"
-sudo add-apt-repository -y ppa:kgilmer/regolith-stable
-sudo apt install regolith-desktop
-
-printf "${YELLOW}If you are on Ubuntu 19.10, check out https://github.com/regolith-linux/regolith-desktop/wiki/HowTo:-Upgrade-to-Ubuntu-19.10-(Eoan-Ermine).\n${NC}"
+sudo add-apt-repository ppa:regolith-linux/release
+sudo apt install regolith-desktop i3xrocks-net-traffic i3xrocks-cpu-usage i3xrocks-time i3xrocks-battery
+sudo apt install regolith-look-ayu-dark
 
 mkdir -p `echo $HOME`/.config/regolith/i3
-mkdir -p `echo $HOME`/.config/compton
 
 # Modify these to point to correct directory
-ln -sf `echo $DOT_SOURCE`/regolith/Xresources/.Xresources-regolith `echo $HOME`/.Xresources-regolith
-ln -sf `echo $DOT_SOURCE`/regolith/Xresources/Xresources.d `echo $HOME`/.Xresources.d
+ln -sf `echo $DOT_SOURCE`/regolith/regolith/Xresources `echo $HOME`/.config/regolith/Xresources
 ln -sf `echo $DOT_SOURCE`/regolith/i3/config `echo $HOME`/.config/regolith/i3/config
-ln -sf `echo $DOT_SOURCE`/regolith/compton `echo $HOME`/.config/compton
+
+# Set theme for regolith
+rm -f `echo $HOME`/.Xresources-regolith # Delete the file if it already exists
+echo "#include \"/etc/regolith/styles/ayu-dark/root\"" >> `echo $HOME`/.Xresources-regolith

@@ -1,0 +1,11 @@
+i3-wm.bar.position: top
+i3-wm.workspace.01.name: 1:<span font_desc='Ubuntu Mono 14'> 1 </span><span foreground='#19B6EE'>爵</span>
+i3-wm.workspace.02.name: 2:<span font_desc='Ubuntu Mono 14'> 2 </span><span foreground='#007aa6'>﬏</span>
+i3-wm.workspace.03.name: 3:<span font_desc='Ubuntu Mono 14'> 3 </span><span foreground='#0e8420'></span>
+i3-wm.workspace.04.name: 4:<span font_desc='Ubuntu Mono 14'> 4 </span><span foreground='#f99b11'></span>
+i3-wm.workspace.05.name: 5:<span font_desc='Ubuntu Mono 14'> 5 </span><span foreground='#E95420'></span>
+i3-wm.workspace.06.name: 6:<span font_desc='Ubuntu Mono 14'> 6 </span><span foreground='#c7162b'></span>
+i3-wm.workspace.07.name: 7:<span font_desc='Ubuntu Mono 14'> 7 </span><span foreground='#335280'></span>
+i3-wm.workspace.08.name: 8:<span font_desc='Ubuntu Mono 14'> 8 </span><span foreground='#762572'></span>
+i3-wm.workspace.08.name: 9:<span font_desc='Ubuntu Mono 14'> 9 </span><span foreground='#762572'></span>
+i3-wm.bar.trayoutput:	primary
