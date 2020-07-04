@@ -1,16 +1,17 @@
 # open terminal
 ctrl + shift - t : open -na /Applications/Alacritty.app
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
-ctrl + alt + cmd - x : brew services stop yabai && brew services stop skhd
 
 # focus window
-ctrl + shift - left : yabai -m window --focus west
-ctrl + shift - down : yabai -m window --focus south
-ctrl + shift - up : yabai -m window --focus north
-ctrl + shift - right : yabai -m window --focus east
+ctrl + shift - left : yabai -m window --focus prev
+ctrl + shift - down : yabai -m window --focus mouse
+ctrl + shift - up : yabai -m window --focus recent
+ctrl + shift - right : yabai -m window --focus next
 
-# balance size of windows
-ctrl + shift - z : yabai -m space --balance
+ctrl + shift - h : yabai -m window --focus west
+ctrl + shift - j : yabai -m window --focus south
+ctrl + shift - k : yabai -m window --focus north
+ctrl + shift - l : yabai -m window --focus east
 
 # create desktop and follow focus
 ctrl + shift - n : yabai -m space --create;\
@@ -78,7 +79,7 @@ alt - d : yabai -m window --toggle zoom-parent
 ctrl + shift - space : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
-# ctrl + shift - f : yabai -m window --toggle native-fullscreen
+ctrl + shift - f : yabai -m window --toggle native-fullscreen
 
 # toggle window split type
 alt - e : yabai -m window --toggle split
