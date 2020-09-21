@@ -59,12 +59,12 @@ prompt_context () { }
 
 # Every time compinit is invoked, it often checks its configurations and re-generates in case of change
 # This only checks zcompdump if is more than 24 hours old
-autoload -Uz compinit
-if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-  compinit
-else
-  compinit -C
-fi
+# autoload -Uz compinit
+# if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+#   compinit
+# else
+#   compinit -C
+# fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
