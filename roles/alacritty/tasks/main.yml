@@ -1,0 +1,28 @@
+---
+- name: Add repository ppa:mmstick76/alacritty
+  apt_repository:
+    repo: ppa:mmstick76/alacritty
+    state: present
+
+- name: Install alacritty
+  become: yes
+  apt:
+    name: alacritty
+    update_cache: yes
+    force: yes
+
+- name: Copy config file(Linux)
+  file:
+    src: "{{ role_path }}/files/alacritty_linux.yml"
+    dest: "{{ lookup('env','HOME') }}/.config/alacritty/alacritty.yml"
+    state: link
+    force: yes
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Copy config file(Mac)
+  file:
+    src: "{{ role_path }}/files/alacritty_mac.yml"
+    dest: "{{ lookup('env','HOME') }}/.config/alacritty/alacritty.yml"
+    state: link
+    force: yes
+  when: ansible_distribution == 'MacOSX'

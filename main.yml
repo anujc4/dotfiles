@@ -1,0 +1,15 @@
+- name: Perform Setup
+  hosts: localhost
+  roles:
+    - role: zsh
+      tags:
+        - zsh
+    - role: regolith
+      tags:
+        - regolith
+    - role: alacritty
+      tags:
+        - alacritty
+    - role: fusuma
+      tags:
+        - fusuma

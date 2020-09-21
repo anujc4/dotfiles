@@ -21,7 +21,7 @@ setopt HIST_SAVE_NO_DUPS
 
 ZSH_THEME="agnoster"
 
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions)
+plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions git)
 
 case `uname` in
   Darwin)
@@ -46,8 +46,6 @@ else
   export ZSH="/home/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
   source $(echo $FILE_DIR)/linuxrc
 fi
-
-export DOT_SOURCE=${FILE_DIR%????} # Export the directory where the dotfiles are stored
 
 source $(echo $FILE_DIR)/pathrc
 

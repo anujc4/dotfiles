@@ -1,0 +1,23 @@
+# sudo gpasswd -a $USER input
+# Make sure you execute this command before executing this playbook
+# Refer: https://github.com/iberianpig/fusuma
+---
+- name: Install ruby
+  apt:
+    name:
+      - libinput-tools
+      - ruby
+      - xdotool
+
+- name: Install fusuma
+  become: yes
+  gem:
+    name: fusuma
+    state: latest
+
+- name: Copy fusuma configuration
+  file:
+    src: "{{ role_path }}/files/config.yml"
+    dest: "{{ lookup('env','HOME') }}/.config/fusuma/config.yml"
+    state: link
+    force: yes
