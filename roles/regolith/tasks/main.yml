@@ -1,0 +1,62 @@
+---
+# Refer: https://regolith-linux.org/docs/getting-started/install/#option-2-ppa
+- name: Install dependencies
+  become: yes
+  apt:
+    update_cache: yes
+    name:
+      - python-apt
+      - python3-apt
+
+- name: Add repository ppa:regolith-linux/release
+  become: yes
+  apt_repository:
+    repo: ppa:regolith-linux/release
+    state: present
+
+- name: Install regolith
+  become: yes
+  apt:
+    update_cache: yes
+    name:
+      - regolith-desktop
+      - i3xrocks-net-traffic
+      - i3xrocks-cpu-usage
+      - i3xrocks-time
+      - i3xrocks-battery
+      - regolith-look-ayu-dark
+
+- name: Create i3 config directory
+  file:
+    path: "{{ lookup('env','HOME') }}/.config/regolith/i3"
+    state: directory
+
+- name: Copy XResoucres config
+  file:
+    src: "{{ role_path }}/files/Xresources"
+    dest: "{{ lookup('env','HOME') }}/.config/regolith/Xresources"
+    state: link
+    force: yes
+
+- name: Copy i3 config
+  file:
+    src: "{{ role_path }}/files/i3-config"
+    dest: "{{ lookup('env','HOME') }}/.config/regolith/i3/config"
+    state: link
+    force: yes
+
+- name: Delete any existing theme file
+  file:
+   path: "{{ lookup('env','HOME') }}/.Xresources-regolith"
+   state: absent
+
+- name: Copy XResources theme file
+  file:
+    src: "{{ role_path }}/files/Xresources-regolith"
+    dest: "{{ lookup('env','HOME') }}/..Xresources-regolith"
+    state: link
+    force: yes
+
+- name: Print installation message
+  debug:
+    msg: "Installation successful. Please see https://regolith-linux.org/docs/getting-started/install/#option-2-ppa for further details"

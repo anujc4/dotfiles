@@ -15,7 +15,7 @@
       - libsqlite3-dev
       - wget
       - libbz2-dev
-        python-apt
+      - python-apt
 
 - name: Download python
   get_url:

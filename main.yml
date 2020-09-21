@@ -13,3 +13,12 @@
     - role: fusuma
       tags:
         - fusuma
+    - role: fonts
+      tags:
+        - fonts
+    - role: tmux
+      tags:
+        - tmux
+    - role: rvm
+      tags:
+        - rvm

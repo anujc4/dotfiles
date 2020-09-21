@@ -22,18 +22,31 @@
   shell: which zsh
   register: zsh_path
 
-- name: Change user shell
-  become: yes
-  user:
-    name: "{{ lookup('env','USER') }}"
-    shell: "{{ zsh_path.stdout }}"
-
 - name: Copy zshrc file
   file:
     src: "{{ role_path }}/files/zshrc"
     path: "{{ lookup('env','HOME') }}/.zshrc"
     state: link
     force: yes
+
+- name: Install oh-my-zsh plugins
+  shell: |
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions &>/dev/null
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions &>/dev/null
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting &>/dev/null
+    git clone https://github.com/changyuheng/zsh-interactive-cd.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd &>/dev/null
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions &>/dev/null
+
+    exit 0
+
+- name: Clone fzf
+  git:
+    repo: https://github.com/junegunn/fzf.git
+    dest: "{{ lookup('env','HOME') }}/.fzf"
+    depth: 1
+
+- name: Install fzf
+  shell: "{{ lookup('env','HOME') }}/.fzf/install"
 
 - name: Debug message
   debug:

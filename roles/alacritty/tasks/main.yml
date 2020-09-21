@@ -1,5 +1,14 @@
 ---
+- name: Install dependencies
+  become: true
+  apt:
+    update_cache: yes
+    name:
+      - python-apt
+      - python3-apt
+
 - name: Add repository ppa:mmstick76/alacritty
+  become: yes
   apt_repository:
     repo: ppa:mmstick76/alacritty
     state: present
@@ -10,6 +19,11 @@
     name: alacritty
     update_cache: yes
     force: yes
+
+- name: Create config directory
+  file:
+    path: "{{ lookup('env','HOME') }}/.config/alacritty"
+    state: directory
 
 - name: Copy config file(Linux)
   file:

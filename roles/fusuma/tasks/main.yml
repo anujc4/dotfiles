@@ -3,6 +3,7 @@
 # Refer: https://github.com/iberianpig/fusuma
 ---
 - name: Install ruby
+  become: yes
   apt:
     name:
       - libinput-tools
@@ -14,6 +15,11 @@
   gem:
     name: fusuma
     state: latest
+
+- name: Create config directory
+  file:
+    path: "{{ lookup('env','HOME') }}/.config/fusuma"
+    state: directory
 
 - name: Copy fusuma configuration
   file:
