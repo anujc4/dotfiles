@@ -72,7 +72,7 @@ set_from_resource $ws19 i3-wm.workspace.19.name "19"
 ###############################################################################
 
 ## Launch // Terminal // <> Enter ##
-bindsym $mod+Return exec /usr/bin/alacritty
+bindsym $mod+Return exec /usr/bin/gnome-terminal
 
 ## Launch // Browser // <><Shift> Enter ##
 bindsym $mod+Shift+Return exec gtk-launch $(xdg-settings get default-web-browser)
@@ -528,3 +528,7 @@ for_window [class="Rambox"] move to workspace $ws6
 for_window [class="Slack"] move to workspace $ws6
 
 assign [class="Soptify"] $ws7
+
+# Remove the desktop that i3 creates
+# gsettings set org.gnome.gnome-flashback desktop false
+# https://github.com/regolith-linux/regolith-desktop/issues/276#issuecomment-625851388
