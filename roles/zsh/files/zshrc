@@ -19,33 +19,29 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 
-ZSH_THEME="agnoster"
-
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions git)
-
-case `uname` in
-  Darwin)
-    export isMacOS=true
-  ;;
-  Linux)
-    export isMacOS=false
-  ;;
-esac
+ZSH_THEME="spaceship"
 
 # Check if the OS is MAC or Linux
-if [ "$isMacOS" = true ]; then
-  # Get the absolute path of the symlinked zshrc to read the other rc files
-  ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
-  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-  export ZSH="/Users/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
-  source $(echo $FILE_DIR)/macosrc
-else
-  # Get the absolute path of the symlinked zshrc to read the other rc files
-  ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
-  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-  export ZSH="/home/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
-  source $(echo $FILE_DIR)/linuxrc
-fi
+case `uname` in
+  Darwin)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
+    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+    # Path to your oh-my-zsh installation.
+    export ZSH="/Users/$(whoami)/.oh-my-zsh"
+    source $(echo $FILE_DIR)/macosrc
+  ;;
+  Linux)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
+    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+    # Path to your oh-my-zsh installation.
+    export ZSH="/home/$(whoami)/.oh-my-zsh"
+    source $(echo $FILE_DIR)/linuxrc
+    # Linux RVM requirements
+    source "/etc/profile.d/rvm.sh"
+  ;;
+esac
 
 source $(echo $FILE_DIR)/pathrc
 
@@ -54,24 +50,10 @@ source $ZSH/oh-my-zsh.sh
 # Prevent zsh from showing the system name before each command
 prompt_context () { }
 
-
-# Every time compinit is invoked, it often checks its configurations and re-generates in case of change
-# This only checks zcompdump if is more than 24 hours old
-# autoload -Uz compinit
-# if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-#   compinit
-# else
-#   compinit -C
-# fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+# Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
-
-# ZSH completions for Alacritty
-fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
@@ -81,6 +63,51 @@ unsetopt correct_all
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 
+# Enable shims and autocompletion for pyenv.
+# Refer: https://github.com/pyenv/pyenv#basic-github-checkout
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
+        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+        print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zinit-zsh/z-a-rust \
+    zinit-zsh/z-a-as-monitor \
+    zinit-zsh/z-a-patch-dl \
+    zinit-zsh/z-a-bin-gem-node
+
+### End of Zinit's installer chunk
+
+# List of plugins to load in turbo mode
+zinit wait lucid for \
+  atinit"zicompinit; zicdreplay"  \
+        zsh-users/zsh-syntax-highlighting \
+        zdharma/history-search-multi-word \
+        agkozak/zsh-z \
+        junegunn/fzf-bin \
+        OMZP::colored-man-pages \
+        OMZP::git \
+        junegunn/fzf-bin \
+        OMZP::command-not-found \
+        OMZP::thefuck \
+        OMZP::fzf \
+  atload"_zsh_autosuggest_start" \
+      zsh-users/zsh-autosuggestions \
+  blockf atpull'zinit creinstall -q .' \
+      zsh-users/zsh-completions
+
+eval $(thefuck --alias)
