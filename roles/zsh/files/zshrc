@@ -19,33 +19,30 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 
-ZSH_THEME="agnoster"
+ZSH_THEME="spaceship"
 
 plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions git)
 
 case `uname` in
   Darwin)
-    export isMacOS=true
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
+    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+    # Path to your oh-my-zsh installation.
+    export ZSH="/Users/$(whoami)/.oh-my-zsh"
+    source $(echo $FILE_DIR)/macosrc
   ;;
   Linux)
-    export isMacOS=false
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
+    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+    # Path to your oh-my-zsh installation.
+    export ZSH="/home/$(whoami)/.oh-my-zsh"
+    source $(echo $FILE_DIR)/linuxrc
+    # Linux RVM requirements
+    source "/etc/profile.d/rvm.sh"
   ;;
 esac
-
-# Check if the OS is MAC or Linux
-if [ "$isMacOS" = true ]; then
-  # Get the absolute path of the symlinked zshrc to read the other rc files
-  ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
-  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-  export ZSH="/Users/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
-  source $(echo $FILE_DIR)/macosrc
-else
-  # Get the absolute path of the symlinked zshrc to read the other rc files
-  ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
-  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-  export ZSH="/home/$(whoami)/.oh-my-zsh" # Path to your oh-my-zsh installation.
-  source $(echo $FILE_DIR)/linuxrc
-fi
 
 source $(echo $FILE_DIR)/pathrc
 
@@ -54,24 +51,10 @@ source $ZSH/oh-my-zsh.sh
 # Prevent zsh from showing the system name before each command
 prompt_context () { }
 
-
-# Every time compinit is invoked, it often checks its configurations and re-generates in case of change
-# This only checks zcompdump if is more than 24 hours old
-# autoload -Uz compinit
-# if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
-#   compinit
-# else
-#   compinit -C
-# fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+# Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
-
-# ZSH completions for Alacritty
-fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 source ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh
 
@@ -81,6 +64,10 @@ unsetopt correct_all
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 
+# Enable shims and autocompletion for pyenv.
+# Refer: https://github.com/pyenv/pyenv#basic-github-checkout
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
+
+eval $(thefuck --alias)
