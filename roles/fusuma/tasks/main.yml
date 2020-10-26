@@ -2,6 +2,14 @@
 # Make sure you execute this command before executing this playbook
 # Refer: https://github.com/iberianpig/fusuma
 ---
+- name: Install dependencies
+  become: yes
+  apt:
+    update_cache: yes
+    name:
+      - python-apt
+      - python3-apt
+
 - name: Install ruby
   become: yes
   apt:

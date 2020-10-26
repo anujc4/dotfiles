@@ -13,9 +13,7 @@
   register: stat_oh_my_zsh_result
 
 - name: Cloning oh-my-zsh
-  git:
-    repo: https://github.com/robbyrussell/oh-my-zsh
-    dest: ~/.oh-my-zsh
+  shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
   when: not stat_oh_my_zsh_result.stat.exists
 
 - name: Get zsh path
