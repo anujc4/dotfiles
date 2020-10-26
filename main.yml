@@ -1,0 +1,27 @@
+- name: Perform Setup
+  hosts: localhost
+  roles:
+    - role: zsh
+      tags:
+        - zsh
+    - role: regolith
+      tags:
+        - regolith
+    - role: alacritty
+      tags:
+        - alacritty
+    - role: fusuma
+      tags:
+        - fusuma
+    - role: fonts
+      tags:
+        - fonts
+    - role: tmux
+      tags:
+        - tmux
+    - role: rvm
+      tags:
+        - rvm
+    - role: snap
+      tags:
+        - snap

@@ -149,9 +149,6 @@ bindsym $mod+Tab workspace next
 ## Navigate // Previous Workspace // <><Shift> Tab ##
 bindsym $mod+Shift+Tab workspace prev
 
-## Navigate // Scratchpad // <><Ctrl> a ##
-bindsym $mod+Ctrl+a scratchpad show
-
 ###############################################################################
 # Window and Workspace Configuration
 ###############################################################################
@@ -182,9 +179,6 @@ bindsym $mod+f fullscreen toggle
 
 ## Modify // Window Floating Toggle // <><Shift> f ##
 bindsym $mod+Shift+f floating toggle
-
-## Modify // Move to Scratchpad // <><Ctrl> m ##
-bindsym $mod+Ctrl+m move to scratchpad
 
 ## Modify // Tile/Float Focus Toggle // <><Shift> t ##
 bindsym $mod+Shift+t focus mode_toggle
@@ -517,6 +511,7 @@ assign [class="Code"] $ws2
 assign [class="jetbrains-idea-ce"] $ws3
 assign [class="java-lang-Thread"] $ws3
 assign [class="Android Studio"] $ws3
+assign [class="RStudio"] $ws3
 
 assign [class="Alacritty"] $ws4
 assign [class="Terminal"] $ws4
@@ -528,3 +523,7 @@ for_window [class="Rambox"] move to workspace $ws6
 for_window [class="Slack"] move to workspace $ws6
 
 assign [class="Soptify"] $ws7
+
+# Remove the desktop that i3 creates
+# gsettings set org.gnome.gnome-flashback desktop false
+# https://github.com/regolith-linux/regolith-desktop/issues/276#issuecomment-625851388
