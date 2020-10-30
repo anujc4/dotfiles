@@ -15,7 +15,7 @@ Has configurations for
 
 ## First time setup
 
-Configuration management has been moved to Ansible
+Configuration management has been moved to Ansible. Install ansible from [the official website](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html).
 
 ## License
 
