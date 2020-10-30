@@ -15,9 +15,7 @@ Has configurations for
 
 ## First time setup
 
-For a fresh mac/linux OS install on a machine, the aim was to run a script which installs terminal tweaks and base packages. The `first_run_*.sh` files are designed to do that.
-
-The scripts also creates a symlink for all configs rather than copying the files in the root folder. So any changes made to the configuration files should immediately start reflecting in the programs.
+Configuration management has been moved to Ansible
 
 ## License
 
