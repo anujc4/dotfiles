@@ -2,26 +2,44 @@
 ctrl + shift - t : open -na /Applications/Alacritty.app
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
-# focus window
-ctrl + shift - left : yabai -m window --focus prev
-ctrl + shift - down : yabai -m window --focus mouse
-ctrl + shift - up : yabai -m window --focus recent
-ctrl + shift - right : yabai -m window --focus next
+# Application Shortcuts
+# ctrl + shift - e : open -na /Applications/ForkLift.app
+ctrl + fn - e : open ~
+ctrl + fn - s : open "x-apple.systempreferences:"
+ctrl + fn - b : open -na /Applications/Google\ Chrome.app
+ctrl + fn - c : open -na /Applications/Visual\ Studio\ Code.app
+ctrl + fn - w : open -na /Applications/WhatsApp.app
 
-ctrl + shift - h : yabai -m window --focus west
-ctrl + shift - j : yabai -m window --focus south
-ctrl + shift - k : yabai -m window --focus north
-ctrl + shift - l : yabai -m window --focus east
+# toggle window fullscreen zoom by changind layout to stack
+ctrl + shift - space : yabai -m query --spaces --space \
+                    | jq 'if .type == "bsp" then "yabai -m space --layout stack" else "yabai -m space --layout bsp" end' \
+                    | xargs sh -c
 
 # create desktop and follow focus
 ctrl + shift - n : yabai -m space --create;\
                 id=$(yabai -m query --displays --display | grep "spaces");\
                 yabai -m space --focus $(echo ${id:10:${#id}-10})
 
-# destroy desktop
-# ctrl + shift - w : yabai -m space --destroy
+# forward
+ctrl + shift - right : yabai -m query --spaces --space \
+                    | jq -re ".index" \
+                    | xargs -I{} yabai -m query --windows --space {} \
+                    | jq -sre "add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.x, .id) | reverse | nth(index(map(select(.focused == 1))) - 1).id" \
+                    | xargs -I{} yabai -m window --focus {}
+
+# backward
+ctrl + shift - left : yabai -m query --spaces --space \
+                    | jq -re ".index" \
+                    | xargs -I{} yabai -m query --windows --space {} \
+                    | jq -sre "add | map(select(.minimized != 1)) | sort_by(.display, .frame.y, .frame.y, .id) | nth(index(map(select(.focused == 1))) - 1).id" \
+                    | xargs -I{} yabai -m window --focus {}
+
+# Useful if window focus is lost
+ctrl + shift - down : yabai -m window --focus mouse
+ctrl + shift - up : yabai -m window --focus north
 
 # fast focus desktop
+# Using macOS default keybings for a smoother desktop switch
 # ctrl - left : yabai -m space --focus prev
 # ctrl - right : yabai -m space --focus next
 # ctrl - 1 : yabai -m space --focus 1
@@ -59,9 +77,9 @@ ctrl + shift - 0 : yabai -m window --space 10; yabai -m space --focus 10
 # ctrl + cmd - x  : yabai -m window --display last; yabai -m display --focus last
 # ctrl + cmd - z  : yabai -m window --display prev; yabai -m display --focus prev
 # ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
-ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
-ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
-ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
+# ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
+# ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
+# ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
 
 # rotate tree
 alt - r : yabai -m space --rotate 90
@@ -71,12 +89,6 @@ alt - y : yabai -m space --mirror y-axis
 
 # mirror tree x-axis
 alt - x : yabai -m space --mirror x-axis
-
-# toggle window parent zoom
-alt - d : yabai -m window --toggle zoom-parent
-
-# toggle window fullscreen zoom
-ctrl + shift - space : yabai -m window --toggle zoom-fullscreen
 
 # toggle window native fullscreen
 ctrl + shift - f : yabai -m window --toggle native-fullscreen
