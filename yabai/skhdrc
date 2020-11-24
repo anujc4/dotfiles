@@ -1,19 +1,17 @@
 # open terminal
-ctrl + shift - t : open -na /Applications/Alacritty.app
+ctrl + fn - t : open -na /Applications/Alacritty.app
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Application Shortcuts
 # ctrl + shift - e : open -na /Applications/ForkLift.app
-ctrl + fn - e : open ~
+ctrl + fn - f : open ~
 ctrl + fn - s : open "x-apple.systempreferences:"
 ctrl + fn - b : open -na /Applications/Google\ Chrome.app
 ctrl + fn - c : open -na /Applications/Visual\ Studio\ Code.app
 ctrl + fn - w : open -na /Applications/WhatsApp.app
+ctrl + fn - l : open -na /Applications/Slack.app
 
-# toggle window fullscreen zoom by changind layout to stack
-ctrl + shift - space : yabai -m query --spaces --space \
-                    | jq 'if .type == "bsp" then "yabai -m space --layout stack" else "yabai -m space --layout bsp" end' \
-                    | xargs sh -c
+ctrl + shift - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
 
 # create desktop and follow focus
 ctrl + shift - n : yabai -m space --create;\
@@ -66,20 +64,15 @@ ctrl + shift - 9 : yabai -m window --space  9; yabai -m space --focus 9
 ctrl + shift - 0 : yabai -m window --space 10; yabai -m space --focus 10
 
 # focus monitor
-# ctrl + alt - x  : yabai -m display --focus last
-# ctrl + alt - left  : yabai -m display --focus prev
-# ctrl + alt - right  : yabai -m display --focus next
-# ctrl + alt - 1  : yabai -m display --focus 1
-# ctrl + alt - 2  : yabai -m display --focus 2
-# ctrl + alt - 3  : yabai -m display --focus 3
+ctrl + alt - left : yabai -m display --focus prev || yabai -m display --focus next
+ctrl + alt - right : yabai -m display --focus next || yabai -m display --focus prev
+ctrl + alt - 1 : yabai -m display --focus 1
+ctrl + alt - 2 : yabai -m display --focus 2
 
 # send window to monitor and follow focus
-# ctrl + cmd - x  : yabai -m window --display last; yabai -m display --focus last
-# ctrl + cmd - z  : yabai -m window --display prev; yabai -m display --focus prev
-# ctrl + cmd - c  : yabai -m window --display next; yabai -m display --focus next
-# ctrl + cmd - 1  : yabai -m window --display 1; yabai -m display --focus 1
-# ctrl + cmd - 2  : yabai -m window --display 2; yabai -m display --focus 2
-# ctrl + cmd - 3  : yabai -m window --display 3; yabai -m display --focus 3
+ctrl + alt + shift - 1  : yabai -m window --display 1
+ctrl + alt + shift - 2  : yabai -m window --display 2
+ctrl + alt + shift - 3  : yabai -m window --display 3
 
 # rotate tree
 alt - r : yabai -m space --rotate 90
