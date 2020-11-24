@@ -2,6 +2,10 @@
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
 alias goland='open -a /Applications/GoLand.app'
+alias bsl='brew services ls'
+alias bsr='brew services restart'
+alias bss='brew services start'
+alias bsx='brew services stop'
 
 function portscan()
 {
@@ -17,3 +21,8 @@ function run_rspec()
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
+
+# ioreg -l -w 0 \
+#     | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
+#     | uniq \
+#     | xargs -I{} ps -p {} -o comm=
