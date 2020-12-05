@@ -21,7 +21,7 @@ setopt HIST_SAVE_NO_DUPS
 
 ZSH_THEME="spaceship"
 
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions git)
+plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions you-should-use thefuck git)
 
 case `uname` in
   Darwin)
@@ -43,6 +43,8 @@ case `uname` in
     source "/etc/profile.d/rvm.sh"
   ;;
 esac
+
+export DOT_SOURCE=${FILE_DIR%????????????????} # Export the directory where the dotfiles are stored
 
 source $(echo $FILE_DIR)/pathrc
 
@@ -75,3 +77,10 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 eval $(thefuck --alias)
+
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt spaceship
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform

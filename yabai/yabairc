@@ -1,14 +1,16 @@
-#!/usr/bin/env sh
+#!/usr/bin/env zsh
+
+# necessary to load scripting-addition during startup on macOS Big Sur
+# *yabai --load-sa* is configured to run through sudo without a password
+sudo yabai --load-sa
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
-yabai -m config mouse_follows_focus          off
+yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          off
 yabai -m config window_placement             second_child
 yabai -m config window_shadow                float
 yabai -m config window_opacity               off
-yabai -m config window_opacity_duration      0.0
-yabai -m config active_window_opacity        1.0
-yabai -m config normal_window_opacity        0.90
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 on
 yabai -m config mouse_modifier                fn
@@ -16,23 +18,22 @@ yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
 # general space settings
-yabai -m external_bar                       all:26:0
+yabai -m config external_bar                 all:27:0
 yabai -m config layout                       bsp
-yabai -m config top_padding                  36
-yabai -m config bottom_padding               10
-yabai -m config left_padding                 10
-yabai -m config right_padding                10
+yabai -m config top_padding                  3
+yabai -m config bottom_padding               3
+yabai -m config left_padding                 3
+yabai -m config right_padding                3
 yabai -m config window_gap                   10
 
-yabai -m config window_border on
+# Turned off borders since Big Sur makes it pretty clear which window is active
+yabai -m config window_border off
 yabai -m config window_border_width 6
 yabai -m config active_window_border_color 0xFF84927D
 yabai -m config normal_window_border_color 0xFF383C4A
-yabai -m config active_window_border_topmost off
-yabai -m config window_border_placement      inset
 
 # Border configuration
-border_ignored_apps="(IntelliJ IDEA|WebStorm|RubyMine|Alacritty|VLC|VMware|System Preferences)"
+border_ignored_apps="(IntelliJ IDEA|WebStorm|RubyMine|Alacritty|VLC|VMware|System Preferences|Untitled|Authy Desktop|JetBrains Toolbox)"
 border_ignored_titles="(About This Mac|Copy|Bin)"
 yabai -m rule --add title="${border_ignored_titles}" border=off
 yabai -m rule --add app="${border_ignored_apps}" border=off
@@ -41,7 +42,7 @@ yabai -m rule --add app="${border_ignored_apps}" border=off
 yabai -m rule --add app="^Google Chrome$" space=1
 
 # Text editors
-yabai -m rule --add app="^(Sublime Text|Code)$" space=2
+yabai -m rule --add app="^(Sublime Text|Code|RStudio)$" space=2
 
 # Jetbrains apps
 apps="^(IntelliJ IDEA|WebStorm|RubyMine|PyCharm)$" # regex that matches JetBrains apps
@@ -49,38 +50,71 @@ yabai -m rule --add app="${apps}" space=3  manage=off
 yabai -m signal --add event=window_created app="${apps}" action='~/Personal/dotfiles/yabai/jetbrains.sh' # add a signal that floats a window created by these apps when it's the only window
 
 # Terminal
-yabai -m rule --add app="^(Alacritty|iTerm2)$" space=4
-
-# DB/Postman etc
-yabai -m rule --add app="^(Robo 3T|Postman|MySQLWorkbench)$" space=5
-
-# Social
-yabai -m rule --add app="^(Franz|DingTalk|Station|Slack)$" space=6
+yabai -m rule --add app="^(Alacritty)$" space=4
 
 # Music
-yabai -m rule --add app="^(Spotify|Amazon Music)$" space=7
+yabai -m rule --add app="^(Spotify|Amazon Music)$" space=5
+
+# Social
+yabai -m rule --add app="^(Franz|DingTalk|Slack|WhatsApp|Microsoft Teams|Zoho Mail - Desktop)$" space=6
+
+# DB/Postman etc
+yabai -m rule --add app="^(Robo 3T|Postman|MySQLWorkbench|Persepolis Download Manager|NordVPN IKE)$" space=7
 
 # Unmanaged apps
-yabai -m rule --add title="(Copy|Bin|About This Mac)" manage=off
+yabai -m rule --add title="(Copy|Bin|About This Mac|Info|JetBrains Toolbox)" manage=off
 yabai -m rule --add app="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences)$" manage=off
 
-# signals
-focus_under_cursor() {
-  if yabai -m query --windows --space |
-      jq -er 'map(select(.focused == 1)) | length == 0' >/dev/null; then
-    yabai -m window --focus mouse 2>/dev/null || true
-  fi
-}
+# disable the border on the MS teams window
+yabai -m rule --add \
+    app='^Microsoft Teams$' \
+    title='^Microsoft Teams Notification$' \
+    border=off
 
-# If no window on the current space is focused after a window is destroyed or
-# minimized, or an application is hidden, focus the window under the cursor.
-yabai -m signal --add event=window_destroyed \
-  action="${functions[focus_under_cursor]}"
-yabai -m signal --add event=window_minimized \
-  action="${functions[focus_under_cursor]}"
-yabai -m signal --add event=application_hidden \
-  action="${functions[focus_under_cursor]}"
-yabai -m signal --add event=application_terminated \
-  action="${functions[focus_under_cursor]}"
+# Tries to focus the window under the cursor whenever the MS teams notification gains focus
+# Probably conflicts with mouse follows focus in some ways
+yabai -m signal --add \
+    event=window_focused \
+    app='^Microsoft Teams$' \
+    title='^Microsoft Teams Notification$' \
+    action='yabai -m window --focus west > /dev/null 2>&1'
+
+# Use the stack layout for the first 3 spaces
+yabai -m config --space 1 layout stack
+yabai -m config --space 2 layout stack
+yabai -m config --space 3 layout stack
+
+yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_hidden action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+
+# Refresh spaces widget on space change
+yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# Refresh spaces widget on display focus change
+yabai -m signal --add event=display_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+# Refresh process widget on space change
+yabai -m signal --add event=space_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+
+# Refresh process widget on when focused application changes
+yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# Refresh spaces widget on when focused application changes
+yabai -m signal --add event=window_focused action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# Refresh process widget on when focused application changes
+yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# Refresh spaces widget on when focused application changes
+yabai -m signal --add event=application_front_switched action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# Refresh process widget on when an application window is closed
+yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+# Refresh spaces widget on when an application window is closed
+yabai -m signal --add event=window_destroyed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-spaces-jsx\"'"
+
+# Refresh process widget when current window title changes
+yabai -m signal --add event=window_title_changed action="osascript -e 'tell application id \"tracesOf.Uebersicht\" to refresh widget id \"simple-bar-process-jsx\"'"
+
+# yabai -m signal --add event=display_added action="sh ~/Personal/d8otfiles/yabai/display_add_switch.sh"
+# yabai -m signal --add event=display_added action="yabai -m space social --display 2 &> /dev/null"
 
 echo "yabai configuration loaded.."

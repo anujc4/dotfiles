@@ -6,12 +6,14 @@
     name:
       - python-apt
       - python3-apt
+  when: ansible_distribution == 'MacOSX'
 
 - name: Add repository ppa:mmstick76/alacritty
   become: yes
   apt_repository:
     repo: ppa:mmstick76/alacritty
     state: present
+  when: ansible_distribution == 'MacOSX'
 
 - name: Install alacritty
   become: yes
@@ -19,6 +21,7 @@
     name: alacritty
     update_cache: yes
     force: yes
+  when: ansible_distribution == 'MacOSX'
 
 - name: Create config directory
   file:
