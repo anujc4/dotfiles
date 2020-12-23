@@ -38,42 +38,6 @@ endfunction
 
 let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""" ALE """"""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
-" \   'ruby': ['standardrb', 'rubocop'],
-" Only run linters named in ale_linters settings.
-let g:ale_linters_explicit = 1
-
-let g:ale_sign_error = ''
-let g:ale_sign_warning = ''
-
-" show errors or warnings in statusline
-let g:airline#extensions#ale#enabled = 1
-
-let g:ale_linters = {
-\   'proto': ['prototool-lint'],
-\   'sh': ['shellcheck'],
-\}
-
-let g:ale_fix_on_save=1
-
-let g:ale_fixers={
-\   '*':['remove_trailing_lines','trim_whitespace'],
-\   'javascript':['eslint'],
-\}
-
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-
-" nmap <silent> [g <Plug>(ale_previous_wrap)
-" nmap <silent> ]g <Plug>(ale_next_wrap)
-
-" <leader>f will format and fix your current file.
-" Change to PrototoolFormat to only format and not fix.
-nnoremap <leader>pf :call PrototoolFormatFix()<CR>
-
 let g:startify_custom_header = [
     \ ' /$$   /$$ /$$$$$$$$  /$$$$$$  /$$    /$$ /$$$$$$ /$$      /$$',
     \ '| $$$ | $$| $$_____/ /$$__  $$| $$   | $$|_  $$_/| $$$    /$$$',
@@ -87,7 +51,6 @@ let g:startify_custom_header = [
 
 
 " Enable the list of buffers
-
 let g:airline#extensions#tabline#enabled = 1
 
 " Use the silver searcher with ack
@@ -97,3 +60,10 @@ endif
 
 cnoreabbrev Ack Ack!
 nnoremap <C-F> :Ack!<Space>
+
+
+
+
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-d>'           " replace C-n
+let g:VM_maps['Find Subword Under'] = '<C-d>'           " replace visual C-n
