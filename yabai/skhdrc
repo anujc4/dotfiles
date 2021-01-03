@@ -1,15 +1,21 @@
-# open terminal
-ctrl + fn - t : open -na /Applications/Alacritty.app
+#!/bin/sh
+
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Application Shortcuts
 # ctrl + shift - e : open -na /Applications/ForkLift.app
 ctrl + fn - f : open ~
+ctrl + fn - k : open -na /Applications/Forklift.app
+ctrl + fn - t : open -na /Applications/Alacritty.app
 ctrl + fn - s : open "x-apple.systempreferences:"
-ctrl + fn - b : open -na /Applications/Google\ Chrome.app
-ctrl + fn - c : open -na /Applications/Visual\ Studio\ Code.app
+ctrl + fn - a : open -a "About This Mac"
+ctrl + fn - c : open -na /Applications/Google\ Chrome.app
+ctrl + fn - e : open -na /Applications/Microsoft\ Edge.app
+ctrl + fn - b : open -na /Applications/Safari.app
+ctrl + fn - v : open -na /Applications/Visual\ Studio\ Code.app
 ctrl + fn - w : open -na /Applications/WhatsApp.app
 ctrl + fn - l : open -na /Applications/Slack.app
+ctrl + fn - m : open -na /Applications/Spotify.app
 
 ctrl + shift - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
 
@@ -37,17 +43,16 @@ ctrl + shift - down : yabai -m window --focus mouse
 ctrl + shift - up : yabai -m window --focus north
 
 # fast focus desktop
-# Using macOS default keybings for a smoother desktop switch
-# ctrl - left : yabai -m space --focus prev
-# ctrl - right : yabai -m space --focus next
-# ctrl - 1 : yabai -m space --focus 1
-# ctrl - 2 : yabai -m space --focus 2
-# ctrl - 3 : yabai -m space --focus 3
-# ctrl - 4 : yabai -m space --focus 4
-# ctrl - 5 : yabai -m space --focus 5
-# ctrl - 6 : yabai -m space --focus 6
-# ctrl - 7 : yabai -m space --focus 7
-# ctrl - 8 : yabai -m space --focus 8
+ctrl - left : yabai -m space --focus prev
+ctrl - right : yabai -m space --focus next
+ctrl - 1 : yabai -m space --focus 1
+ctrl - 2 : yabai -m space --focus 2
+ctrl - 3 : yabai -m space --focus 3
+ctrl - 4 : yabai -m space --focus 4
+ctrl - 5 : yabai -m space --focus 5
+ctrl - 6 : yabai -m space --focus 6
+ctrl - 7 : yabai -m space --focus 7
+ctrl - 8 : yabai -m space --focus 8
 ctrl - 9 : yabai -m space --focus 9
 ctrl - 0 : yabai -m space --focus 10
 
@@ -68,11 +73,6 @@ ctrl + alt - left : yabai -m display --focus prev || yabai -m display --focus ne
 ctrl + alt - right : yabai -m display --focus next || yabai -m display --focus prev
 ctrl + alt - 1 : yabai -m display --focus 1
 ctrl + alt - 2 : yabai -m display --focus 2
-
-# send window to monitor and follow focus
-ctrl + alt + shift - 1  : yabai -m window --display 1
-ctrl + alt + shift - 2  : yabai -m window --display 2
-ctrl + alt + shift - 3  : yabai -m window --display 3
 
 # rotate tree
 alt - r : yabai -m space --rotate 90
