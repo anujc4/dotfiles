@@ -19,7 +19,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 
-ZSH_THEME="spaceship"
+ZSH_THEME="agnoster"
 
 plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions you-should-use thefuck git)
 
@@ -53,7 +53,8 @@ source $ZSH/oh-my-zsh.sh
 # Prevent zsh from showing the system name before each command
 prompt_context () { }
 
-compinit
+# Enable completions by zsh-completions
+autoload -U compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -70,17 +71,10 @@ unsetopt correct_all
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 
-# Enable shims and autocompletion for pyenv.
-# Refer: https://github.com/pyenv/pyenv#basic-github-checkout
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
+# # Enable shims and autocompletion for pyenv.
+# # Refer: https://github.com/pyenv/pyenv#basic-github-checkout
+# if command -v pyenv 1>/dev/null 2>&1; then
+#   eval "$(pyenv init -)"
+# fi
 
 eval $(thefuck --alias)
-
-# Set Spaceship ZSH as a prompt
-autoload -U promptinit; promptinit
-prompt spaceship
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform

@@ -27,3 +27,10 @@ z() {
 }
 
 dbash() { docker exec -it $1 bash } # Open bash in a docker container
+
+# Copy pwd to system clipboard by ctrl-y
+function copypwd {
+  echo $(pwd) | pbcopy
+}
+zle -N copypwd
+bindkey '^y' copypwd
