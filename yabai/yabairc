@@ -39,7 +39,7 @@ yabai -m rule --add app="${border_ignored_apps}" border=off
 yabai -m rule --add app="^Google Chrome$" space=1
 
 # Text editors
-yabai -m rule --add app="^(Sublime Text|Code|RStudio)$" space=2
+yabai -m rule --add app="^(Code|RStudio)$" space=2
 
 # Jetbrains apps
 apps="^(IntelliJ IDEA|WebStorm|RubyMine|PyCharm)$" # regex that matches JetBrains apps
@@ -60,7 +60,7 @@ yabai -m rule --add app="^(Robo 3T|Postman|MySQLWorkbench|Persepolis Download Ma
 
 # Unmanaged apps
 yabai -m rule --add title="(Copy|Bin|About This Mac|Info|JetBrains Toolbox|Finder Preferences|Preferences)" manage=off
-yabai -m rule --add app="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA)$" manage=off
+yabai -m rule --add app="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA|iMazing HEIC Converter)$" manage=off
 
 # disable the border on the MS teams window
 yabai -m rule --add \
@@ -81,9 +81,10 @@ yabai -m config --space 1 layout stack
 yabai -m config --space 2 layout stack
 yabai -m config --space 3 layout stack
 
+yabai -m signal --add event=window_changed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=window_destroyed action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 yabai -m signal --add event=application_terminated action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
-# yabai -m signal --add event=application_hidden action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+yabai -m signal --add event=application_hidden action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 # yabai -m signal --add event=window_minimized action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
 
 # Refresh spaces widget on space change
