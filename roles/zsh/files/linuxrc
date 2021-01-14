@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias open='xdg-open'
 alias wifi='nmtui'
 alias class='xprop | grep -i "class"'

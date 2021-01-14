@@ -48,6 +48,7 @@ export DOT_SOURCE=${FILE_DIR%????????????????} # Export the directory where the 
 
 source $(echo $FILE_DIR)/pathrc
 
+DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
 # Prevent zsh from showing the system name before each command

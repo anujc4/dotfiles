@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
@@ -9,14 +11,14 @@ alias bsx='brew services stop'
 
 function portscan()
 {
-  lsof -i :$1
+  lsof -i :"$1"
 }
 alias portscan='portscan'
 
 alias rsp='run_rspec'
 function run_rspec()
 {
-  rspec ./$1
+  rspec ./"$1"
 }
 
 export PYENV_ROOT="$HOME/.pyenv"

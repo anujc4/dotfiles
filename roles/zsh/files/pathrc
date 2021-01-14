@@ -1,5 +1,6 @@
-## If you come from bash you might have to change your $PATH.
+#!/bin/bash
 
+## If you come from bash you might have to change your $PATH.
 export GOPATH=$HOME/go
 export GO_ENV=development
 

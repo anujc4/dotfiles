@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Common aliases
 alias ohmyzsh="code ~/.oh-my-zsh"
 alias ezsh='code $FILE_DIR'
@@ -6,31 +8,59 @@ alias rtmux='tmux source ~/.tmux.conf'
 
 # General purpose alias
 alias tmuxls='tmux list-sessions'
-alias tmuxattach='tmux attach-session -t $1'
-alias tmuxkillsession='tmux kill-session -t $1'
+tmuxattach()
+{
+  tmux attach-session -t "$1"
+}
+
+tmuxkillsession()
+{
+  tmux kill-session -t "$1"
+}
+
 alias tmuxkillall='tmux kill-server'
 alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
-alias gitdelete="git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D"
+
+gitdelete()
+{
+  git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D
+}
 
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
 alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
 alias rm='rm -i'
-alias tmuxs='tmuxinator start $1'
-alias tmuxx='tmuxinator stop $1'
+tmuxs()
+{
+  tmuxinator start "$1"
+}
+
+tmuxx()
+{
+  tmuxinator stop "$1"
+}
 
 
 unalias z 2>/dev/null
 z() {
   [ $# -gt 0 ] && _z "$*" && return
-  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')" || exit
 }
 
-dbash() { docker exec -it $1 bash } # Open bash in a docker container
+# Open bash in a docker container
+dbash()
+{
+  docker exec -it $1 bash
+}
 
 # Copy pwd to system clipboard by ctrl-y
 function copypwd {
-  echo $(pwd) | pbcopy
+  pwd | pbcopy
 }
 zle -N copypwd
 bindkey '^y' copypwd
+
+lps()
+{
+  lpass show -c --password "$(lpass ls  | fzf | awk '{print $(NF)}' | sed 's/\]//g')"
+}
