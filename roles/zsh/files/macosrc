@@ -34,6 +34,19 @@ export RSTUDIO_PANDOC=/Applications/RStudio.app/Contents/MacOS/pandoc
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
+function update_simple_bar()
+{
+  present_dir=$(pwd)
+  cd $HOME/Library/Application\ Support/Übersicht/widgets/simple-bar || return
+  git fetch
+  git reset --hard origin/master
+  echo "simple-bar is updated!!"
+  osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "simple-bar-process-jsx"'
+  osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "simple-bar-data-jsx"'
+  osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "simple-bar-spaces-jsx"'
+  cd "$present_dir" || exit
+}
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/anujchandra/opt/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
