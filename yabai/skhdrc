@@ -10,12 +10,12 @@ ctrl + fn - t : open -na /Applications/Alacritty.app
 ctrl + fn - s : open "x-apple.systempreferences:"
 ctrl + fn - a : open -a "About This Mac"
 ctrl + fn - c : open -na /Applications/Google\ Chrome.app
-ctrl + fn - e : open -na /Applications/Microsoft\ Edge.app
-ctrl + fn - b : open -na /Applications/Safari.app
+ctrl + fn - e : open -na /Applications/Safari.app
 ctrl + fn - v : open -na /Applications/Visual\ Studio\ Code.app
 ctrl + fn - w : open -na /Applications/WhatsApp.app
 ctrl + fn - l : open -na /Applications/Slack.app
 ctrl + fn - m : open -na /Applications/Spotify.app
+ctrl + fn - g : open -na /Applications/Signal.app
 
 ctrl + shift - space : yabai -m space --layout "$(yabai -m query --spaces --space | jq -r 'if .type == "bsp" then "stack" else "bsp" end')"
 
