@@ -1,3 +1,2 @@
-zsh/secretsrc
-
 *.retry
+roles/zsh/files/secretsrc
