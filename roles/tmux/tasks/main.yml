@@ -6,11 +6,18 @@
     state: link
     force: yes
 
-- name: Install tmux
+- name: Install tmux(Linux)
   become: yes
   apt:
     name: tmux
     update_cache: yes
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install tmux(MacOS)
+  community.general.homebrew:
+    name: tmux
+    state: present
+  when: ansible_distribution == 'MacOSX'
 
 - name: Install tmux plugins
   shell: |
@@ -24,14 +31,3 @@
       "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
       tmux kill-session -t __noop >/dev/null 2>&1 || true
     fi
-
-# - name: Install tmuxinator
-#   gem:
-#     name: tmuxinator
-#     state: latest
-#
-# - name: Install tmuxinator completions
-#   become: yes
-#   get_url:
-#     url: https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh
-#     dest: /usr/local/share/zsh/site-functions/_tmuxinator
