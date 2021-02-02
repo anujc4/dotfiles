@@ -8,6 +8,7 @@ alias bsl='brew services ls'
 alias bsr='brew services restart'
 alias bss='brew services start'
 alias bsx='brew services stop'
+alias fl='open -a ForkLift .'
 
 function portscan()
 {
