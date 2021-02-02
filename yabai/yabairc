@@ -59,7 +59,7 @@ yabai -m rule --add app="^(Franz|DingTalk|Slack|WhatsApp|Microsoft Teams|Zoho Ma
 yabai -m rule --add app="^(Robo 3T|Postman|MySQLWorkbench|Persepolis Download Manager|NordVPN IKE)$" space=7
 
 # Unmanaged apps
-yabai -m rule --add title="(Copy|Bin|About This Mac|Info|JetBrains Toolbox|Finder Preferences|Preferences|iMacros)" manage=off
+yabai -m rule --add title="(Copy|Bin|About This Mac|Info|JetBrains Toolbox|Finder Preferences|Preferences|iMacros|QuickTime Player)" manage=off
 yabai -m rule --add app="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA|iMazing HEIC Converter|AppCleaner|Bitwarden|LastPass)$" manage=off
 
 # disable the border on the MS teams window
