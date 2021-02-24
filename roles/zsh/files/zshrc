@@ -44,7 +44,9 @@ case `uname` in
   ;;
 esac
 
-export DOT_SOURCE=${FILE_DIR%????????????????} # Export the directory where the dotfiles are stored
+# Export the directory where the dotfiles are stored
+# Hacky as fuck. There should be a better way to do this
+export DOT_SOURCE=${FILE_DIR%????????????????}
 
 source $(echo $FILE_DIR)/pathrc
 
@@ -71,11 +73,7 @@ unsetopt correct_all
 
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
-
-# # Enable shims and autocompletion for pyenv.
-# # Refer: https://github.com/pyenv/pyenv#basic-github-checkout
-# if command -v pyenv 1>/dev/null 2>&1; then
-#   eval "$(pyenv init -)"
-# fi
-
 eval $(thefuck --alias)
+
+# Start tmux automatically once shell is loaded
+[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session -s main && exit;}
