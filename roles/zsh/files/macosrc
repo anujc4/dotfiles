@@ -34,11 +34,12 @@ export RSTUDIO_PANDOC=/Applications/RStudio.app/Contents/MacOS/pandoc
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+export PATH="$PATH:$GOPATH/bin"
 
 function update_simple_bar()
 {
   present_dir=$(pwd)
-  cd $HOME/Library/Application\ Support/Übersicht/widgets/simple-bar || return
+  cd "$HOME/Library/Application\ Support/Übersicht/widgets/simple-bar" || return
   git fetch
   git reset --hard origin/master
   echo "simple-bar is updated!!"
