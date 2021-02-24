@@ -50,7 +50,7 @@ z() {
 # Open bash in a docker container
 dbash()
 {
-  docker exec -it $1 bash
+  docker exec -it "$1" bash
 }
 
 # Copy pwd to system clipboard by ctrl-y
