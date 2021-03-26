@@ -74,6 +74,3 @@ unsetopt correct_all
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 eval $(thefuck --alias)
-
-# Start tmux automatically once shell is loaded
-[ -z "$TMUX"  ] && { tmux attach || exec tmux new-session -s main && exit;}

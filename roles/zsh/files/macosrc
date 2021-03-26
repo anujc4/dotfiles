@@ -39,7 +39,7 @@ export PATH="$PATH:$GOPATH/bin"
 function update_simple_bar()
 {
   present_dir=$(pwd)
-  cd "$HOME/Library/Application\ Support/Übersicht/widgets/simple-bar" || return
+  cd "$HOME/Library/ApplicationSupport/Übersicht/widgets/simple-bar" || return
   git fetch
   git reset --hard origin/master
   echo "simple-bar is updated!!"
