@@ -4,6 +4,7 @@ spacebar -m config position           top
 spacebar -m config height             26
 spacebar -m config spacing_left       25
 spacebar -m config spacing_right      15
+spacebar -m config title              off
 spacebar -m config text_font          "Hack Nerd Font:Bold:12.0"
 spacebar -m config icon_font          "Hack Nerd Font:Regular:12.0"
 spacebar -m config background_color   0xff282828
@@ -13,7 +14,7 @@ spacebar -m config power_icon_color   0xffcd950c
 spacebar -m config battery_icon_color 0xffd75f5f
 spacebar -m config dnd_icon_color     0xffa8a8a8
 spacebar -m config clock_icon_color   0xffa8a8a8
-spacebar -m config space_icon_strip   1 2﬏ 3 4 5 6甆 7 8 9 10 11 12 13 14 15 16 17 18 19 20
+spacebar -m config space_icon_strip   1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
 spacebar -m config power_icon_strip    
 spacebar -m config space_icon         
 spacebar -m config clock_icon         

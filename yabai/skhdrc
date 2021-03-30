@@ -3,40 +3,30 @@
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"
 
 # Ctrl + Enter to launch Terminal
-ctrl - 0x24 : open -na /Applications/Alacritty.app
+ctrl + shift - 0x24 : open -na /Applications/Alacritty.app
+ctrl + shift - k : open -na /Applications/Forklift.app;
 
 ############################# Mode definitions ##################################
-
-# default mode: normal
-:: default   : ~/.config/skhd/mode_controller.sh default
-
-# active mode: used to switch to other modes
-:: active  @ : ~/.config/skhd/mode_controller.sh active
-
-# display mode: focus displays, move windows to other displays
-:: display @ : ~/.config/skhd/mode_controller.sh display
-
-# window mode: manipulate windows and spaces on the current display
-:: window  @ : ~/.config/skhd/mode_controller.sh window
-
-# resize mode: resize windows in current space
-:: resize  @ : ~/.config/skhd/mode_controller.sh resize
-
-# launch mode: launch various applications
-:: launch  @ : ~/.config/skhd/mode_controller.sh launch
+:: default   : ~/.config/skhd/mode_controller.sh default # default mode: normal
+# :: active  @ : ~/.config/skhd/mode_controller.sh active # active mode: used to switch to other modes
+:: display @ : ~/.config/skhd/mode_controller.sh display # display mode: focus displays, move windows to other displays
+:: window  @ : ~/.config/skhd/mode_controller.sh window # window mode: manipulate windows and spaces on the current display
+:: resize  @ : ~/.config/skhd/mode_controller.sh resize # resize mode: resize windows in current space
+:: launch  @ : ~/.config/skhd/mode_controller.sh launch # launch mode: launch various applications
 
 # Activate modes using the keybinding
-default < f19 ; active
+default < ctrl + shift - d ; display
+default < ctrl + shift - s ; window
+default < ctrl + shift - r ; resize
+default < ctrl + shift - l ; launch
 
 # De-activate modes
-active, display, window, resize, launch < escape ; default
-active, display, window, resize, launch < f19 ; default
+display, window, resize, launch < escape ; default
 
-# Switch between modes when active
-active < d ; display
-active < s ; window
-active < r ; resize
-active < l ; launch
+display < ctrl + shift - d ; default
+window < ctrl + shift - s ; default
+resize < ctrl + shift - r ; default
+launch < ctrl + shift - l ; default
 
 ############################# Base Keyboard shortcuts ##########################
 
@@ -46,10 +36,10 @@ active < l ; launch
 # defined in yabairc
 ctrl + shift - space : yabai -m query --spaces --space \
   | jq -re ".type" \
-  | xargs -I {} bash -c "\
-  if [ {} = 'stack' ]; \
-  then yabai -m space --layout bsp; yabai -m config window_border on;\
-  else yabai -m space --layout stack; yabai -m config window_border off;\
+  | xargs -I {} bash -c \
+  "if [ {} = 'stack' ]; \
+  then yabai -m space --layout bsp; \
+  else yabai -m space --layout stack; \
   fi" \
   | yabai -m space --toggle padding
 
@@ -104,12 +94,15 @@ ctrl + alt - 7 : yabai -m space --focus 17
 ctrl + alt - 8 : yabai -m space --focus 18
 ctrl + alt - 9 : yabai -m space --focus 19
 
+# Switch to space with window running in native full-screen mode
+ctrl - 0x1B : yabai -m space --focus "$(yabai -m query --spaces --display | \
+  jq 'map(select(."native-fullscreen" == 1))[0].index')" # - key
+ctrl - 0x18 : yabai -m space --focus "$(yabai -m query --spaces --display | \
+  jq 'map(select(."native-fullscreen" == 1))[1].index')" # = key
+
 # Fast focus display
 ctrl + alt - left : yabai -m display --focus prev || yabai -m display --focus next
 ctrl + alt - right : yabai -m display --focus next || yabai -m display --focus prev
-
-# toggle window native fullscreen
-ctrl + shift - f : yabai -m window --toggle native-fullscreen
 
 # float / unfloat window and center on screen
 alt - t : yabai -m window --toggle float;\
@@ -143,28 +136,25 @@ resize < x       : yabai -m space --mirror x-axis
 
 # Toggle window split type
 resize < e       : yabai -m window --toggle split
-
-# Go back to normal mode
-resize < f19     : default
 ############################ Display mode ######################################
 
-# Focus previous display
-display < left   : yabai -m display --focus prev || \
+# Focus previous display , (Like <)
+display < 0x2F   : yabai -m display --focus prev || \
                    yabai -m display --focus next; \
                    skhd -k 'escape'
 
-# Focus next display
-display < right  : yabai -m display --focus next || \
+# Focus next display . (Like >)
+display < 0x2B   : yabai -m display --focus next || \
                    yabai -m display --focus prev; \
                    skhd -k 'escape'
 
-# Send window to next display and follow focus ]
-display < 0x2F   : yabai -m window --display next; \
+# Send window to next display and follow focus
+display < right   : yabai -m window --display next; \
                    yabai -m display --focus next; \
                    skhd -k 'escape'
 
-# Send window to previous display and follow focus [
-display < 0x2B   : yabai -m window --display prev; \
+# Send window to previous display and follow focus
+display < left  : yabai -m window --display prev; \
                    yabai -m display --focus prev; \
                    skhd -k 'escape'
 
@@ -173,9 +163,6 @@ display < 1      : yabai -m display --focus 1; skhd -k 'escape'
 display < 2      : yabai -m display --focus 2; skhd -k 'escape'
 display < 3      : yabai -m display --focus 3; skhd -k 'escape'
 display < 4      : yabai -m display --focus 4; skhd -k 'escape'
-
-# Go back to normal mode
-display < f19    : default
 
 ##################### Window mode ##############################################
 
@@ -198,7 +185,12 @@ window < x      : index="$(yabai -m query --spaces --space | jq '.index - 1')"; 
   yabai -m space --focus "${index}"; \
   skhd -k 'escape'
 
+# toggle window native fullscreen
+window < f       : yabai -m window --toggle native-fullscreen; skhd -k 'escape'
+
 # send current window to i-th space and follow focus
+window < left    : yabai -m window --space prev; yabai -m space --focus prev; skhd -k 'escape'
+window < right   : yabai -m window --space next; yabai -m space --focus next; skhd -k 'escape'
 window < 1       : yabai -m window --space 1; yabai -m space --focus 1; skhd -k 'escape'
 window < 2       : yabai -m window --space 2; yabai -m space --focus 2; skhd -k 'escape'
 window < 3       : yabai -m window --space 3; yabai -m space --focus 3; skhd -k 'escape'
@@ -220,9 +212,6 @@ window < alt - 8 : yabai -m window --space 18; yabai -m space --focus 18; skhd -
 window < alt - 9 : yabai -m window --space 19; yabai -m space --focus 19; skhd -k 'escape'
 window < alt - 0 : yabai -m window --space 20; yabai -m space --focus 20; skhd -k 'escape'
 
-# Go back to normal mode
-window < f19     : default
-
 ##################### Launch mode ##############################################
 
 launch < a     : open -na /Applications/Authy\ Desktop.app; skhd -k 'escape'
@@ -242,6 +231,3 @@ launch < w     : open -na /Applications/WhatsApp.app; skhd -k 'escape'
 
 launch < d     : dark-mode; skhd -k 'escape'
 launch < i     : $HOME/.config/yabai/rearrange.sh sidecar; skhd -k 'escape'
-
-# Go back to normal mode
-launch < f19   : default
