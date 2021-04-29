@@ -21,7 +21,7 @@ setopt HIST_SAVE_NO_DUPS
 
 ZSH_THEME="agnoster"
 
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions you-should-use thefuck git)
+plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions thefuck git)
 
 case `uname` in
   Darwin)

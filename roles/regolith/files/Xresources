@@ -20,5 +20,6 @@ i3-wm.binding.exit_app: q
 i3-wm.bindsym.1: Ctrl+d
 i3-wm.bindsym.program.1: /usr/bin/gnome-terminal --class=floating_window -e 'td --interactive'
 
- # i3-wm.program.lock: /usr/bin/i3lock
 gnome.wallpaper: ~/Personal/dotfiles/wallpapers/space.png 
+
+i3-wm.workspace.auto_back_and_forth: yes
