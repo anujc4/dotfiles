@@ -9,6 +9,26 @@ alias bsr='brew services restart'
 alias bss='brew services start'
 alias bsx='brew services stop'
 alias fl='open -a ForkLift .'
+alias ci='code-insiders .'
+
+export GOPATH=$HOME/go
+export GO_ENV=development
+
+export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
+
+# Add Visual Studio Code (code)
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+
+export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
+export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
+export PATH="$PATH:/usr/local/lib/ruby/gems/2.7.0/bin"
+
+
+path+=/usr/local/bin
+path+=/usr/local/mysql/bin
+path+=/usr/local/sbin
 
 function portscan()
 {
@@ -22,32 +42,15 @@ function run_rspec()
   rspec ./"$1"
 }
 
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
 # ioreg -l -w 0 \
 #     | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
 #     | uniq \
 #     | xargs -I{} ps -p {} -o comm=
 
-export RSTUDIO_PANDOC=/Applications/RStudio.app/Contents/MacOS/pandoc
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-export PATH="$PATH:$GOPATH/bin"
-
-function update_simple_bar()
-{
-  present_dir=$(pwd)
-  cd "$HOME/Library/ApplicationSupport/Übersicht/widgets/simple-bar" || return
-  git fetch
-  git reset --hard origin/master
-  echo "simple-bar is updated!!"
-  osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "simple-bar-process-jsx"'
-  osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "simple-bar-data-jsx"'
-  osascript -e 'tell application id "tracesOf.Uebersicht" to refresh widget id "simple-bar-spaces-jsx"'
-  cd "$present_dir" || exit
-}
+alias win='active-win'
+alias wifi='osx-wifi-cli'
+alias dm='dark-mode'
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
