@@ -37,5 +37,6 @@ mkdir -p "$HOME/.config/skhd"
 # symlink skhd files
 ln -s "$DOT_SOURCE/yabai/skhdrc" "$HOME/.config/skhd/skhdrc"
 ln -s "$DOT_SOURCE/yabai/mode_controller.sh" "$HOME/.config/skhd/mode_controller.sh"
+ln -s "$DOT_SOURCE/yabai/padding.sh" "$HOME/.config/yabai/padding.sh"
 
 echo "done"

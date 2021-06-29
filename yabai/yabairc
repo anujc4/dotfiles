@@ -17,7 +17,7 @@ yabai -m config mouse_drop_action            stack
 yabai -m config window_shadow                float
 yabai -m config split_ratio                  0.50
 yabai -m config auto_balance                 off
-yabai -m config mouse_modifier                fn
+yabai -m config mouse_modifier                alt
 yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
@@ -31,56 +31,6 @@ yabai -m config right_padding                20
 yabai -m config window_gap                   20
 
 yabai -m config insert_feedback_color        0xffd65d0e
-
-yabai -m space 1 --label "browser"
-yabai -m space 2 --label "vscode"
-yabai -m space 3 --label "jetbrains"
-yabai -m space 4 --label "terminal"
-yabai -m space 5 --label "music"
-yabai -m space 6 --label "social"
-yabai -m space 8 --label "notes"
-
-# Space 1
-yabai -m rule --add app="^Google Chrome$" space=browser
-
-# Space 2
-yabai -m rule --add app="^(Code|RStudio)$" space=vscode
-
-# Space 3
-# Don't manage Jetbrains applications automatically
-# apps="^(IntelliJ IDEA|WebStorm|RubyMine|PyCharm|DataGrip)$" # regex that matches JetBrains apps
-# yabai -m rule --add app="${apps}" space=3 manage=off
-# yabai -m signal --add event=window_created app="${apps}" \
-#     action='~/Personal/dotfiles/yabai/float_window.sh'
-
-# Space 4 is for anything else
-# yabai -m rule --add app="^(Alacritty)$" space=terminal
-
-# Space 5
-yabai -m rule --add app="^(Spotify)$" space=music
-
-# Space 6
-# WARNING: Do not use ^ when assigning space. Teams and WhatsApp create windows
-# in all spaces which can cause yabai to refocus to space 6 when switching to
-# another space
-yabai -m rule --add \
-    label="social_rule" \
-    app="^(Slack|WhatsApp|Microsoft Teams|Rambox|Discord)$" \
-    space=social
-
-# Space 7
-yabai -m rule --add \
-    label="misc_rule" \
-    app="^(Robo 3T|Postman|Persepolis Download Manager)$" \
-    space=7
-yabai -m rule --add app="Android File Transfer" space=7
-
-# yabai -m rule --add app="^NordVPN IKE$" manage=off
-# yabai -m signal --add event=window_created app="^NordVPN IKE$" \
-#     action='~/Personal/dotfiles/yabai/float_window.sh'
-
-# Space 8
-yabai -m rule --add app="^(Notion|Notable|Notes)$" space=notes
 
 # Unmanaged apps
 app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Preferences"
@@ -109,15 +59,15 @@ yabai -m signal --add \
 
 # Focus window under cursor when an application is hidden
 yabai -m signal --add event=application_hidden \
-    action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+    action="yabai -m window --focus mouse"
 
 # Focus window under cursor when a window is destroyed
 yabai -m signal --add event=window_destroyed \
-    action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+    action="yabai -m window --focus mouse"
 
 # Focus window under cursor when an application is terminated
 yabai -m signal --add event=application_terminated \
-    action="yabai -m query --windows --window &> /dev/null || yabai -m window --focus mouse"
+    action="yabai -m window --focus mouse"
 
 # Rearrange windows when a new display is added
 yabai -m signal --add event=display_added \
