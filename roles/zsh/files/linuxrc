@@ -8,10 +8,4 @@ alias class='xprop | grep -i "class"'
 alias nv='nordvpn'
 alias vpw='watch nordvpn status'
 
-export PATH="$HOME/Applications/jdk1.8.0_231/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/Applications/apache-maven-3.6.2/bin:$PATH"
-export PATH="$HOME/Applications/purescript:$PATH"
-export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk-amd64/bin:$PATH"
-
-setxkbmap -option caps:escape
