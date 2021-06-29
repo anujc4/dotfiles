@@ -48,8 +48,6 @@ esac
 # Hacky as fuck. There should be a better way to do this
 export DOT_SOURCE=${FILE_DIR%????????????????}
 
-source $(echo $FILE_DIR)/pathrc
-
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
@@ -74,3 +72,24 @@ unsetopt correct_all
 source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 eval $(thefuck --alias)
+
+# go get -u github.com/justjanne/powerline-go
+function powerline_precmd() {
+    PS1="$($GOPATH/bin/powerline-go -hostname-only-if-ssh -theme gruvbox -trim-ad-domain -condensed -error $? -jobs ${${(%):%j}:-0})"
+}
+
+function install_powerline_precmd() {
+  for s in "${precmd_functions[@]}"; do
+    if [ "$s" = "powerline_precmd" ]; then
+      return
+    fi
+  done
+  precmd_functions+=(powerline_precmd)
+}
+
+if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
+    install_powerline_precmd
+fi
+
+typeset -U path
+export PATH
