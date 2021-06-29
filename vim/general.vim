@@ -109,10 +109,17 @@ nmap <leader>m :call ToggleMouse()<CR>
 nmap <leader>T :enew<cr>
 
 " Move to the next buffer
-nmap <leader>l :bnext<CR>
+map <C-]> :bnext<CR>
 
 " Move to the previous buffer
-nmap <leader>h :bprevious<CR>
+map <C-[> :bprevious<CR>
+
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+map <C-w> :bp <BAR> bd #<CR>
+
+" Show all open buffers and their status
+nmap <leader>bl :ls<CR>
 
 " Fast saving
 nmap <leader>w :write<CR>
@@ -124,3 +131,7 @@ nmap <leader>q :write <BAR> bd #<CR>
 " Helper function to check the performance of vim
 command! ProfileMe :profile start profile.log <bar> profile func * <bar> profile file *
 command! ProfileStop :profile pause
+
+" Gruvbox theme settings
+autocmd vimenter * ++nested colorscheme gruvbox
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
