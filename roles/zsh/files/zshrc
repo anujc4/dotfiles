@@ -48,6 +48,13 @@ esac
 # Hacky as fuck. There should be a better way to do this
 export DOT_SOURCE=${FILE_DIR%????????????????}
 
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
@@ -55,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 prompt_context () { }
 
 # Enable completions by zsh-completions
-autoload -U compinit && compinit
+# autoload -U compinit && compinit
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
