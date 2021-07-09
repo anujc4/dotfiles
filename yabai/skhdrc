@@ -78,6 +78,8 @@ ctrl + shift - down   : yabai -m window --focus south || \
                         yabai -m window --focus stack.last || \
                         yabai -m window --focus mouse
 
+ctrl - down           : yabai -m window --focus mouse
+
 # vi like key bindings
 ctrl + shift - l      : yabai -m window --focus east || yabai -m window --focus west
 ctrl + shift - h      : yabai -m window --focus west || yabai -m window --focus east
