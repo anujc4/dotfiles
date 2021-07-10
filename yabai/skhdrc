@@ -6,7 +6,6 @@ ctrl + alt + cmd - h : hs -c "hs.reload()"
 
 ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
 ctrl + shift - c     : open -na /Applications/Google\ Chrome.app
-ctrl + shift - i     : open -na /Applications/Visual\ Studio\ Code\ -\ Insiders.app
 ctrl + shift - k     : open -na /Applications/Forklift.app
 ctrl + shift - q     : yabai -m window --close
 ctrl + shift - v     : open -na /Applications/Visual\ Studio\ Code.app
@@ -106,8 +105,6 @@ ctrl + alt - down      : yabai -m display --focus south || yabai -m display --fo
 # fast focus desktop
 ctrl - left            : yabai -m space --focus prev
 ctrl - right           : yabai -m space --focus next
-ctrl - tab             : yabai -m space --focus next
-ctrl + shift - tab     : yabai -m space --focus prev
 ctrl - z               : yabai -m space --focus recent
 ctrl - 1               : yabai -m space --focus 1
 ctrl - 2               : yabai -m space --focus 2
