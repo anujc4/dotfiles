@@ -5,7 +5,7 @@ spacebar -m config height                       15
 spacebar -m config spacing_left                 25
 spacebar -m config spacing_right                15
 spacebar -m config title                        off
-spacebar -m config display                      main
+spacebar -m config display                      all
 spacebar -m config text_font                    "Hack Nerd Font:Bold:12.0"
 spacebar -m config icon_font                    "Hack Nerd Font:Regular:12.0"
 spacebar -m config background_color             0xff282828
@@ -20,7 +20,7 @@ spacebar -m config spaces                       on
 spacebar -m config space_icon_color             0xfffe8019
 spacebar -m config space_icon_color_secondary   0xfffe8019
 spacebar -m config space_icon_color_tertiary    0xfffe8019
-spacebar -m config spaces_for_all_displays      on
+spacebar -m config spaces_for_all_displays      off
 
 # Display
 spacebar -m config display_separator            on
