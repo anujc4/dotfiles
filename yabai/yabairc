@@ -58,22 +58,10 @@ yabai -m signal --add \
     title='^$' \
     action='yabai -m window --focus next > /dev/null 2>&1'
 
-# Focus window under cursor when an application is hidden
-# yabai -m signal --add event=application_hidden \
-#     action="yabai -m window --focus mouse"
+yabai -m signal --add label=space_changed event=space_changed \
+    action="$HOME/.config/yabai/save_recent_space.sh"
 
-# Focus window under cursor when a window is destroyed
-# yabai -m signal --add event=window_destroyed \
-#     action="yabai -m window --focus mouse"
+yabai -m signal --add event=window_focused \
+    action="sketchybar --trigger window_focus"
 
-# Focus window under cursor when an application is terminated
-# yabai -m signal --add event=application_terminated \
-#     action="yabai -m window --focus mouse"
-
-# Rearrange windows when a new display is added
-# yabai -m signal --add event=display_added \
-#     action="$HOME/.config/yabai/rearrange.sh add"
-
-# Rearrange windows when a display is removed
-# yabai -m signal --add event=display_removed \
-#     action="$HOME/.config/yabai/rearrange.sh remove"
+echo "yabai configuration loaded.."
