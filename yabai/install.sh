@@ -37,6 +37,7 @@ mkdir -p "$HOME/.config/yabai"
 ln -s "$DOT_SOURCE/yabai/yabairc" "$HOME/.config/yabai/yabairc"
 ln -s "$DOT_SOURCE/yabai/jetbrains.sh" "$HOME/.config/yabai/jetbrains.sh"
 ln -s "$DOT_SOURCE/yabai/rearrange.sh" "$HOME/.config/yabai/rearrange.sh"
+ln -s "$DOT_SOURCE/yabai/save_recent_space.sh" "$HOME/.config/yabai/save_recent_space.sh"
 
 # create directory if not exists
 mkdir -p "$HOME/.config/skhd"
