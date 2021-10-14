@@ -18,6 +18,13 @@ then
     brew install skhd
 fi
 
+if ! command -v spacebar &> /dev/null
+then
+    echo "missing spacebar. installing it now."
+    brew install cmacrae/formulae/spacebar
+    brew services start spacebar
+fi
+
 if [[ -z "${DOT_SOURCE}" ]]; then
   echo "DOT_SOURCE variable is not available. Have you set up zsh?"
   exit 1
@@ -38,5 +45,11 @@ mkdir -p "$HOME/.config/skhd"
 ln -s "$DOT_SOURCE/yabai/skhdrc" "$HOME/.config/skhd/skhdrc"
 ln -s "$DOT_SOURCE/yabai/mode_controller.sh" "$HOME/.config/skhd/mode_controller.sh"
 ln -s "$DOT_SOURCE/yabai/padding.sh" "$HOME/.config/yabai/padding.sh"
+
+# create directory if not exists
+mkdir -p "$HOME/.config/spacebar"
+
+# symlink spacebar files
+ln -s "$DOT_SOURCE/yabai/spacebarrc" "$HOME/.config/spacebar/spacebarrc"
 
 echo "done"
