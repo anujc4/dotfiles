@@ -22,7 +22,7 @@ yabai -m config mouse_action1                move
 yabai -m config mouse_action2                resize
 
 # general space settings
-yabai -m config external_bar                 main:0:15
+yabai -m config external_bar                 main:26:15
 yabai -m config layout                       bsp
 yabai -m config top_padding                  10
 yabai -m config bottom_padding               10
@@ -39,7 +39,7 @@ yabai -m rule --add title="${app_titles}" manage=off
 
 app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA"
 app_names+="|iMazing HEIC Converter|AppCleaner|Stickies|1Password 7|VeraCrypt"
-app_names+="|Tunnelblick|WireGuard|Logi Options|JetBrains Toolbox)$"
+app_names+="|Tunnelblick|WireGuard|Logi Options)$"
 yabai -m rule --add app="${app_names}" manage=off
 
 # Tries to focus the window under the cursor whenever the MS teams notification gains focus
@@ -56,10 +56,6 @@ yabai -m signal --add \
     app='^WhatsApp$' \
     title='^$' \
     action='yabai -m window --focus next > /dev/null 2>&1'
-
-yabai -m signal --add label=space_changed_debug event=space_changed \
-    label=test \
-    action='~/.config/yabai/save_recent_space.sh'
 
 # Focus window under cursor when an application is hidden
 # yabai -m signal --add event=application_hidden \
