@@ -2,7 +2,7 @@
 
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
-ctrl + alt + cmd - h : hs -c "hs.reload()"
+ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
 
 ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
 ctrl + shift - c     : open -na /Applications/Google\ Chrome.app

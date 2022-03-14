@@ -1,4 +1,5 @@
 ---
+# ln -sf ~/Personal/dotfiles/roles/tmux/files/tmux.conf ~/.tmux.conf
 - name: Copy tmux configuration
   file:
     src: "{{ role_path }}/files/tmux.conf"

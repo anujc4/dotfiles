@@ -21,7 +21,7 @@ setopt HIST_SAVE_NO_DUPS
 
 ZSH_THEME="agnoster"
 
-plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions thefuck git)
+plugins=(zsh-autosuggestions z zsh-syntax-highlighting zsh-completions thefuck git you-should-use forgit)
 
 case `uname` in
   Darwin)
@@ -39,8 +39,6 @@ case `uname` in
     # Path to your oh-my-zsh installation.
     export ZSH="/home/$(whoami)/.oh-my-zsh"
     source $(echo $FILE_DIR)/linuxrc
-    # Linux RVM requirements
-    source "/etc/profile.d/rvm.sh"
   ;;
 esac
 
@@ -80,23 +78,9 @@ source $(echo $FILE_DIR)/common_aliasrc
 source $(echo $FILE_DIR)/secretsrc
 eval $(thefuck --alias)
 
-# go get -u github.com/justjanne/powerline-go
-function powerline_precmd() {
-    PS1="$($GOPATH/bin/powerline-go -hostname-only-if-ssh -theme gruvbox -trim-ad-domain -condensed -error $? -jobs ${${(%):%j}:-0})"
-}
-
-function install_powerline_precmd() {
-  for s in "${precmd_functions[@]}"; do
-    if [ "$s" = "powerline_precmd" ]; then
-      return
-    fi
-  done
-  precmd_functions+=(powerline_precmd)
-}
-
-if [ "$TERM" != "linux" ] && [ -f "$GOPATH/bin/powerline-go" ]; then
-    install_powerline_precmd
-fi
-
 typeset -U path
 export PATH
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

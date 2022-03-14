@@ -25,6 +25,12 @@ then
     brew services start spacebar
 fi
 
+if ! command -v jq &> /dev/null
+then
+    echo "missing jq. installing it now."
+    brew install jq
+fi
+
 if [[ -z "${DOT_SOURCE}" ]]; then
   echo "DOT_SOURCE variable is not available. Have you set up zsh?"
   exit 1
@@ -34,17 +40,15 @@ fi
 mkdir -p "$HOME/.config/yabai"
 
 # symlink yabai files
-ln -s "$DOT_SOURCE/yabai/yabairc" "$HOME/.config/yabai/yabairc"
-ln -s "$DOT_SOURCE/yabai/jetbrains.sh" "$HOME/.config/yabai/jetbrains.sh"
-ln -s "$DOT_SOURCE/yabai/rearrange.sh" "$HOME/.config/yabai/rearrange.sh"
+ln -sf "$DOT_SOURCE/yabai/yabairc" "$HOME/.config/yabai/yabairc"
+ln -sf "$DOT_SOURCE/yabai/rearrange.sh" "$HOME/.config/yabai/rearrange.sh"
 
 # create directory if not exists
 mkdir -p "$HOME/.config/skhd"
 
 # symlink skhd files
-ln -s "$DOT_SOURCE/yabai/skhdrc" "$HOME/.config/skhd/skhdrc"
-ln -s "$DOT_SOURCE/yabai/mode_controller.sh" "$HOME/.config/skhd/mode_controller.sh"
-ln -s "$DOT_SOURCE/yabai/padding.sh" "$HOME/.config/yabai/padding.sh"
+ln -sf "$DOT_SOURCE/yabai/skhdrc" "$HOME/.config/skhd/skhdrc"
+ln -sf "$DOT_SOURCE/yabai/mode_controller.sh" "$HOME/.config/skhd/mode_controller.sh"
 
 # create directory if not exists
 mkdir -p "$HOME/.config/spacebar"

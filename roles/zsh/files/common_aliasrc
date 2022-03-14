@@ -5,6 +5,7 @@ alias ohmyzsh="code ~/.oh-my-zsh"
 alias ezsh='code $FILE_DIR'
 alias rzsh='source ~/.zshrc'
 alias rtmux='tmux source ~/.tmux.conf'
+alias f='fuck'
 
 # General purpose alias
 alias tmuxls='tmux list-sessions'
@@ -26,6 +27,22 @@ gitdelete()
   git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D
 }
 
+# Merges the current branch into the branch specified by the argument
+gitmergeinto()
+{
+  if [ -z "$1" ]; then
+    echo "Usage: gitmergeinto <branch>"
+    return 1
+  fi
+  branch=$(current_branch)
+  echo "Merging $(branch) into $1"
+  git checkout "$1"
+  git fetch
+  git reset --hard origin/"$1"
+  git merge "$branch"
+  echo "Merged $branch into $1"
+}
+
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
 alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
@@ -39,7 +56,6 @@ tmuxx()
 {
   tmuxinator stop "$1"
 }
-
 
 unalias z 2>/dev/null
 z() {
@@ -59,3 +75,17 @@ function copypwd {
 }
 zle -N copypwd
 bindkey '^y' copypwd
+
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new $(printf %q "$PREV")"
+}
+
+function pet-select() {
+  BUFFER=$(pet search --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N pet-select
+stty -ixon
+bindkey '^s' pet-select
