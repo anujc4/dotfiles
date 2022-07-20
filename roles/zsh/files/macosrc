@@ -21,13 +21,11 @@ export GO_ENV=development
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 
-export PATH="/usr/local/opt/ruby@2.7/bin:$PATH"
-export PATH="$PATH:$HOME/.gem/ruby/2.7.0/bin"
-export PATH="$PATH:/usr/local/lib/ruby/gems/2.7.0/bin"
-
+# OpenJDK
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+export ANDROID_SDK_ROOT="/Users/anuj-chandra/Library/Android/sdk"
 
 path+=/usr/local/bin
-path+=/usr/local/mysql/bin
 path+=/usr/local/sbin
 
 function portscan()
@@ -53,13 +51,14 @@ function run_cop()
 {
   bundle exec rubocop ./"$1"
 }
-alias rails='bundle exec rails'
+# alias rails='./bin/rails'
+# alias rake='./bin/rake'
 
+# alias securekb='
 # ioreg -l -w 0 \
 #     | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
 #     | uniq \
 #     | xargs -I{} ps -p {} -o comm=
-
 
 alias win='active-win'
 alias wifi='osx-wifi-cli'
@@ -67,4 +66,11 @@ alias dm='dark-mode'
 
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
+
+# Setup rust
 source "$HOME/.cargo/env"
+
+# Setup nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

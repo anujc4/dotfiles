@@ -168,9 +168,6 @@ stack < right          : yabai -m window east  \
                          --stack "$(yabai -m query --windows --window | jq -r '.id')"; \
                          skhd -k 'escape'
 
-stack < i              : hs -c 'stackline.config:toggle("appearance.showIcons")'; \
-                         skhd -k 'escape'
-
 stack < space          : yabai -m query --spaces --space | \
                          jq -re ".type" | \
                          xargs -I {} bash -c \
@@ -219,13 +216,12 @@ resize < 0x18          : yabai -m space --balance; skhd -k 'escape'
 resize < r             : yabai -m space --rotate 90
 
 # Mirror tree y-axis
-resize < y             : yabai -m space --mirror y-axis
+resize < y             : yabai -m space --mirror y-axis; \
+                         skhd -k 'escape'
 
 # Mirror tree x-axis
-resize < x             : yabai -m space --mirror x-axis
-
-# Toggle window split type
-resize < e             : yabai -m window --toggle split
+resize < x             : yabai -m space --mirror x-axis; \
+                         skhd -k 'escape'
 
 # Set all windows on active space back to normal
 resize < z             : yabai -m query --windows --space | \

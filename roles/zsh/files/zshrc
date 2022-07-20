@@ -59,9 +59,6 @@ source $ZSH/oh-my-zsh.sh
 # Prevent zsh from showing the system name before each command
 prompt_context () { }
 
-# Enable completions by zsh-completions
-# autoload -U compinit && compinit
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
@@ -80,7 +77,3 @@ eval $(thefuck --alias)
 
 typeset -U path
 export PATH
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
