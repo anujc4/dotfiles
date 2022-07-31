@@ -42,6 +42,7 @@ mkdir -p "$HOME/.config/yabai"
 # symlink yabai files
 ln -sf "$DOT_SOURCE/yabai/yabairc" "$HOME/.config/yabai/yabairc"
 ln -sf "$DOT_SOURCE/yabai/rearrange.sh" "$HOME/.config/yabai/rearrange.sh"
+ln -sf "$DOT_SOURCE/yabai/save_recent_space.sh" "$HOME/.config/yabai/save_recent_space.sh"
 
 # create directory if not exists
 mkdir -p "$HOME/.config/skhd"
@@ -49,11 +50,12 @@ mkdir -p "$HOME/.config/skhd"
 # symlink skhd files
 ln -sf "$DOT_SOURCE/yabai/skhdrc" "$HOME/.config/skhd/skhdrc"
 ln -sf "$DOT_SOURCE/yabai/mode_controller.sh" "$HOME/.config/skhd/mode_controller.sh"
+ln -sf "$DOT_SOURCE/yabai/switch_space.sh" "$HOME/.config/skhd/switch_space.sh"
 
 # create directory if not exists
 mkdir -p "$HOME/.config/spacebar"
 
 # symlink spacebar files
-ln -s "$DOT_SOURCE/yabai/spacebarrc" "$HOME/.config/spacebar/spacebarrc"
+ln -sf "$DOT_SOURCE/yabai/spacebarrc" "$HOME/.config/spacebar/spacebarrc"
 
 echo "done"

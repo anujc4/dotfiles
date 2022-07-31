@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ "$(uname -m)" == "arm64" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
@@ -16,7 +20,6 @@ alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 
 # Add Visual Studio Code (code)
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-export PATH="$PATH:/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 
 # OpenJDK
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
@@ -61,11 +64,14 @@ alias win='active-win'
 alias wifi='osx-wifi-cli'
 alias dm='dark-mode'
 
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
 
-# Setup rust
-source "$HOME/.cargo/env"
+if [[ "$(uname -m)" == "arm64" ]]; then
+  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+  source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+else
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
+fi
 
 # Setup nvm
 export NVM_DIR="$HOME/.nvm"
