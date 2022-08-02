@@ -57,5 +57,6 @@ mkdir -p "$HOME/.config/spacebar"
 
 # symlink spacebar files
 ln -sf "$DOT_SOURCE/yabai/spacebarrc" "$HOME/.config/spacebar/spacebarrc"
+ln -sf "$DOT_SOURCE/yabai/get_space_info.sh" "$HOME/.config/spacebar/get_space_info.sh"
 
 echo "done"

@@ -167,7 +167,6 @@ stack < up             : yabai -m window north \
 stack < right          : yabai -m window east  \
                          --stack "$(yabai -m query --windows --window | jq -r '.id')"; \
                          skhd -k 'escape'
-
 stack < space          : yabai -m query --spaces --space | \
                          jq -re ".type" | \
                          xargs -I {} bash -c \
@@ -176,6 +175,12 @@ stack < space          : yabai -m query --spaces --space | \
                          else yabai -m space --layout stack; \
                          fi"; \
                          skhd -k 'escape'
+
+stack < b              : window=$(yabai -m query --windows --window | jq -r '.id') && \
+                         yabai -m window east --stack $window || \
+                         (yabai -m window $window --toggle float && yabai -m window $window --toggle float); \
+                         skhd -k 'escape'
+
 ####################### Resize mode ############################################
 
 # Resize focused window towards left direction

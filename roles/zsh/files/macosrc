@@ -8,25 +8,22 @@ fi
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
 alias goland='open -a /Applications/GoLand.app'
+alias fl='open -a ForkLift .'
+
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
 
 alias bsl='brew services ls'
 alias bsr='brew services restart'
 alias bss='brew services start'
 alias bsx='brew services stop'
 
-alias fl='open -a ForkLift .'
-
 alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 
-# Add Visual Studio Code (code)
-export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-
-# OpenJDK
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-export ANDROID_SDK_ROOT="/Users/anuj-chandra/Library/Android/sdk"
+export PATH="$PATH:$(go env GOPATH)/bin"
+export PATH="$PATH:$(brew --prefix openjdk)/bin"
 
 path+=/usr/local/bin
-path+=/usr/local/sbin
 
 function portscan()
 {
@@ -41,39 +38,29 @@ function run_rspec()
 }
 alias wip='git add . && git commit -m "WIP Commit"'
 alias rspec='bundle exec rspec'
+alias rails='./bin/rails'
+alias rake='./bin/rake'
 alias migrate='./bin/rails db:migrate'
 alias rollback='./bin/rails db:rollback'
 alias migrate_test='./bin/rails db:migrate RAILS_ENV=test'
 alias rollback_test='./bin/rails db:rollback RAILS_ENV=test'
 alias db_reset='./bin/rails db:drop; ./bin/rails db:create'
 alias cop='run_cop'
+
 function run_cop()
 {
   bundle exec rubocop ./"$1"
 }
-# alias rails='./bin/rails'
-# alias rake='./bin/rake'
-
 # alias securekb='
 # ioreg -l -w 0 \
 #     | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
 #     | uniq \
 #     | xargs -I{} ps -p {} -o comm=
 
-alias win='active-win'
-alias wifi='osx-wifi-cli'
-alias dm='dark-mode'
+# shellcheck source=/dev/null
+source "$(brew --prefix chruby)/share/chruby/chruby.sh"
+# shellcheck source=/dev/null
+source "$(brew --prefix chruby)/share/chruby/auto.sh"
 
-
-if [[ "$(uname -m)" == "arm64" ]]; then
-  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-  source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-else
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
-fi
-
-# Setup nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# shellcheck source=/dev/null
+. "$(brew --prefix asdf)/libexec/asdf.sh"

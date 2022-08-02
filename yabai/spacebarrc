@@ -23,7 +23,7 @@ spacebar -m config space_icon_color_tertiary    0xfffe8019
 spacebar -m config spaces_for_all_displays      off
 
 # Display
-spacebar -m config display_separator            on
+spacebar -m config display_separator            off
 spacebar -m config display_separator_icon       ﰴ
 spacebar -m config display_separator_icon_color 0xff08bb26
 
@@ -42,5 +42,8 @@ spacebar -m config clock_format                 "%A, %d/%B/%y | %R"
 # DND
 spacebar -m config dnd_icon                     
 spacebar -m config dnd_icon_color               0xffa8a8a8
+
+spacebar -m config right_shell_command          "$HOME/.config/spacebar/get_space_info.sh"
+spacebar -m config right_shell                  on
 
 echo "spacebar configuration loaded.."
