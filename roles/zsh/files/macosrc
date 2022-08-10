@@ -4,6 +4,11 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+libffi="$(brew --prefix libffi)"
+export LDFLAGS="-L$libffi/lib"
+export CPPFLAGS="-I$libffi/include"
+export PKG_CONFIG_PATH="$libffi/lib/pkgconfig"
+
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
@@ -11,6 +16,8 @@ alias goland='open -a /Applications/GoLand.app'
 alias fl='open -a ForkLift .'
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+# shellcheck disable=SC2155
 export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
 
 alias bsl='brew services ls'
@@ -20,8 +27,11 @@ alias bsx='brew services stop'
 
 alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 
-export PATH="$PATH:$(go env GOPATH)/bin"
-export PATH="$PATH:$(brew --prefix openjdk)/bin"
+gopath="$(go env GOPATH)"
+export PATH="$PATH:$gopath/bin"
+
+openjdk="$(brew --prefix openjdk)"
+export PATH="$PATH:$openjdk/bin"
 
 path+=/usr/local/bin
 
@@ -63,4 +73,4 @@ source "$(brew --prefix chruby)/share/chruby/chruby.sh"
 source "$(brew --prefix chruby)/share/chruby/auto.sh"
 
 # shellcheck source=/dev/null
-. "$(brew --prefix asdf)/libexec/asdf.sh"
+# . "$(brew --prefix asdf)/libexec/asdf.sh"

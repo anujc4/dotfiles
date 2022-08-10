@@ -1,14 +1,20 @@
 #!/bin/sh
+# shellcheck disable=SC2094,SC2210,SC3028,SC2211,SC2171,SC2288
+# Shellchecks disabled for this file
+# SC2094: Make sure not to read and write the same file in the same pipeline.
+# SC2210: This is a file redirection. Was it supposed to be a comparison or fd operation?
+# SC3028: In POSIX sh, VARIABLE is undefined.
+# SC2211: This is a glob used as a command name. Was it supposed to be in ${..}, array, or is it missing quoting?
+# SC2171: Found trailing ] outside test. Add missing [ or quote if intentional.
+# SC2288: This is interpreted as a command name ending with apostrophe. Double check syntax.
 
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
 ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
 
 ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
-ctrl + shift - c     : open -na /Applications/Google\ Chrome.app
 ctrl + shift - k     : open -na /Applications/Forklift.app
 ctrl + shift - q     : yabai -m window --close
-ctrl + shift - v     : open -na /Applications/Visual\ Studio\ Code.app
 
 ############################# Mode definitions ##################################
 :: default           : ~/.config/skhd/mode_controller.sh default # default mode: normal
@@ -18,7 +24,6 @@ ctrl + shift - v     : open -na /Applications/Visual\ Studio\ Code.app
 :: resize  @         : ~/.config/skhd/mode_controller.sh resize # resize mode: resize windows in current space
 :: launch  @         : ~/.config/skhd/mode_controller.sh launch # launch mode: launch various applications
 :: inst    @         : ~/.config/skhd/mode_controller.sh inst # insert mode: tell yabai where to insert the new window
-
 
 # Hack to use "ctrl + shift - r" keybinding in RubyMine
 # to run tests but trigger resize mode everywhere else
@@ -36,7 +41,7 @@ resize < ctrl + shift - r [
 default < ctrl + shift - d ; display
 default < ctrl + shift - s ; stack
 default < ctrl + shift - w ; window
-default < meh - r ; resize
+default < meh - r          ; resize
 default < ctrl + shift - l ; launch
 default < ctrl + shift - i ; inst
 
@@ -46,25 +51,16 @@ display, window, resize, launch, stack, inst < escape ; default
 display < ctrl + shift - d ; default
 stack   < ctrl + shift - s ; default
 window  < ctrl + shift - w ; default
-resize  < meh - r ; default
+resize  < meh - r          ; default
 launch  < ctrl + shift - l ; default
 inst    < ctrl + shift - i ; default
 
 ############################# Global modifiers ##################################
+# The aim is to not have too many global key-bindings because it will clash with
+# other application based keybindings e.g. VS Code, IntelliJ, etc.
 
 # toggle fullscreen inside screen
 ctrl + shift - space  : yabai -m window --toggle zoom-fullscreen
-
-shift + alt - up      : yabai -m window --focus stack.prev || \
-                        yabai -m window --focus stack.last
-shift + alt - down    : yabai -m window --focus stack.next || \
-                        yabai -m window --focus stack.first
-
-# vi like key bindings
-alt + shift - k       : yabai -m window --focus stack.prev || \
-                        yabai -m window --focus stack.last
-alt + shift - j       : yabai -m window --focus stack.next || \
-                        yabai -m window --focus stack.first
 
 ctrl + shift - right  : yabai -m window --focus east || yabai -m window --focus west
 ctrl + shift - left   : yabai -m window --focus west || yabai -m window --focus east
@@ -127,8 +123,12 @@ ctrl + alt - 8         : yabai -m space --focus 18
 ctrl + alt - 9         : yabai -m space --focus 19
 ctrl + alt - 0         : yabai -m space --focus 20
 
+# Hack to access the last used space
+ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat "$HOME"/.config/yabai/recent_space)"
+
 ctrl + alt - z         : yabai -m window --focus recent
-# Switch to space with window running in native full-screen mode
+
+# Switch to space with window running in native full-screen mode. Only works with SIP disabled.
 # - key
 ctrl - 0x1B            : yabai -m space --focus "$(yabai -m query --spaces --display | \
                          jq 'map(select(."native-fullscreen" == 1))[0].index')" # - key
@@ -167,6 +167,8 @@ stack < up             : yabai -m window north \
 stack < right          : yabai -m window east  \
                          --stack "$(yabai -m query --windows --window | jq -r '.id')"; \
                          skhd -k 'escape'
+
+# Toggle current space layout between stack and bsp
 stack < space          : yabai -m query --spaces --space | \
                          jq -re ".type" | \
                          xargs -I {} bash -c \
@@ -176,9 +178,14 @@ stack < space          : yabai -m query --spaces --space | \
                          fi"; \
                          skhd -k 'escape'
 
-stack < b              : window=$(yabai -m query --windows --window | jq -r '.id') && \
-                         yabai -m window east --stack $window || \
-                         (yabai -m window $window --toggle float && yabai -m window $window --toggle float); \
+# Remove the current window from the stack. Only works if the space layout is bsp
+stack < b              : window="$(yabai -m query --windows --window | jq -r '.id')"; yabai -m window "$window" --insert east; \
+                         skhd -k 'escape'
+
+# Stack all windows in the currect space on top of the current window while keeping the current space layout in bsp
+stack < s              : window="$(yabai -m query --windows --window | jq -r '.id')" && \
+                         yabai -m query --windows --space | jq -rc --arg w "$window" '[.[].id] | map(select(. != $w)) | .[]' | \
+                         xargs -I {} yabai -m window "$window" --stack {}; \
                          skhd -k 'escape'
 
 ####################### Resize mode ############################################
@@ -229,10 +236,20 @@ resize < x             : yabai -m space --mirror x-axis; \
                          skhd -k 'escape'
 
 # Set all windows on active space back to normal
-resize < z             : yabai -m query --windows --space | \
-                         jq -re '.[] | select(."zoom-fullscreen" == 1) | .id' | \
+resize < z             : yabai -m query --windows --space | jq -re '.[] | select(."has-fullscreen-zoom" == true) | .id' | \
                          xargs -I{} yabai -m window {} --toggle zoom-fullscreen; \
                          skhd -k 'escape'
+
+# rotate all windows clockwise
+resize < c              : "$DOT_SOURCE/yabai/yabai_script_actions.sh" rotate_clockwise
+
+# rotate all windows counter-clockwise
+resize < x              : "$DOT_SOURCE/yabai/yabai_script_actions.sh" rotate_counter_clockwise
+
+# Swaps the recent window with the window that's currently focused by the mouse
+resize < s              : yabai -m window mouse --swap recent; \
+                         skhd -k 'escape'
+
 
 ############################ Display mode ######################################
 
