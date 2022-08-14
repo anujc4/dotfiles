@@ -53,6 +53,12 @@ if type brew &>/dev/null; then
   compinit
 fi
 
+# don't expand aliases _before_ completion has finished
+setopt complete_aliases
+bindkey "^Xa" _expand_alias
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*' regular true
+
 DISABLE_MAGIC_FUNCTIONS=true
 source $ZSH/oh-my-zsh.sh
 
