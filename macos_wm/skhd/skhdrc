@@ -113,8 +113,8 @@ ctrl + alt - down      : yabai -m display --focus south || yabai -m display --fo
 # ctrl + alt - 9         : yabai -m space --focus 19
 # ctrl + alt - 0         : yabai -m space --focus 20
 
-# Clever hack to access the last used space
-ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat ~/.config/yabai/recent_space)"
+# Hack to access the last used space
+ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat /tmp/recent_space)"
 
 ctrl + alt - z         : yabai -m window --focus recent
 

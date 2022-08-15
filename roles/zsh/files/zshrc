@@ -28,6 +28,7 @@ plugins=(
   git
   thefuck
   you-should-use
+  z
   zsh-autosuggestions
   zsh-completions
   zsh-syntax-highlighting
