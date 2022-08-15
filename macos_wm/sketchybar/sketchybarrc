@@ -1,0 +1,59 @@
+#!/usr/bin/env sh
+# shellcheck disable=all
+
+source "$HOME/.config/common_wm/colors.sh"
+source "$HOME/.config/common_wm/icons.sh"
+
+ITEM_DIR="$HOME/.config/sketchybar/items"
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
+
+FONT="SF Pro"
+SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null"
+
+PADDINGS=3
+
+SHADOW=on
+
+sketchybar --add event mode_changed
+
+# Setting up the general bar appearance and default values
+sketchybar --bar     height=30                                         \
+                     color=$BAR_COLOR                                  \
+                     shadow=$SHADOW                                    \
+                     position=bottom                                   \
+                     padding_right=20                                  \
+                     padding_left=$PADDINGS                            \
+                     blur_radius=20                                    \
+                     sticky=off                                        \
+                                                                       \
+           --default updates=when_shown                                \
+                     icon.font="$FONT:Bold:14.0"                       \
+                     icon.color=$ICON_COLOR                            \
+                     icon.padding_left=$PADDINGS                       \
+                     icon.padding_right=$PADDINGS                      \
+                     label.font="$FONT:Semibold:13.0"                  \
+                     label.color=$LABEL_COLOR                          \
+                     label.padding_left=$PADDINGS                      \
+                     label.padding_right=$PADDINGS                     \
+                     background.padding_right=$PADDINGS                \
+                     background.padding_left=$PADDINGS                 \
+                     popup.background.border_width=2                   \
+                     popup.background.corner_radius=11                 \
+                     popup.background.border_color=$POPUP_BORDER_COLOR \
+                     popup.background.color=$POPUP_BACKGROUND_COLOR    \
+                     popup.background.shadow.drawing=$SHADOW
+
+# Left
+source "$ITEM_DIR/spaces.sh"
+source "$ITEM_DIR/front_app.sh"
+
+# Center
+source "$ITEM_DIR/mode_indicator.sh"
+
+# Right
+source "$ITEM_DIR/spotify.sh"
+
+############## FINALIZING THE SETUP ##############
+sketchybar --update
+
+echo "sketchybar configuation loaded.."

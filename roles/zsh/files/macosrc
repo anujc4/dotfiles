@@ -48,24 +48,27 @@ function run_rspec()
 }
 alias wip='git add . && git commit -m "WIP Commit"'
 alias rspec='bundle exec rspec'
-alias rails='./bin/rails'
-alias rake='./bin/rake'
-alias migrate='./bin/rails db:migrate'
-alias rollback='./bin/rails db:rollback'
-alias migrate_test='./bin/rails db:migrate RAILS_ENV=test'
-alias rollback_test='./bin/rails db:rollback RAILS_ENV=test'
-alias db_reset='./bin/rails db:drop; ./bin/rails db:create'
+alias rails='bundle exec rails'
+alias rake='bundle exec rake'
+alias migrate='bundle exec rails db:migrate'
+alias rollback='bundle exec rails db:rollback'
+alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
+alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
+alias db_reset='bundle exec rails db:drop; bundle exec rails db:create'
 alias cop='run_cop'
 
 function run_cop()
 {
   bundle exec rubocop ./"$1"
 }
-# alias securekb='
-# ioreg -l -w 0 \
-#     | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
-#     | uniq \
-#     | xargs -I{} ps -p {} -o comm=
+
+function securekb()
+{
+ioreg -l -w 0 \
+    | perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' \
+    | uniq \
+    | xargs -I{} ps -p {} -o comm=
+}
 
 # shellcheck source=/dev/null
 source "$(brew --prefix chruby)/share/chruby/chruby.sh"
@@ -73,4 +76,4 @@ source "$(brew --prefix chruby)/share/chruby/chruby.sh"
 source "$(brew --prefix chruby)/share/chruby/auto.sh"
 
 # shellcheck source=/dev/null
-# . "$(brew --prefix asdf)/libexec/asdf.sh"
+source "$(brew --prefix asdf)/libexec/asdf.sh"
