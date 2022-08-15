@@ -9,8 +9,8 @@
 # SC2288: This is interpreted as a command name ending with apostrophe. Double check syntax.
 
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
-                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
-ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.spacebar"
+                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"
+ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"
 
 ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
 ctrl + shift - k     : open -na /Applications/Forklift.app
@@ -22,7 +22,6 @@ ctrl + shift - q     : yabai -m window --close
 :: display @         : ~/.config/skhd/mode_controller.sh display # display mode: focus displays, move windows to other displays
 :: window  @         : ~/.config/skhd/mode_controller.sh window # window mode: manipulate windows and spaces
 :: resize  @         : ~/.config/skhd/mode_controller.sh resize # resize mode: resize windows in current space
-:: launch  @         : ~/.config/skhd/mode_controller.sh launch # launch mode: launch various applications
 :: inst    @         : ~/.config/skhd/mode_controller.sh inst # insert mode: tell yabai where to insert the new window
 
 # Hack to use "ctrl + shift - r" keybinding in RubyMine
@@ -42,17 +41,15 @@ default < ctrl + shift - d ; display
 default < ctrl + shift - s ; stack
 default < ctrl + shift - w ; window
 default < meh - r          ; resize
-default < ctrl + shift - l ; launch
 default < ctrl + shift - i ; inst
 
 # De-activate modes
-display, window, resize, launch, stack, inst < escape ; default
+display, window, resize, stack, inst < escape ; default
 
 display < ctrl + shift - d ; default
 stack   < ctrl + shift - s ; default
 window  < ctrl + shift - w ; default
 resize  < meh - r          ; default
-launch  < ctrl + shift - l ; default
 inst    < ctrl + shift - i ; default
 
 ############################# Global modifiers ##################################
@@ -60,31 +57,33 @@ inst    < ctrl + shift - i ; default
 # other application based keybindings e.g. VS Code, IntelliJ, etc.
 
 # toggle fullscreen inside screen
-ctrl + shift - space  : yabai -m window --toggle zoom-fullscreen
+ctrl + shift - space  : yabai -m window --toggle zoom-fullscreen; \
+                        sketchybar --trigger window_focus
 
-ctrl + shift - right  : yabai -m window --focus east || yabai -m window --focus west
-ctrl + shift - left   : yabai -m window --focus west || yabai -m window --focus east
+ctrl + shift - right  : yabai -m window --focus east || \
+                        yabai -m window --focus west; \
+                        sketchybar --trigger window_focus
+ctrl + shift - left   : yabai -m window --focus west || \
+                        yabai -m window --focus east; \
+                        sketchybar --trigger window_focus
 ctrl + shift - up     : yabai -m window --focus north || \
                         yabai -m window --focus stack.prev || \
-                        yabai -m window --focus stack.last
+                        yabai -m window --focus stack.last; \
+                        sketchybar --trigger window_focus
 
 ctrl + shift - down   : yabai -m window --focus south || \
                         yabai -m window --focus stack.next || \
-                        yabai -m window --focus stack.last || \
-                        yabai -m window --focus mouse
+                        yabai -m window --focus stack.first; \
+                        sketchybar --trigger window_focus
 
-ctrl - down           : yabai -m window --focus mouse
+ctrl - down           : yabai -m window --focus mouse; \
+                        sketchybar --trigger window_focus
 
 # vi like key bindings
-ctrl + shift - l      : yabai -m window --focus east || yabai -m window --focus west
-ctrl + shift - h      : yabai -m window --focus west || yabai -m window --focus east
-ctrl + shift - k      : yabai -m window --focus north || \
-                        yabai -m window --focus stack.next || \
-                        yabai -m window --focus stack.last
-ctrl + shift - j      : yabai -m window --focus south || \
-                        yabai -m window --focus stack.prev || \
-                        yabai -m window --focus stack.first || \
-                        yabai -m window --focus mouse
+ctrl + shift - l      : skhd -k "ctrl + shift - right"
+ctrl + shift - h      : skhd -k "ctrl + shift - left"
+ctrl + shift - k      : skhd -k "ctrl + shift - up"
+ctrl + shift - j      : skhd -k "ctrl + shift - down"
 
 # toggle window native fullscreen
 ctrl + shift - f      : yabai -m window --toggle native-fullscreen
@@ -122,11 +121,8 @@ ctrl + alt - down      : yabai -m display --focus south || yabai -m display --fo
 # ctrl + alt - 9         : yabai -m space --focus 19
 # ctrl + alt - 0         : yabai -m space --focus 20
 
-# Clever hack to access the last used space
-ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat ~/.config/yabai/recent_space)"
-
 # Hack to access the last used space
-ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat "$HOME"/.config/yabai/recent_space)"
+ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat /tmp/recent_space)"
 
 ctrl + alt - z         : yabai -m window --focus recent
 
@@ -140,7 +136,8 @@ ctrl - 0x18            : yabai -m space --focus "$(yabai -m query --spaces --dis
 
 # float / unfloat window and center on screen
 alt - f                : yabai -m window --toggle float; \
-                         yabai -m window --grid 4:4:1:1:2:2
+                         yabai -m window --grid 4:4:1:1:2:2; \
+                         sketchybar --trigger window_focus
 
 ######################## Insert mode ###########################################
 
@@ -181,7 +178,8 @@ stack < space          : yabai -m query --spaces --space | \
                          skhd -k 'escape'
 
 # Remove the current window from the stack. Only works if the space layout is bsp
-stack < b              : window="$(yabai -m query --windows --window | jq -r '.id')"; yabai -m window "$window" --insert east; \
+stack < b              : window="$(yabai -m query --windows --window | jq -r '.id')"; \
+                         yabai -m window "$window" --insert east; \
                          skhd -k 'escape'
 
 # Stack all windows in the currect space on top of the current window while keeping the current space layout in bsp
@@ -353,23 +351,3 @@ window < space        : yabai -m query --spaces --space | \
                         else yabai -m space --layout stack; \
                         fi"; \
                         skhd -k 'escape'
-
-
-##################### Launch mode ##############################################
-
-launch < a            : open -na /Applications/Authy\ Desktop.app; skhd -k 'escape'
-launch < b            : open -a "About This Mac"; skhd -k 'escape'
-launch < c            : open -na /Applications/Google\ Chrome.app; skhd -k 'escape'
-launch < e            : open -na /Applications/Safari.app; skhd -k 'escape'
-launch < f            : open ~; skhd -k 'escape'
-launch < g            : open -na /Applications/Signal.app; skhd -k 'escape'
-launch < k            : open -na /Applications/Forklift.app; skhd -k 'escape'
-launch < l            : open -na /Applications/Slack.app; skhd -k 'escape'
-launch < m            : open -na /Applications/Spotify.app; skhd -k 'escape'
-launch < r            : open -na /Applications/Rambox.app; skhd -k 'escape'
-launch < s            : open "x-apple.systempreferences:"; skhd -k 'escape'
-launch < t            : open -na /Applications/Microsoft\ Teams.app; skhd -k 'escape'
-launch < v            : open -na /Applications/Visual\ Studio\ Code.app; skhd -k 'escape'
-launch < w            : open -na /Applications/WhatsApp.app; skhd -k 'escape'
-launch < d            : dark-mode; skhd -k 'escape'
-launch < i            : $HOME/.config/yabai/rearrange.sh sidecar; skhd -k 'escape'
