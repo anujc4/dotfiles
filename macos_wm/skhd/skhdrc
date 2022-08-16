@@ -20,11 +20,13 @@
 # to run tests but trigger resize mode everywhere else
 default < ctrl + shift - r [
   "rubymine"   ~
+  "code"       ~
   * : skhd -k "meh - r"
 ]
 
 resize < ctrl + shift - r [
   "rubymine"   ~
+  "code"       ~
   * : skhd -k "meh - r"
 ]
 
