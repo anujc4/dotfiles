@@ -177,7 +177,8 @@ stack < space          : yabai -m query --spaces --space | \
 
 # Remove the current window from the stack. Only works if the space layout is bsp
 stack < b              : window="$(yabai -m query --windows --window | jq -r '.id')"; \
-                         yabai -m window "$window" --insert east; \
+                         yabai -m window east --stack $window || \
+                         (yabai -m window $window --toggle float && yabai -m window $window --toggle float); \
                          skhd -k 'escape'
 
 # Stack all windows in the currect space on top of the current window while keeping the current space layout in bsp

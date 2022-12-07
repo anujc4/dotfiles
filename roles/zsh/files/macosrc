@@ -4,16 +4,45 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# Compiler flags for Apple Silicon M1 Macs
+
+openssl="$(brew --prefix openssl@1.1)"
+export LDFLAGS="-L$openssl/lib"
+export CPPFLAGS="-I$openssl/include"
+export PATH="$openssl/bin:$PATH"
+export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
+
+libpq="$(brew --prefix libpq)"
+export LDFLAGS="-L$libpq/lib"
+export CPPFLAGS="-I$libpq/include"
+export PATH="$libpq/bin:$PATH"
+export PKG_CONFIG_PATH="$libpq/lib/pkgconfig"
+
 libffi="$(brew --prefix libffi)"
 export LDFLAGS="-L$libffi/lib"
 export CPPFLAGS="-I$libffi/include"
 export PKG_CONFIG_PATH="$libffi/lib/pkgconfig"
+
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --with-arch=arm64"
+
+llvm=$(brew --prefix llvm@11)
+export LDFLAGS="-L$llvm/lib"
+export CPPFLAGS="-I$llvm/include"
+export PATH="$llvm/bin:$PATH"
+
+# DELIVEROO MAC SPECIFIC FLAGS
+export PATH="/usr/local/opt/v8@3.15/bin:$PATH"
+
+# Switch Postgres version (for orderweb)
+# export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/11/bin
 
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
 alias goland='open -a /Applications/GoLand.app'
 alias fl='open -a ForkLift .'
+alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
+alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
@@ -72,6 +101,7 @@ ioreg -l -w 0 \
 
 # shellcheck source=/dev/null
 source "$(brew --prefix chruby)/share/chruby/chruby.sh"
+
 # shellcheck source=/dev/null
 source "$(brew --prefix chruby)/share/chruby/auto.sh"
 
