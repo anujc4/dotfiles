@@ -39,6 +39,7 @@ yabai -m rule --add title="${app_titles}" manage=off
 app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA"
 app_names+="|iMazing HEIC Converter|AppCleaner|Stickies|1Password 7|VeraCrypt"
 app_names+="|Tunnelblick|WireGuard|Logi Options|JetBrains Toolbox"
+app_names+="|System Settings"
 app_names+="|Logi Options\+|JetBrains Gateway|SteelSeries GG Client)$"
 yabai -m rule --add app="${app_names}" manage=off
 
@@ -62,18 +63,9 @@ yabai -m rule --add title="WhatsApp video call" manage=off display=2
 yabai -m signal --add label=space_changed event=space_changed \
     action="$HOME/.config/yabai/save_recent_space.sh"
 
-# Focus window under cursor when a window is destroyed
-# yabai -m signal --add event=window_destroyed \
-#     action="yabai -m window --focus mouse"
+jetbrains_apps="RubyMine"
+yabai -m rule --add app="${jetbrains_apps}" manage=off
+yabai -m rule --add app="${jetbrains_apps}" title=".*\[(.*)\].*" manage=on
 
-# Focus window under cursor when an application is terminated
-# yabai -m signal --add event=application_terminated \
-#     action="yabai -m window --focus mouse"
-
-# Rearrange windows when a new display is added
-# yabai -m signal --add event=display_added \
-#     action="$HOME/.config/yabai/rearrange.sh add"
-
-# Rearrange windows when a display is removed
-# yabai -m signal --add event=display_removed \
-#     action="$HOME/.config/yabai/rearrange.sh remove"
+yabai -m signal --add label=stack_same_name_applications event=window_created \
+    action="$HOME/.config/yabai/stack_same_name_applications.sh"

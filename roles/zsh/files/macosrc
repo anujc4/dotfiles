@@ -99,11 +99,17 @@ ioreg -l -w 0 \
     | xargs -I{} ps -p {} -o comm=
 }
 
-# shellcheck source=/dev/null
-source "$(brew --prefix chruby)/share/chruby/chruby.sh"
+if [ -f "$(brew --prefix chruby)/share/chruby/chruby.sh" ]; then
+  # shellcheck source=/dev/null
+  source "$(brew --prefix chruby)/share/chruby/chruby.sh"
+fi
 
-# shellcheck source=/dev/null
-source "$(brew --prefix chruby)/share/chruby/auto.sh"
+if [ -f "$(brew --prefix chruby)/share/chruby/auto.sh" ]; then
+  # shellcheck source=/dev/null
+  source "$(brew --prefix chruby)/share/chruby/auto.sh"
+fi
 
-# shellcheck source=/dev/null
-source "$(brew --prefix asdf)/libexec/asdf.sh"
+if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+  # shellcheck source=/dev/null
+  source "$(brew --prefix asdf)/libexec/asdf.sh"
+fi
