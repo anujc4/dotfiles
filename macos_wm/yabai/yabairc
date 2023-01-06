@@ -39,7 +39,7 @@ yabai -m rule --add title="${app_titles}" manage=off
 app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA"
 app_names+="|iMazing HEIC Converter|AppCleaner|Stickies|1Password 7|VeraCrypt"
 app_names+="|Tunnelblick|WireGuard|Logi Options|JetBrains Toolbox"
-app_names+="|System Settings|Contexts"
+app_names+="|System Settings|Contexts|Contexts"
 app_names+="|Logi Options\+|JetBrains Gateway|SteelSeries GG Client)$"
 yabai -m rule --add app="${app_names}" manage=off
 
