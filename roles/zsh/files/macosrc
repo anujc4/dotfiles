@@ -4,13 +4,9 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# Compiler flags for Apple Silicon M1 Macs
+alias xbrew='arch -x86_64 /usr/local/homebrew/bin/brew'
 
-openssl="$(brew --prefix openssl@1.1)"
-export LDFLAGS="-L$openssl/lib"
-export CPPFLAGS="-I$openssl/include"
-export PATH="$openssl/bin:$PATH"
-export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
+# Compiler flags for Apple Silicon M1 Macs
 
 libpq="$(brew --prefix libpq)"
 export LDFLAGS="-L$libpq/lib"
@@ -29,6 +25,12 @@ llvm=$(brew --prefix llvm@11)
 export LDFLAGS="-L$llvm/lib"
 export CPPFLAGS="-I$llvm/include"
 export PATH="$llvm/bin:$PATH"
+
+openssl="$(brew --prefix openssl@1.1)"
+export LDFLAGS="-L$openssl/lib"
+export CPPFLAGS="-I$openssl/include"
+export PATH="$openssl/bin:$PATH"
+export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
 
 # DELIVEROO MAC SPECIFIC FLAGS
 export PATH="/usr/local/opt/v8@3.15/bin:$PATH"
@@ -59,8 +61,11 @@ alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 gopath="$(go env GOPATH)"
 export PATH="$PATH:$gopath/bin"
 
-openjdk="$(brew --prefix openjdk)"
-export PATH="$PATH:$openjdk/bin"
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+
+# Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
+# cd /Library/Java/JavaVirtualMachines/
+# sudo rm -rf amazon-corretto-11.jdk
 
 path+=/usr/local/bin
 
