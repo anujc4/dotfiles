@@ -8,14 +8,6 @@
 # SC2171: Found trailing ] outside test. Add missing [ or quote if intentional.
 # SC2288: This is interpreted as a command name ending with apostrophe. Double check syntax.
 
-ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
-                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"
-ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"
-
-ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
-ctrl + shift - k     : open -na /Applications/Forklift.app
-ctrl + shift - q     : yabai -m window --close
-
 ############################# Mode definitions ##################################
 :: default           : ~/.config/skhd/mode_controller.sh default # default mode: normal
 :: stack   @         : ~/.config/skhd/mode_controller.sh stack # stack mode: interact with stacks
@@ -136,6 +128,18 @@ ctrl - 0x18            : yabai -m space --focus "$(yabai -m query --spaces --dis
 alt - f                : yabai -m window --toggle float; \
                          yabai -m window --grid 4:4:1:1:2:2; \
                          sketchybar --trigger window_focus
+
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
+                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+
+ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
+                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+
+ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
+ctrl + shift - k     : open -na /Applications/Forklift.app
+ctrl + shift - q     : yabai -m window --close
+
 
 ######################## Insert mode ###########################################
 
@@ -312,13 +316,25 @@ window < x            : index="$(yabai -m query --spaces --space | jq '.index - 
 # toggle window native fullscreen
 window < f            : yabai -m window --toggle native-fullscreen; skhd -k 'escape'
 
-# send current window to i-th space and follow focus
+# send current window to i-th space and follow focus* (* requires SIP disabled)
 window < left         : yabai -m window --space prev; \
                         yabai -m space --focus prev; \
                         skhd -k 'escape'
 window < right        : yabai -m window --space next; \
                         yabai -m space --focus next; \
                         skhd -k 'escape'
+
+# change position of window on the current space
+window < h            : yabai -m window --warp west; \
+                        skhd -k 'escape'
+window < j            : yabai -m window --warp south; \
+                        skhd -k 'escape'
+window < k            : yabai -m window --warp north; \
+                        skhd -k 'escape'
+window < l            : yabai -m window --warp east; \
+                        skhd -k 'escape'
+
+# send window to specified space
 window < 1            : yabai -m window --space 1; \
                         yabai -m space --focus 1; \
                         skhd -k 'escape'
