@@ -10,18 +10,16 @@ PLUGIN_DIR="$HOME/.config/sketchybar/plugins"
 FONT="SF Pro"
 SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null"
 
-PADDINGS=3
+PADDINGS=10
 
 SHADOW=on
-
-sketchybar --add event mode_changed
 
 # Setting up the general bar appearance and default values
 sketchybar --bar     height=30                                         \
                      color=$BAR_COLOR                                  \
                      shadow=$SHADOW                                    \
                      position=bottom                                   \
-                     padding_right=20                                  \
+                     padding_right=$PADDINGS                           \
                      padding_left=$PADDINGS                            \
                      blur_radius=20                                    \
                      sticky=off                                        \
@@ -35,6 +33,7 @@ sketchybar --bar     height=30                                         \
                      label.color=$LABEL_COLOR                          \
                      label.padding_left=$PADDINGS                      \
                      label.padding_right=$PADDINGS                     \
+                     background.height=0                               \
                      background.padding_right=$PADDINGS                \
                      background.padding_left=$PADDINGS                 \
                      popup.background.border_width=2                   \
@@ -52,6 +51,7 @@ source "$ITEM_DIR/mode_indicator.sh"
 
 # Right
 source "$ITEM_DIR/spotify.sh"
+source "$ITEM_DIR/brew.sh"
 
 ############## FINALIZING THE SETUP ##############
 sketchybar --update

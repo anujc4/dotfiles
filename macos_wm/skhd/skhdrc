@@ -82,9 +82,6 @@ ctrl + shift - j      : skhd -k "ctrl + shift - down"
 # toggle window native fullscreen
 ctrl + shift - f      : yabai -m window --toggle native-fullscreen
 
-# Useful if window focus is lost
-ctrl + shift - m      : yabai -m window --focus mouse
-
 # Fast focus display
 ctrl + alt - left      : yabai -m display --focus west || yabai -m display --focus recent
 ctrl + alt - right     : yabai -m display --focus east || yabai -m display --focus recent
@@ -120,6 +117,11 @@ ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
 ctrl + shift - k     : open -na /Applications/Forklift.app
 ctrl + shift - q     : yabai -m window --close
 
+cmd - m              : yabai -m window --focus mouse
+
+# Unused shortcuts
+# ctrl + lalt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
+# ctrl - q : osascript -e "tell application \"Finder\" to set p to item 1 of (get file of (processes whose frontmost = true)) as text" -e "tell application p to quit"
 
 ######################## Insert mode ###########################################
 
@@ -221,7 +223,8 @@ resize < x             : yabai -m space --mirror x-axis; \
 # Set all windows on active space back to normal
 resize < z             : yabai -m query --windows --space | jq -re '.[] | select(."has-fullscreen-zoom" == true) | .id' | \
                          xargs -I{} yabai -m window {} --toggle zoom-fullscreen; \
-                         skhd -k 'escape'
+                         skhd -k 'escape'; \
+                         sketchybar --trigger window_focus
 
 # rotate all windows clockwise
 resize < c              : "$DOT_SOURCE/yabai/yabai_script_actions.sh" rotate_clockwise
@@ -239,31 +242,37 @@ resize < s              : yabai -m window mouse --swap recent; \
 # Focus previous display , (Like <)
 display < 0x2F         : yabai -m display --focus prev || \
                          yabai -m display --focus next; \
+                         sketchybar --trigger windows_on_spaces; \
                          skhd -k 'escape'
 
 # Focus next display . (Like >)
 display < 0x2B         : yabai -m display --focus next || \
                          yabai -m display --focus prev; \
+                         sketchybar --trigger windows_on_spaces; \
                          skhd -k 'escape'
 
 # Send window to north/up display and follow focus
 display < up           : yabai -m window --display north; \
                          yabai -m display --focus north; \
+                         sketchybar --trigger windows_on_spaces; \
                          skhd -k 'escape'
 
 # Send window to down/south display and follow focus
 display < down         : yabai -m window --display south; \
                          yabai -m display --focus south; \
+                         sketchybar --trigger windows_on_spaces; \
                          skhd -k 'escape'
 
 # Send window to right/east display and follow focus
 display < right        : yabai -m window --display east; \
                          yabai -m display --focus east; \
+                         sketchybar --trigger windows_on_spaces; \
                          skhd -k 'escape'
 
 # Send window to left/west display and follow focus
 display < left         : yabai -m window --display west; \
                          yabai -m display --focus west; \
+                         sketchybar --trigger windows_on_spaces; \
                          skhd -k 'escape'
 
 # Focus display by number
@@ -279,12 +288,14 @@ window < s            : yabai -m space --create; \
                         index="$(yabai -m query --spaces --display | jq 'map(select(."native-fullscreen" == 0))[-1].index')"; \
                         yabai -m window --space "${index}"; \
                         yabai -m space --focus "${index}"; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 
 # destroy current desktop and follow focus to previous desktop
 window < x            : index="$(yabai -m query --spaces --space | jq '.index - 1')"; \
                         yabai -m space --destroy; \
                         yabai -m space --focus "${index}"; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 
 # toggle window native fullscreen
@@ -293,48 +304,67 @@ window < f            : yabai -m window --toggle native-fullscreen; skhd -k 'esc
 # send current window to i-th space and follow focus* (* requires SIP disabled)
 window < left         : yabai -m window --space prev; \
                         yabai -m space --focus prev; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < right        : yabai -m window --space next; \
                         yabai -m space --focus next; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 
 # change position of window on the current space
 window < h            : yabai -m window --warp west; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < j            : yabai -m window --warp south; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < k            : yabai -m window --warp north; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < l            : yabai -m window --warp east; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 
 # send window to specified space
 window < 1            : yabai -m window --space 1; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 2            : yabai -m window --space 2; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 3            : yabai -m window --space 3; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 4            : yabai -m window --space 4; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 5            : yabai -m window --space 5; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 6            : yabai -m window --space 6; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 7            : yabai -m window --space 7; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 8            : yabai -m window --space 8; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 9            : yabai -m window --space 9; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < 0            : yabai -m window --space 10; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 
 window < alt - 1      : yabai -m window --space 11; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < alt - 2      : yabai -m window --space 12; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 window < alt - 3      : yabai -m window --space 13; \
+                        sketchybar --trigger windows_on_spaces; \
                         skhd -k 'escape'
 
 # Switch layout of current desktop between bsp and stack

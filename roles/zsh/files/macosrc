@@ -2,35 +2,18 @@
 
 if [[ "$(uname -m)" == "arm64" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  openssl="$(brew --prefix openssl@1.1)"
+  export LDFLAGS="-L$openssl/lib"
+  export CPPFLAGS="-I$openssl/include"
+  export PATH="$openssl/bin:$PATH"
+  export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
+  export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --with-arch=arm64"
+
+  alias xbrew='arch -x86_64 /usr/local/homebrew/bin/brew'
 fi
 
-alias xbrew='arch -x86_64 /usr/local/homebrew/bin/brew'
 
-# Compiler flags for Apple Silicon M1 Macs
-
-libpq="$(brew --prefix libpq)"
-export LDFLAGS="-L$libpq/lib"
-export CPPFLAGS="-I$libpq/include"
-export PATH="$libpq/bin:$PATH"
-export PKG_CONFIG_PATH="$libpq/lib/pkgconfig"
-
-libffi="$(brew --prefix libffi)"
-export LDFLAGS="-L$libffi/lib"
-export CPPFLAGS="-I$libffi/include"
-export PKG_CONFIG_PATH="$libffi/lib/pkgconfig"
-
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --with-arch=arm64"
-
-llvm=$(brew --prefix llvm@11)
-export LDFLAGS="-L$llvm/lib"
-export CPPFLAGS="-I$llvm/include"
-export PATH="$llvm/bin:$PATH"
-
-openssl="$(brew --prefix openssl@1.1)"
-export LDFLAGS="-L$openssl/lib"
-export CPPFLAGS="-I$openssl/include"
-export PATH="$openssl/bin:$PATH"
-export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
 
 # DELIVEROO MAC SPECIFIC FLAGS
 export PATH="/usr/local/opt/v8@3.15/bin:$PATH"
@@ -61,6 +44,8 @@ alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 gopath="$(go env GOPATH)"
 export PATH="$PATH:$gopath/bin"
 
+export PATH="$PATH:$HOME/.local/bin"
+
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
 
 # Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
@@ -89,9 +74,8 @@ alias rollback='bundle exec rails db:rollback'
 alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
 alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
 alias db_reset='bundle exec rails db:drop; bundle exec rails db:create'
-alias cop='run_cop'
 
-function run_cop()
+function cop()
 {
   bundle exec rubocop ./"$1"
 }
@@ -118,3 +102,23 @@ if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
   # shellcheck source=/dev/null
   source "$(brew --prefix asdf)/libexec/asdf.sh"
 fi
+
+# Fancy sketchybar commands
+function margin () {
+  if [ $1 = "on" ]; then
+    yabai -m config top_padding 20
+    sketchybar --animate sin 30 --bar margin=10 y_offset=10 corner_radius=9
+  else
+    yabai -m config top_padding 10
+    sketchybar --animate sin 30 --bar margin=0 y_offset=0 corner_radius=0
+  fi
+}
+
+function suyabai () {
+  SHA256=$(shasum -a 256 /opt/homebrew/bin/yabai | awk "{print \$1;}")
+  if [ -f "/private/etc/sudoers.d/yabai" ]; then
+    sudo sed -i '' -e 's/sha256:[[:alnum:]]*/sha256:'${SHA256}'/' /private/etc/sudoers.d/yabai
+  else
+    echo "sudoers file does not exist yet"
+  fi
+}

@@ -9,20 +9,27 @@ fi
 if ! command -v yabai &> /dev/null
 then
     echo "missing yabai. installing it now."
+    brew tap koekeishiya/formulae
     brew install yabai
 fi
 
 if ! command -v skhd &> /dev/null
 then
     echo "missing skhd. installing it now."
+    brew tap koekeishiya/formulae
     brew install skhd
 fi
 
-if ! command -v spacebar &> /dev/null
+if ! command -v sketchybar &> /dev/null
 then
-    echo "missing spacebar. installing it now."
-    brew install cmacrae/formulae/spacebar
-    brew services start spacebar
+    echo "missing sketchybar. installing it now."
+    brew tap FelixKratz/formulae
+    brew install sketchybar
+    brew services start sketchybar
+
+    curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v1.0.4/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+
+    brew install --cask sf-symbols
 fi
 
 if ! command -v jq &> /dev/null

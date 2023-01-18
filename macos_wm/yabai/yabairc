@@ -61,12 +61,8 @@ yabai -m signal --add \
 yabai -m signal --add label=space_changed event=space_changed \
     action="$HOME/.config/yabai/save_recent_space.sh"
 
-jetbrains_apps="RubyMine"
-yabai -m rule --add app="${jetbrains_apps}" manage=off
-yabai -m rule --add app="${jetbrains_apps}" title=".*\[(.*)\].*" manage=on
-
-yabai -m signal --add event=window_focused \
-    action="sketchybar --trigger window_focus"
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
 
 yabai -m signal --add label=stack_same_name_applications event=window_created \
     action="$HOME/.config/yabai/stack_same_name_applications.sh"
