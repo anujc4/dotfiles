@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Hack to access the last used space
+ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat /tmp/recent_space)"

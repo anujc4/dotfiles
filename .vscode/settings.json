@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "common_aliasrc": "shellscript",
+    "linuxrc": "shellscript",
+    "macosrc": "shellscript",
+    "pathrc": "shellscript",
+    "secretsrc": "shellscript",
+    "skhdrc": "shellscript",
+    "yabairc": "shellscript"
+  }
+}

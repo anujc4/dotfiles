@@ -1,0 +1,94 @@
+#!/bin/bash
+
+# Common aliases
+alias ohmyzsh="code ~/.oh-my-zsh"
+alias ezsh='code $FILE_DIR'
+alias rzsh='source ~/.zshrc'
+alias rtmux='tmux source ~/.tmux.conf'
+alias f='fuck'
+
+# General purpose alias
+alias tmuxls='tmux list-sessions'
+tmuxattach()
+{
+  tmux attach-session -t "$1"
+}
+
+tmuxkillsession()
+{
+  tmux kill-session -t "$1"
+}
+
+alias tmuxkillall='tmux kill-server'
+alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
+
+gitdelete()
+{
+  # git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D
+  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
+  git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d
+  git remote prune origin
+}
+
+gitdeletesquashed()
+{
+  git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done
+}
+
+
+# Merges the current branch into the branch specified by the argument
+gitmergeinto()
+{
+  if [ -z "$1" ]; then
+    echo "Usage: gitmergeinto <branch>"
+    return 1
+  fi
+  branch=$(current_branch)
+  echo "Merging $(branch) into $1"
+  git checkout "$1"
+  git fetch
+  git reset --hard origin/"$1"
+  git merge "$branch"
+  echo "Merged $branch into $1"
+}
+
+alias docker='nocorrect docker'
+alias dockerkillall='docker stop $(docker ps -a -q)'
+alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
+alias rm='rm -i'
+tmuxs()
+{
+  tmuxinator start "$1"
+}
+
+tmuxx()
+{
+  tmuxinator stop "$1"
+}
+
+# Open bash in a docker container
+dbash()
+{
+  docker exec -it "$1" bash
+}
+
+# Copy pwd to system clipboard by ctrl-y
+function copypwd {
+  pwd | pbcopy
+}
+zle -N copypwd
+bindkey '^y' copypwd
+
+function prev() {
+  PREV=$(fc -lrn | head -n 1)
+  sh -c "pet new $(printf %q "$PREV")"
+}
+
+function pet-select() {
+  BUFFER=$(pet search --query "$LBUFFER")
+  CURSOR=$#BUFFER
+  zle redisplay
+}
+zle -N pet-select
+stty -ixon
+bindkey '^s' pet-select

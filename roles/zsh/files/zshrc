@@ -1,0 +1,104 @@
+# To use this zshrc as your default zshrc file, create a symlink of this file
+# in your home folder. Just create  a symlink of the zshrc file and it will
+# source the other files on it's own. The command usually looks like
+# ln -s ~/Personal/dotfiles/zsh/zshrc ~/.zshrc
+
+# To profile zsh in case of slow startup, uncomment the line below and move the
+# second command to the bottom of this file
+# zmodload zsh/zprof
+# zprof
+
+export TERM="xterm-256color"
+export EDITOR="vim"
+export LANG=en_US.UTF-8
+
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+
+# shellcheck disable=SC2034
+ZSH_THEME="agnoster"
+
+# shellcheck disable=SC2034
+plugins=(
+  forgit
+  git
+  thefuck
+  you-should-use
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
+  )
+
+case `uname` in
+  Darwin)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
+    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+    # Path to your oh-my-zsh installation.
+    export ZSH="/Users/$(whoami)/.oh-my-zsh"
+    source $(echo $FILE_DIR)/macosrc
+  ;;
+  Linux)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
+    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+    # Path to your oh-my-zsh installation.
+    export ZSH="/home/$(whoami)/.oh-my-zsh"
+    source $(echo $FILE_DIR)/linuxrc
+  ;;
+esac
+
+# Export the directory where the dotfiles are stored
+# Hacky as fuck. There should be a better way to do this
+export DOT_SOURCE=${FILE_DIR%????????????????}
+
+eval "$(zoxide init zsh)"
+
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+  autoload -Uz compinit
+  compinit
+fi
+
+# don't expand aliases _before_ completion has finished
+setopt complete_aliases
+bindkey "^Xa" _expand_alias
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*' regular true
+
+# shellcheck disable=SC2034
+DISABLE_MAGIC_FUNCTIONS=true
+
+source $ZSH/oh-my-zsh.sh
+
+# Prevent zsh from showing the system name before each command
+prompt_context () { true; }
+prompt_aws() { true; }
+
+# shellcheck source=/dev/null
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
+# shellcheck source=/dev/null
+source "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
+
+# Disable that pesky auto correct
+unsetopt correct_all
+
+# shellcheck source=/dev/null
+source "$FILE_DIR/common_aliasrc"
+# shellcheck source=/dev/null
+source "$FILE_DIR/secretsrc"
+eval "$(thefuck --alias)"
+
+typeset -U path
+export PATH

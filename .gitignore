@@ -1,0 +1,5 @@
+*.retry
+roles/zsh/files/secretsrc
+.DS_Store
+
+macos_wm/skhd/sip_skhdrc
