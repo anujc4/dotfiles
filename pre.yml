@@ -1,5 +1,0 @@
----
-- name: Initial setup
-  hosts: localhost
-  roles:
-    - python

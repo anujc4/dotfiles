@@ -13,14 +13,6 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   alias xbrew='arch -x86_64 /usr/local/homebrew/bin/brew'
 fi
 
-
-
-# DELIVEROO MAC SPECIFIC FLAGS
-export PATH="/usr/local/opt/v8@3.15/bin:$PATH"
-
-# Switch Postgres version (for orderweb)
-# export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/11/bin
-
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
