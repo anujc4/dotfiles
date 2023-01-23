@@ -188,7 +188,7 @@ case $@ in
 "VSCodium")
   icon_result=":vscodium:"
   ;;
-"Finder")
+"Finder" | "ForkLift")
   icon_result=":finder:"
   ;;
 "Signal")

@@ -50,8 +50,16 @@ source "$ITEM_DIR/front_app.sh"
 source "$ITEM_DIR/mode_indicator.sh"
 
 # Right
+
 source "$ITEM_DIR/spotify.sh"
 source "$ITEM_DIR/brew.sh"
+
+sketchybar --add bracket right_g brew spotify                                 \
+           --set         right_g background.color=$BACKGROUND_1               \
+                                 background.border_color=$BACKGROUND_2        \
+                                 background.border_width=2                    \
+                                 background.drawing=on
+
 
 ############## FINALIZING THE SETUP ##############
 sketchybar --update

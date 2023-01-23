@@ -6,9 +6,9 @@ sketchybar --add       event        window_focus                  \
            --add       event        windows_on_spaces             \
            --add       item         system.yabai left             \
            --set       system.yabai script="$PLUGIN_DIR/yabai.sh" \
-                                    icon.font="$FONT:Bold:16.0"   \
+                                    icon.font="$FONT:Normal:20.0"   \
                                     label.drawing=off             \
-                                    icon.width=30                 \
+                                    icon.width=40                 \
                                     icon=$YABAI_GRID              \
                                     icon.color=$ORANGE            \
                                     associated_display=active     \
@@ -21,6 +21,6 @@ sketchybar --add       event        window_focus                  \
                                     icon.drawing=off              \
                                     padding_left=0                \
                                     label.color=$WHITE            \
-                                    label.font="$FONT:Black:12.0" \
+                                    label.font="$FONT:Black:13.0" \
                                     associated_display=active     \
            --subscribe front_app    front_app_switched
