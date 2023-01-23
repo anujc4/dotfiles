@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 whitelisted_applications='(Preview|Code|RubyMine|Finder|Forklift)'
 

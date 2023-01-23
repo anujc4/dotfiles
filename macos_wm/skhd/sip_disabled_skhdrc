@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # fast focus desktop
 
 ctrl - left            : yabai -m space --focus prev

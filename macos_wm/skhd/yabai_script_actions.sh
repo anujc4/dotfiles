@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function rotate_clockwise() {
   win=$(yabai -m query --windows --window last | jq '.id')
 
   while :; do
-    yabai -m window $win --swap prev &>/dev/null
+    yabai -m window "$win" --swap prev &>/dev/null
     if [[ $? -eq 1 ]]; then
       break
     fi
@@ -15,7 +15,7 @@ function rotate_counter_clockwise() {
   win=$(yabai -m query --windows --window first | jq '.id')
 
   while :; do
-    yabai -m window $win --swap next &>/dev/null
+    yabai -m window "$win" --swap next &>/dev/null
     if [[ $? -eq 1 ]]; then
       break
     fi

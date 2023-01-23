@@ -1,6 +1,6 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-FRONT_APP_SCRIPT='sketchybar --set $NAME label="$INFO"'
+FRONT_APP_SCRIPT="sketchybar --set $NAME label=$INFO"
 
 sketchybar --add       event        window_focus                  \
            --add       event        windows_on_spaces             \
@@ -9,8 +9,8 @@ sketchybar --add       event        window_focus                  \
                                     icon.font="$FONT:Normal:20.0"   \
                                     label.drawing=off             \
                                     icon.width=40                 \
-                                    icon=$YABAI_GRID              \
-                                    icon.color=$ORANGE            \
+                                    icon="$YABAI_GRID"            \
+                                    icon.color="$ORANGE"          \
                                     associated_display=active     \
            --subscribe system.yabai window_focus                  \
                                     windows_on_spaces             \
@@ -20,7 +20,7 @@ sketchybar --add       event        window_focus                  \
            --set       front_app    script="$FRONT_APP_SCRIPT"    \
                                     icon.drawing=off              \
                                     padding_left=0                \
-                                    label.color=$WHITE            \
+                                    label.color="$WHITE"          \
                                     label.font="$FONT:Black:13.0" \
                                     associated_display=active     \
            --subscribe front_app    front_app_switched

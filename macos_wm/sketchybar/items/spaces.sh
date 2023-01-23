@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # shellcheck disable=all
 
 source "$HOME/.config/common_wm/colors.sh"

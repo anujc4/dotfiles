@@ -1,3 +1,3 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-sketchybar --set $NAME label="$INFO"
+sketchybar --set "$NAME" label="$INFO"

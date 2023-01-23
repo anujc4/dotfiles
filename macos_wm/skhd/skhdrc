@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # shellcheck disable=SC2094,SC2210,SC3028,SC2211,SC2171,SC2288
 # Shellchecks disabled for this file
 # SC2094: Make sure not to read and write the same file in the same pipeline.

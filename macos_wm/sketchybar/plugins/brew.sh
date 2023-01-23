@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
+# shellcheck source=/dev/null
 source "$HOME/.config/common_wm/colors.sh"
 
 COUNT=$(brew outdated | wc -l | tr -d ' ')
@@ -18,4 +19,4 @@ case "$COUNT" in
   ;;
 esac
 
-sketchybar --set $NAME label=$COUNT icon.color=$COLOR
+sketchybar --set "$NAME" label="$COUNT" icon.color="$COLOR"

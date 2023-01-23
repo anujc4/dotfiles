@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 case $@ in
 "Brave Browser")
   icon_result=":brave_browser:"

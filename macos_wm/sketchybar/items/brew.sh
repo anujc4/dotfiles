@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Trigger the brew_udpate event when brew update or upgrade is run from cmdline
 
