@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-FRONT_APP_SCRIPT="sketchybar --set $NAME label=$INFO"
+# shellcheck disable=SC2016
+FRONT_APP_SCRIPT='sketchybar --set $NAME label="$INFO"'
 
 sketchybar --add       event        window_focus                  \
            --add       event        windows_on_spaces             \

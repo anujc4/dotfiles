@@ -5,9 +5,6 @@
 sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
-# Follow this guide whrn updating yabai to latest version
-# https://github.com/koekeishiya/yabai/wiki/Installing-yabai-(latest-release)#macos-big-sur-and-monterey---automatically-load-scripting-addition-on-startup
-
 # global settings
 yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          off
@@ -33,30 +30,14 @@ yabai -m config insert_feedback_color        0xffd65d0e
 
 # Unmanaged apps
 app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Preferences"
-app_titles+="|QuickTime Player|Stickies)"
+app_titles+="|QuickTime Player)"
 yabai -m rule --add title="${app_titles}" manage=off
 
-app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences|IINA"
-app_names+="|iMazing HEIC Converter|AppCleaner|Stickies|1Password 7|VeraCrypt"
-app_names+="|Tunnelblick|WireGuard|Logi Options|JetBrains Toolbox"
-app_names+="|System Settings|Contexts|Contexts"
-app_names+="|Logi Options\+|JetBrains Gateway|SteelSeries GG Client)$"
+app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences"
+app_names+="|AppCleaner|1Password|VeraCrypt|WireGuard|System Settings"
+app_names+="|Logi Options|JetBrains Toolbox|Contexts|JetBrains Gateway"
+app_names+="|Logi Options\+|SteelSeries GG Client)$"
 yabai -m rule --add app="${app_names}" manage=off
-
-# Tries to focus the window under the cursor whenever the MS teams notification gains focus
-# Probably conflicts with mouse follows focus in some ways
-yabai -m signal --add \
-    event=window_focused \
-    app='^Microsoft Teams$' \
-    title='^Microsoft Teams Notification$' \
-    action='yabai -m window --focus next > /dev/null 2>&1'
-
-# Don't manage WhatsApp call windows
-yabai -m signal --add \
-    event=window_focused \
-    app='^WhatsApp$' \
-    title='^$' \
-    action='yabai -m window --focus next > /dev/null 2>&1'
 
 yabai -m signal --add label=space_changed event=space_changed \
     action="$HOME/.config/yabai/save_recent_space.sh"

@@ -18,18 +18,17 @@
 :: window  @         : ~/.config/skhd/mode_controller.sh window # window mode: manipulate windows and spaces
 :: resize  @         : ~/.config/skhd/mode_controller.sh resize # resize mode: resize windows in current space
 :: inst    @         : ~/.config/skhd/mode_controller.sh inst # insert mode: tell yabai where to insert the new window
+:: reload  @         : ~/.config/skhd/mode_controller.sh reload # reload mode: restart services
 
 # Hack to use "ctrl + shift - r" keybinding in RubyMine
 # to run tests but trigger resize mode everywhere else
 default < ctrl + shift - r [
   "rubymine"   ~
-  "code"       ~
   * : skhd -k "meh - r"
 ]
 
 resize < ctrl + shift - r [
   "rubymine"   ~
-  "code"       ~
   * : skhd -k "meh - r"
 ]
 
@@ -39,15 +38,17 @@ default < ctrl + shift - s ; stack
 default < ctrl + shift - w ; window
 default < meh - r          ; resize
 default < ctrl + shift - i ; inst
+default < ctrl + shift - x ; reload
 
 # De-activate modes
-display, window, resize, stack, inst < escape ; default
+display, window, resize, stack, inst, reload < escape ; default
 
 display < ctrl + shift - d ; default
 stack   < ctrl + shift - s ; default
 window  < ctrl + shift - w ; default
 resize  < meh - r          ; default
 inst    < ctrl + shift - i ; default
+reload  < ctrl + shift - x ; default
 
 ############################# Global modifiers ##################################
 # The aim is to not have too many global key-bindings because it will clash with
@@ -176,35 +177,31 @@ stack < s              : window="$(yabai -m query --windows --window | jq -r '.i
 ####################### Resize mode ############################################
 
 # Resize focused window towards left direction
-resize < h             : yabai -m window --resize left:-20:0 || \
-                         yabai -m window --resize right:-20:0
+resize < h             : yabai -m window --resize left:-100:0 || \
+                         yabai -m window --resize right:-100:0
 
 # Resize focused window towards down direction
-resize < j             : yabai -m window --resize bottom:0:20 || \
-                         yabai -m window --resize top:0:20
+resize < j             : yabai -m window --resize bottom:0:100 || \
+                         yabai -m window --resize top:0:100
 
 # Resize focused window towards up direction
-resize < k             : yabai -m window --resize top:0:-20 || \
-                         yabai -m window --resize bottom:0:-20
+resize < k             : yabai -m window --resize top:0:-100 || \
+                         yabai -m window --resize bottom:0:-100
 
 # Resize focused window towards right direction
-resize < l             : yabai -m window --resize right:20:0 || \
-                         yabai -m window --resize left:20:0
+resize < l             : yabai -m window --resize right:100:0 || \
+                         yabai -m window --resize left:100:0
 
-resize < left          : yabai -m window --resize left:-20:0 || \
-                         yabai -m window --resize right:-20:0
+resize < left          : skhd -k "h"
 
 # Resize focused window towards down direction
-resize < down          : yabai -m window --resize bottom:0:20 || \
-                         yabai -m window --resize top:0:20
+resize < down          : skhd -k "j"
 
 # Resize focused window towards up direction
-resize < up            : yabai -m window --resize top:0:-20 || \
-                         yabai -m window --resize bottom:0:-20
+resize < up            : skhd -k "k"
 
 # Resize focused window towards right direction
-resize < right         : yabai -m window --resize right:20:0 || \
-                         yabai -m window --resize left:20:0
+resize < right         : skhd -k "l"
 
 # Balance all windows. Maps to `=` key
 resize < 0x18          : yabai -m space --balance; skhd -k 'escape'
@@ -221,7 +218,8 @@ resize < x             : yabai -m space --mirror x-axis; \
                          skhd -k 'escape'
 
 # Set all windows on active space back to normal
-resize < z             : yabai -m query --windows --space | jq -re '.[] | select(."has-fullscreen-zoom" == true) | .id' | \
+resize < z             : yabai -m query --windows --space | \
+                         jq -re '.[] | select(."has-fullscreen-zoom" == true) | .id' | \
                          xargs -I{} yabai -m window {} --toggle zoom-fullscreen; \
                          skhd -k 'escape'; \
                          sketchybar --trigger window_focus
@@ -234,7 +232,7 @@ resize < x              : "$DOT_SOURCE/yabai/yabai_script_actions.sh" rotate_cou
 
 # Swaps the recent window with the window that's currently focused by the mouse
 resize < s              : yabai -m window mouse --swap recent; \
-                         skhd -k 'escape'
+                          skhd -k 'escape'
 
 
 ############################ Display mode ######################################
@@ -375,4 +373,35 @@ window < space        : yabai -m query --spaces --space | \
                         then yabai -m space --layout bsp; \
                         else yabai -m space --layout stack; \
                         fi"; \
+                        skhd -k 'escape'
+
+##################### Reload mode ##############################################
+
+reload < 0            : skhd -k 'escape'; \
+                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
+                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+
+reload < 1            : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+                        skhd -k 'escape'
+
+reload < 2            : skhd -k 'escape'; \
+                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+
+reload < 3            : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
+                        skhd -k 'escape'
+
+reload < alt - 0      : skhd -k 'escape'; \
+                        brew services restart yabai; \
+                        brew services restart sketchybar; \
+                        brew services restart skhd
+
+reload < alt - 1      : brew services restart yabai; \
+                        skhd -k 'escape'
+
+reload < alt - 2      : skhd -k 'escape'; \
+                        brew services restart skhd
+
+
+reload < alt - 3      : brew services restart sketchybar; \
                         skhd -k 'escape'
