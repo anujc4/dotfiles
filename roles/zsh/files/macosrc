@@ -24,6 +24,12 @@ alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
+FORGIT_INSTALL_DIR="/Users/$(whoami)/.oh-my-zsh/custom/plugins/forgit/bin"
+if [ -f "$FORGIT_INSTALL_DIR" ]; then
+  export PATH="$PATH:$FORGIT_INSTALL_DIR"
+  export FORGIT_FZF_DEFAULT_OPTS
+fi
+
 # shellcheck disable=SC2155
 export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
 
@@ -59,6 +65,8 @@ function run_rspec()
   RACK_SERVICE_TIMEOUT=0 bundle exec rspec ./"$1"
 }
 alias wip='git add . && git commit -m "WIP Commit"'
+alias b='bundle'
+alias bi='bundle install'
 alias rspec='bundle exec rspec'
 alias rails='bundle exec rails'
 alias rake='bundle exec rake'
@@ -95,17 +103,6 @@ if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
   # shellcheck source=/dev/null
   source "$(brew --prefix asdf)/libexec/asdf.sh"
 fi
-
-# Fancy sketchybar commands
-function margin () {
-  if [ "$1" = "on" ]; then
-    yabai -m config top_padding 20
-    sketchybar --animate sin 30 --bar margin=10 y_offset=10 corner_radius=9
-  else
-    yabai -m config top_padding 10
-    sketchybar --animate sin 30 --bar margin=0 y_offset=0 corner_radius=0
-  fi
-}
 
 function suyabai () {
   SHA256=$(shasum -a 256 /opt/homebrew/bin/yabai | awk "{print \$1;}")

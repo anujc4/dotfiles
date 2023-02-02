@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Common aliases
-alias ohmyzsh="code ~/.oh-my-zsh"
 alias ezsh='code $FILE_DIR'
 alias rzsh='source ~/.zshrc'
 alias rtmux='tmux source ~/.tmux.conf'
@@ -24,7 +23,6 @@ alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 
 gitdelete()
 {
-  # git fetch --all -p; git branch -vv | grep \": gone]\" | awk '{ print \$1 }' | xargs -n 1 git branch -D
   git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
   git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d
   git remote prune origin
@@ -32,9 +30,8 @@ gitdelete()
 
 gitdeletesquashed()
 {
-  git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master $branch) && [[ $(git cherry master $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done
+  git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master "$branch") && [[ $(git cherry master $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done
 }
-
 
 # Merges the current branch into the branch specified by the argument
 gitmergeinto()
@@ -54,7 +51,6 @@ gitmergeinto()
 
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
-alias pass='lpass show -c --password $(lpass ls  | fzf | awk \"{print $(NF)}\" | sed \"s/\]//g\")'
 alias rm='rm -i'
 tmuxs()
 {

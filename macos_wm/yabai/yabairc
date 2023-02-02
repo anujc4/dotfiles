@@ -6,9 +6,12 @@ sudo yabai --load-sa
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
+yabai -m config debug_output                 off
 yabai -m config mouse_follows_focus          on
 yabai -m config focus_follows_mouse          off
+yabai -m config window_origin_display        cursor
 yabai -m config window_placement             second_child
+yabai -m config window_zoom_persist          off
 yabai -m config mouse_drop_action            stack
 yabai -m config window_shadow                float
 yabai -m config split_ratio                  0.50
@@ -34,18 +37,23 @@ app_titles+="|QuickTime Player)"
 yabai -m rule --add title="${app_titles}" manage=off
 
 app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences"
-app_names+="|AppCleaner|1Password|VeraCrypt|WireGuard|System Settings"
+app_names+="|AppCleaner|1Password|WireGuard|System Settings"
 app_names+="|Logi Options|JetBrains Toolbox|Contexts|JetBrains Gateway"
 app_names+="|Logi Options\+|SteelSeries GG Client)$"
 yabai -m rule --add app="${app_names}" manage=off
 
+# Only used when SIP is enabled. This is a in-house replacement for
+# `yabai -m window --focus recent`, used with the `switch_space.sh` script
 yabai -m signal --add label=space_changed event=space_changed \
     action="$HOME/.config/yabai/save_recent_space.sh"
 
-yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
-yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
-
+# when a new window is created, stack it on top of the window of the same
+# application, if exists
 yabai -m signal --add label=stack_same_name_applications event=window_created \
     action="$HOME/.config/yabai/stack_same_name_applications.sh"
+
+# sketchybar specific events
+yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
+yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
 
 echo "yabai configuration loaded.."

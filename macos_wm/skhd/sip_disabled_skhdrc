@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
-# fast focus desktop
 
+# Switch to space with window running in native full-screen mode. Only works with SIP disabled.
+# - key
+ctrl - 0x1B            :  index="$(yabai -m query --spaces --display | \
+                                 jq 'map(select(."is-native-fullscreen" == true))[0].index')"; \
+                          yabai -m space --focus "$index"
+
+# = key
+ctrl - 0x18            :  index="$(yabai -m query --spaces --display | \
+                                 jq 'map(select(."is-native-fullscreen" == true))[0].index')"; \
+                          yabai -m space --focus "$index"
+
+# fast focus desktop
 ctrl - left            : yabai -m space --focus prev
 ctrl - right           : yabai -m space --focus next
 ctrl - z               : yabai -m space --focus recent

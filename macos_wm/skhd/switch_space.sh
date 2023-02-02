@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Complete list of key codes
+# https://eastmanreference.com/complete-list-of-applescript-key-codes
+
 typeset -a space_hash
 
 space_hash[0]=29

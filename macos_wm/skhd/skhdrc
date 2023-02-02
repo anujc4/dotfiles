@@ -92,37 +92,33 @@ ctrl + alt - right     : yabai -m display --focus east || yabai -m display --foc
 ctrl + alt - up        : yabai -m display --focus north || yabai -m display --focus recent
 ctrl + alt - down      : yabai -m display --focus south || yabai -m display --focus recent
 
-ctrl + alt - z         : yabai -m window --focus recent
-
-# Switch to space with window running in native full-screen mode. Only works with SIP disabled.
-# - key
-ctrl - 0x1B            : yabai -m space --focus "$(yabai -m query --spaces --display | \
-                         jq 'map(select(."native-fullscreen" == 1))[0].index')" # - key
-# = key
-ctrl - 0x18            : yabai -m space --focus "$(yabai -m query --spaces --display | \
-                         jq 'map(select(."native-fullscreen" == 1))[1].index')" # = key
-
 # float / unfloat window and center on screen
 alt - f                : yabai -m window --toggle float; \
                          yabai -m window --grid 4:4:1:1:2:2; \
                          sketchybar --trigger window_focus
 
+# Restart all services
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
 
-ctrl + alt + cmd - s : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
-                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
-
+# Open Terminal
 ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
+
+# Open Finder
 ctrl + shift - k     : open -na /Applications/Forklift.app
+
+# Close a window. Not the same as quit
 ctrl + shift - q     : yabai -m window --close
 
+# Focus window under mouse
 cmd - m              : yabai -m window --focus mouse
 
-# Unused shortcuts
-# ctrl + lalt - g : yabai -m space --toggle padding; yabai -m space --toggle gap
-# ctrl - q : osascript -e "tell application \"Finder\" to set p to item 1 of (get file of (processes whose frontmost = true)) as text" -e "tell application p to quit"
+# Toggle zen mode. zooms focused window, removes all margins
+# and hides status bar
+ctrl + shift - z      : ~/.config/skhd/toggle_zen_mode.sh; \
+                        skhd -k 'escape'
+
 
 ######################## Insert mode ###########################################
 
@@ -223,12 +219,6 @@ resize < z             : yabai -m query --windows --space | \
                          xargs -I{} yabai -m window {} --toggle zoom-fullscreen; \
                          skhd -k 'escape'; \
                          sketchybar --trigger window_focus
-
-# rotate all windows clockwise
-resize < c              : "$DOT_SOURCE/yabai/yabai_script_actions.sh" rotate_clockwise
-
-# rotate all windows counter-clockwise
-resize < x              : "$DOT_SOURCE/yabai/yabai_script_actions.sh" rotate_counter_clockwise
 
 # Swaps the recent window with the window that's currently focused by the mouse
 resize < s              : yabai -m window mouse --swap recent; \

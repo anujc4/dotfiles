@@ -14,7 +14,7 @@ mouse_clicked() {
     yabai -m space --destroy "$SID"
     sketchybar --trigger space_change
   else
-    "$HOME"/.config/skhd/switch_space.sh "$SID" 2>/dev/null
+    "$HOME/.config/skhd/switch_space.sh" "$SID" 2>/dev/null
   fi
 }
 
