@@ -2,10 +2,5 @@
 
 alias open='xdg-open'
 alias wifi='nmtui'
-alias class='xprop | grep -i "class"'
-
-# NORD VPN alias
-alias nv='nordvpn'
-alias vpw='watch nordvpn status'
 
 export PATH="$HOME/.local/bin:$PATH"

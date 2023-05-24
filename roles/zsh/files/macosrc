@@ -10,8 +10,18 @@ if [[ "$(uname -m)" == "arm64" ]]; then
   export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
   RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --with-arch=arm64"
   export RUBY_CONFIGURE_OPTS
-else
-  eval "$(/usr/local/homebrew/bin/brew shellenv)"
+
+  # Dir to store manual arm binaries
+  export PATH="$PATH:$HOME/.local/bin"
+# else
+  # These don't work on Intel Macs. Uncomment and apply only if running
+  # terminal under Rosetta on an M1
+  #
+  # eval "$(/usr/local/homebrew/bin/brew shellenv)"
+  #
+  # Dir to store manual x86 binaries
+  # Run terminal on Rosetta to use binaries in this path
+  # export PATH="$PATH:$HOME/.local_x86/bin"
 fi
 
 # Mac OSX specific application alias.
@@ -25,7 +35,7 @@ alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 
 FORGIT_INSTALL_DIR="/Users/$(whoami)/.oh-my-zsh/custom/plugins/forgit/bin"
-if [ -f "$FORGIT_INSTALL_DIR" ]; then
+if [ -d "$FORGIT_INSTALL_DIR" ]; then
   export PATH="$PATH:$FORGIT_INSTALL_DIR"
   export FORGIT_FZF_DEFAULT_OPTS
 fi
@@ -43,8 +53,6 @@ alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 gopath="$(go env GOPATH)"
 export PATH="$PATH:$gopath/bin"
 
-export PATH="$PATH:$HOME/.local/bin"
-
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
 
 # Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
@@ -57,14 +65,26 @@ function portscan()
 {
   lsof -i :"$1"
 }
-alias portscan='portscan'
 
-alias rsp='run_rspec'
-function run_rspec()
+function rsp()
 {
-  RACK_SERVICE_TIMEOUT=0 bundle exec rspec ./"$1"
+  RACK_SERVICE_TIMEOUT=0 bundle exec rspec ./spec/"$1"
 }
+
 alias wip='git add . && git commit -m "WIP Commit"'
+
+function wip_unset()
+{
+  local msg
+  msg="$(git log -1 --pretty=%B)"
+  if [ "$msg" = "WIP Commit" ]; then
+    git reset HEAD~1
+  else
+    echo "No WIP commit found. Check your git log"
+    return 1
+  fi
+}
+
 alias b='bundle'
 alias bi='bundle install'
 alias rspec='bundle exec rspec'
@@ -75,11 +95,6 @@ alias rollback='bundle exec rails db:rollback'
 alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
 alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
 alias db_reset='bundle exec rails db:drop; bundle exec rails db:create'
-
-function cop()
-{
-  bundle exec rubocop ./"$1"
-}
 
 function securekb()
 {
@@ -105,7 +120,7 @@ if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
 fi
 
 function suyabai () {
-  SHA256=$(shasum -a 256 /opt/homebrew/bin/yabai | awk "{print \$1;}")
+  SHA256=$(shasum -a 256 "$(brew --prefix yabai)" | awk "{print \$1;}")
   if [ -f "/private/etc/sudoers.d/yabai" ]; then
     sudo sed -i '' -e 's/sha256:[[:alnum:]]*/sha256:'"${SHA256}"'/' /private/etc/sudoers.d/yabai
   else

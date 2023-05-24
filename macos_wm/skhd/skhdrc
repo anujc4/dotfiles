@@ -24,11 +24,13 @@
 # to run tests but trigger resize mode everywhere else
 default < ctrl + shift - r [
   "rubymine"   ~
+  "code"   ~
   * : skhd -k "meh - r"
 ]
 
 resize < ctrl + shift - r [
   "rubymine"   ~
+  "code"   ~
   * : skhd -k "meh - r"
 ]
 
@@ -98,9 +100,9 @@ alt - f                : yabai -m window --toggle float; \
                          sketchybar --trigger window_focus
 
 # Restart all services
-ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+ctrl + alt + cmd - r : yabai --restart-service; \
                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
-                       launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+                       skhd --restart-service
 
 # Open Terminal
 ctrl + shift - 0x24  : open -na /Applications/Alacritty.app
@@ -368,30 +370,15 @@ window < space        : yabai -m query --spaces --space | \
 ##################### Reload mode ##############################################
 
 reload < 0            : skhd -k 'escape'; \
-                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+                        yabai --restart-service; \
                         launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
-                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+                        skhd --restart-service
 
-reload < 1            : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.yabai"; \
+reload < 1            : yabai --restart-service; \
                         skhd -k 'escape'
 
 reload < 2            : skhd -k 'escape'; \
-                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.skhd"
+                        skhd --restart-service
 
 reload < 3            : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
-                        skhd -k 'escape'
-
-reload < alt - 0      : skhd -k 'escape'; \
-                        brew services restart yabai; \
-                        brew services restart sketchybar; \
-                        brew services restart skhd
-
-reload < alt - 1      : brew services restart yabai; \
-                        skhd -k 'escape'
-
-reload < alt - 2      : skhd -k 'escape'; \
-                        brew services restart skhd
-
-
-reload < alt - 3      : brew services restart sketchybar; \
                         skhd -k 'escape'

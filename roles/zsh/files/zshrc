@@ -8,7 +8,6 @@
 # zmodload zsh/zprof
 # zprof
 
-export TERM="xterm-256color"
 export EDITOR="vim"
 export LANG=en_US.UTF-8
 
@@ -33,22 +32,24 @@ plugins=(
   zsh-syntax-highlighting
   )
 
-case `uname` in
+case $(uname) in
   Darwin)
     # Get the absolute path of the symlinked zshrc to read the other rc files
-    ABSOLUTE_FILE_PATH="$(readlink /Users/$(whoami)/.zshrc)"
+    ABSOLUTE_FILE_PATH="$(readlink /Users/"$(whoami)"/.zshrc)"
     FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
     # Path to your oh-my-zsh installation.
-    export ZSH="/Users/$(whoami)/.oh-my-zsh"
-    source $(echo $FILE_DIR)/macosrc
+    ZSH="/Users/$(whoami)/.oh-my-zsh"
+    export ZSH
+    source "$FILE_DIR/macosrc"
   ;;
   Linux)
     # Get the absolute path of the symlinked zshrc to read the other rc files
-    ABSOLUTE_FILE_PATH="$(readlink -f /home/$(whoami)/.zshrc)"
+    ABSOLUTE_FILE_PATH="$(readlink -f /home/"$(whoami)"/.zshrc)"
     FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
     # Path to your oh-my-zsh installation.
-    export ZSH="/home/$(whoami)/.oh-my-zsh"
-    source $(echo $FILE_DIR)/linuxrc
+    ZSH="/home/$(whoami)/.oh-my-zsh"
+    export ZSH
+    source "$FILE_DIR/linuxrc"
   ;;
 esac
 
@@ -74,7 +75,8 @@ zstyle ':completion:*' regular true
 # shellcheck disable=SC2034
 DISABLE_MAGIC_FUNCTIONS=true
 
-source $ZSH/oh-my-zsh.sh
+# shellcheck source=/dev/null
+source "$ZSH/oh-my-zsh.sh"
 
 # Prevent zsh from showing the system name before each command
 prompt_context () { true; }
@@ -93,11 +95,14 @@ source "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd/zsh-interactive-cd
 
 # Disable that pesky auto correct
 unsetopt correct_all
+unsetopt nomatch
 
 # shellcheck source=/dev/null
 source "$FILE_DIR/common_aliasrc"
+
 # shellcheck source=/dev/null
 source "$FILE_DIR/secretsrc"
+
 eval "$(thefuck --alias)"
 
 typeset -U path

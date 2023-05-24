@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Common aliases
-alias ezsh='code $FILE_DIR'
+alias ezsh='code $DOT_SOURCE'
 alias rzsh='source ~/.zshrc'
 alias rtmux='tmux source ~/.tmux.conf'
 alias f='fuck'
@@ -23,14 +23,19 @@ alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
 
 gitdelete()
 {
-  git fetch -p ; git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
+  git fetch -p ; git branch -r | awk '{print $1}' | grep -E -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
   git branch --merged master | grep -v '^[ *]*master$' | xargs git branch -d
   git remote prune origin
 }
 
 gitdeletesquashed()
 {
-  git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do mergeBase=$(git merge-base master "$branch") && [[ $(git cherry master $(git commit-tree $(git rev-parse "$branch^{tree}") -p $mergeBase -m _)) == "-"* ]] && git branch -D $branch; done
+  git checkout -q master && git for-each-ref refs/heads/ "--format=%(refname:short)" | while read -r branch
+  do
+    mergeBase=$(git merge-base master "$branch") && \
+      [[ $(git cherry master "$(git commit-tree "$(git rev-parse "$branch^{tree}")" -p "$mergeBase" -m _)") == "-"* ]] && \
+      git branch -D "$branch"
+  done
 }
 
 # Merges the current branch into the branch specified by the argument
@@ -45,7 +50,7 @@ gitmergeinto()
   git checkout "$1"
   git fetch
   git reset --hard origin/"$1"
-  git merge "$branch"
+  git merge "$branch" --no-edit
   echo "Merged $branch into $1"
 }
 
@@ -75,16 +80,32 @@ function copypwd {
 zle -N copypwd
 bindkey '^y' copypwd
 
-function prev() {
+function pet_save_previous_command() {
   PREV=$(fc -lrn | head -n 1)
   sh -c "pet new $(printf %q "$PREV")"
 }
 
 function pet-select() {
+  # shellcheck disable=SC2034,SC2153
   BUFFER=$(pet search --query "$LBUFFER")
+  # shellcheck disable=SC2034
   CURSOR=$#BUFFER
   zle redisplay
 }
 zle -N pet-select
 stty -ixon
 bindkey '^s' pet-select
+
+# Alias for git-forgit
+alias gcoo='git-forgit checkout_branch'
+
+unalias gcp
+alias gcp='git-forgit cherry_pick'
+
+unalias gd
+alias gd='git-forgit diff'
+
+unalias gss
+alias gss='git-forgit stash_show'
+
+alias gll='git log'
