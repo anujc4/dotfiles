@@ -27,6 +27,7 @@ fi
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
+alias c='code .'
 alias goland='open -a /Applications/GoLand.app'
 alias fl='open -a ForkLift .'
 alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
@@ -53,11 +54,11 @@ alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 gopath="$(go env GOPATH)"
 export PATH="$PATH:$gopath/bin"
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-11.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
 
 # Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
 # cd /Library/Java/JavaVirtualMachines/
-# sudo rm -rf amazon-corretto-11.jdk
+# sudo rm -rf amazon-corretto-17.jdk
 
 path+=/usr/local/bin
 

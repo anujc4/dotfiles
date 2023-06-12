@@ -19,7 +19,7 @@ tmuxkillsession()
 }
 
 alias tmuxkillall='tmux kill-server'
-alias brewup='brew update; brew upgrade; brew prune; brew cleanup; brew doctor'
+alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 
 gitdelete()
 {
