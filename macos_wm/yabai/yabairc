@@ -56,4 +56,7 @@ yabai -m signal --add label=stack_same_name_applications event=window_created \
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"
 yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
 
+# app specific rules
+yabai -m rule --add label=vs_code_space_two app='Code' space='2'
+
 echo "yabai configuration loaded.."
