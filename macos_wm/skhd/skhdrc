@@ -22,6 +22,7 @@
 
 # Hack to use "ctrl + shift - r" keybinding in RubyMine
 # to run tests but trigger resize mode everywhere else
+# meh is (shift + alt + ctrl)
 default < ctrl + shift - r [
   "rubymine"   ~
   "code"   ~
@@ -51,6 +52,14 @@ window  < ctrl + shift - w ; default
 resize  < meh - r          ; default
 inst    < ctrl + shift - i ; default
 reload  < ctrl + shift - x ; default
+
+# Launch other modes from within a mode
+# display, stack, window, resize, inst, reload
+stack, window, resize, inst, reload    < d ; display
+display, window, resize, inst, reload  < s ; stack
+display, stack, resize, inst, reload   < w ; window
+display, stack, window, inst, reload   < r ; resize
+display, stack, window, resize, reload < i ; inst
 
 ############################# Global modifiers ##################################
 # The aim is to not have too many global key-bindings because it will clash with

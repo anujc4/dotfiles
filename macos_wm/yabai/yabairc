@@ -2,34 +2,34 @@
 
 # necessary to load scripting-addition during startup on macOS Big Sur
 # *yabai --load-sa* is configured to run through sudo without a password
-sudo yabai --load-sa
-yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+# sudo yabai --load-sa
+# yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
-yabai -m config debug_output                 off
-yabai -m config mouse_follows_focus          on
-yabai -m config focus_follows_mouse          off
-yabai -m config window_origin_display        cursor
-yabai -m config window_placement             second_child
-yabai -m config window_zoom_persist          off
-yabai -m config mouse_drop_action            stack
-yabai -m config window_shadow                float
-yabai -m config split_ratio                  0.50
-yabai -m config auto_balance                 off
-yabai -m config mouse_modifier               alt
-yabai -m config mouse_action1                move
-yabai -m config mouse_action2                resize
+yabai -m config debug_output off
+yabai -m config mouse_follows_focus on
+yabai -m config focus_follows_mouse off
+yabai -m config window_origin_display cursor
+yabai -m config window_placement second_child
+yabai -m config window_zoom_persist off
+yabai -m config mouse_drop_action stack
+yabai -m config window_shadow float
+yabai -m config split_ratio 0.50
+yabai -m config auto_balance off
+yabai -m config mouse_modifier alt
+yabai -m config mouse_action1 move
+yabai -m config mouse_action2 resize
 
 # general space settings
-yabai -m config external_bar                 all:0:30
-yabai -m config layout                       bsp
-yabai -m config top_padding                  10
-yabai -m config bottom_padding               10
-yabai -m config left_padding                 10
-yabai -m config right_padding                10
-yabai -m config window_gap                   10
+yabai -m config external_bar all:0:30
+yabai -m config layout bsp
+yabai -m config top_padding 10
+yabai -m config bottom_padding 10
+yabai -m config left_padding 10
+yabai -m config right_padding 10
+yabai -m config window_gap 10
 
-yabai -m config insert_feedback_color        0xffd65d0e
+yabai -m config insert_feedback_color 0xffd65d0e
 
 # Unmanaged apps
 app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Preferences"
@@ -37,9 +37,9 @@ app_titles+="|QuickTime Player)"
 yabai -m rule --add title="${app_titles}" manage=off
 
 app_names="^(Calculator|Authy Desktop|Postgres|VLC|System Preferences"
-app_names+="|AppCleaner|1Password|WireGuard|System Settings"
+app_names+="|AppCleaner|1Password|WireGuard|System Settings|Tailscale"
 app_names+="|Logi Options|JetBrains Toolbox|Contexts|JetBrains Gateway"
-app_names+="|Logi Options\+|SteelSeries GG Client)$"
+app_names+="|Logi Options\+|SteelSeries GG Client|Stats)$"
 yabai -m rule --add app="${app_names}" manage=off
 
 # Only used when SIP is enabled. This is a in-house replacement for
@@ -51,6 +51,8 @@ yabai -m signal --add label=space_changed event=space_changed \
 # application, if exists
 yabai -m signal --add label=stack_same_name_applications event=window_created \
     action="$HOME/.config/yabai/stack_same_name_applications.sh"
+
+yabai -m signal --add event=window_created action="float_small_windows.sh"
 
 # sketchybar specific events
 yabai -m signal --add event=window_focused action="sketchybar --trigger window_focus"

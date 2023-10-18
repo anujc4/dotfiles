@@ -30,6 +30,7 @@ plugins=(
   zsh-autosuggestions
   zsh-completions
   zsh-syntax-highlighting
+  sudo
   )
 
 case $(uname) in

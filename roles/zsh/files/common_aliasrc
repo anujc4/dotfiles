@@ -46,12 +46,29 @@ gitmergeinto()
     return 1
   fi
   branch=$(current_branch)
-  echo "Merging $(branch) into $1"
+  echo "Merging $branch into $1"
   git checkout "$1"
   git fetch
   git reset --hard origin/"$1"
   git merge "$branch" --no-edit
   echo "Merged $branch into $1"
+}
+
+# Squash commits in the current branch into the branch specified by the argument
+gitsquashinto()
+{
+  if [ -z "$1" ]; then
+    echo "Usage: gitsquashinto <branch>"
+    return 1
+  fi
+  branch=$(current_branch)
+  echo "Squashing $branch into $1"
+  git checkout "$1"
+  git fetch
+  git reset --hard origin/"$1"
+  git merge --squash  "$branch"
+  git commit -m "Merged(squash) $branch into $1"
+  echo "Squashed $branch into $1"
 }
 
 alias docker='nocorrect docker'
