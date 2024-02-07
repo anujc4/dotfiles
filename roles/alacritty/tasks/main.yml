@@ -36,7 +36,7 @@
     force: yes
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-# ln -sf ~/Personal/dotfiles/roles/alacritty/files/alacritty_mac.yml ~/.config/alacritty/alacritty.yml
+# ln -sf ~/Personal/dotfiles/roles/alacritty/files/alacritty_mac.toml ~/.config/alacritty/alacritty.toml
 - name: Copy config file(Mac)
   file:
     src: "{{ role_path }}/files/alacritty_mac.yml"

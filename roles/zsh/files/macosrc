@@ -60,8 +60,6 @@ alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 # gopath="$(go env GOPATH)"
 # export PATH="$PATH:$gopath/bin"
 # export GOPATH="$gopath"
-# goroot="$(go env GOROOT)"
-# export GOROOT="$goroot"
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
 
@@ -76,7 +74,9 @@ function portscan() {
 }
 
 function rsp() {
-  RACK_SERVICE_TIMEOUT=0 bundle exec rspec ./spec/"$1"
+  local spec_file
+  spec_file="$(echo "$1" | sed 's/^spec\///')"
+  RACK_SERVICE_TIMEOUT=0 bundle exec rspec ./spec/"$spec_file"
 }
 
 alias wip='git add . && git commit -m "WIP Commit"'
@@ -142,6 +142,12 @@ fi
 if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
   # shellcheck source=/dev/null
   source "$(brew --prefix asdf)/libexec/asdf.sh"
+  #
+  export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+
+  # Set GOROOT
+  # shellcheck source=/dev/null
+  . ~/.asdf/plugins/golang/set-env.zsh
 fi
 
 function suyabai() {

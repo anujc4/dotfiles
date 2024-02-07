@@ -31,26 +31,26 @@ plugins=(
   zsh-completions
   zsh-syntax-highlighting
   sudo
-  )
+)
 
 case $(uname) in
-  Darwin)
-    # Get the absolute path of the symlinked zshrc to read the other rc files
-    ABSOLUTE_FILE_PATH="$(readlink /Users/"$(whoami)"/.zshrc)"
-    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-    # Path to your oh-my-zsh installation.
-    ZSH="/Users/$(whoami)/.oh-my-zsh"
-    export ZSH
-    source "$FILE_DIR/macosrc"
+Darwin)
+  # Get the absolute path of the symlinked zshrc to read the other rc files
+  ABSOLUTE_FILE_PATH="$(readlink /Users/"$(whoami)"/.zshrc)"
+  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+  # Path to your oh-my-zsh installation.
+  ZSH="/Users/$(whoami)/.oh-my-zsh"
+  export ZSH
+  source "$FILE_DIR/macosrc"
   ;;
-  Linux)
-    # Get the absolute path of the symlinked zshrc to read the other rc files
-    ABSOLUTE_FILE_PATH="$(readlink -f /home/"$(whoami)"/.zshrc)"
-    FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-    # Path to your oh-my-zsh installation.
-    ZSH="/home/$(whoami)/.oh-my-zsh"
-    export ZSH
-    source "$FILE_DIR/linuxrc"
+Linux)
+  # Get the absolute path of the symlinked zshrc to read the other rc files
+  ABSOLUTE_FILE_PATH="$(readlink -f /home/"$(whoami)"/.zshrc)"
+  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
+  # Path to your oh-my-zsh installation.
+  ZSH="/home/$(whoami)/.oh-my-zsh"
+  export ZSH
+  source "$FILE_DIR/linuxrc"
   ;;
 esac
 
@@ -59,6 +59,11 @@ esac
 export DOT_SOURCE=${FILE_DIR%????????????????}
 
 eval "$(zoxide init zsh)"
+
+# 1Password zsh completions
+if command -v op &>/dev/null; then
+  eval "$(op completion zsh)"
+fi
 
 if type brew &>/dev/null; then
   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
@@ -80,7 +85,7 @@ DISABLE_MAGIC_FUNCTIONS=true
 source "$ZSH/oh-my-zsh.sh"
 
 # Prevent zsh from showing the system name before each command
-prompt_context () { true; }
+prompt_context() { true; }
 prompt_aws() { true; }
 
 # shellcheck source=/dev/null
