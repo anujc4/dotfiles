@@ -61,4 +61,7 @@ yabai -m signal --add event=space_changed action="sketchybar --trigger windows_o
 # app specific rules
 yabai -m rule --add label=vs_code_space_two app='Code' space='2'
 
+# Lauch borders as a background process
+borders &
+
 echo "yabai configuration loaded.."
