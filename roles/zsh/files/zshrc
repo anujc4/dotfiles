@@ -60,17 +60,7 @@ export DOT_SOURCE=${FILE_DIR%????????????????}
 
 eval "$(zoxide init zsh)"
 
-# 1Password zsh completions
-if command -v op &>/dev/null; then
-  eval "$(op completion zsh)"
-fi
-
-if type brew &>/dev/null; then
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-
-  autoload -Uz compinit
-  compinit
-fi
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # don't expand aliases _before_ completion has finished
 setopt complete_aliases

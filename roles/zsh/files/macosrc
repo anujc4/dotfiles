@@ -10,6 +10,12 @@ function ruby_config_arm() {
   export RUBY_CONFIGURE_OPTS
 }
 
+# function ruby_config_rosetta() {
+#   RUBIES+=(
+#   "$HOME/.rubies_x86/*"
+# )
+# }
+
 # e.g. Apple M1 Max
 if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
   if [[ "$(uname -m)" == "arm64" ]]; then
@@ -21,12 +27,18 @@ if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
     eval "$(/usr/local/homebrew/bin/brew shellenv)"
     # Dir to store manual x86 binaries
     export PATH="$PATH:$HOME/.local_x86/bin"
-    ruby_config_rosetta
+    # TODO: This doesn't work as gems are still installed in $GEM_HOME
+    # regardless of system architecture.
+    # ruby_config_rosetta
   fi
 else
-  # Placeholder
-  export PATH="$PATH:$HOME/.local_x86/bin"
+  # MacOS on Intel
+  export PATH="$PATH:$HOME/.local/bin"
 fi
+
+# function ruby-build() {
+#   command ruby-build "$1" ~/.rubies/ruby-"$1"
+# }
 
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
@@ -56,10 +68,6 @@ alias bss='brew services start'
 alias bsx='brew services stop'
 alias tf='terraform'
 alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
-
-# gopath="$(go env GOPATH)"
-# export PATH="$PATH:$gopath/bin"
-# export GOPATH="$gopath"
 
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
 
@@ -117,27 +125,15 @@ function securekb() {
     xargs -I{} ps -p {} -o comm=
 }
 
-# function ruby_config_rosetta() {
-#   RUBIES+=(
-#   "$HOME/.rubies_x86/*"
-# )
-# }
+# if [ -f "$(brew --prefix chruby)/share/chruby/chruby.sh" ]; then
+#   # shellcheck source=/dev/null
+#   source "$(brew --prefix chruby)/share/chruby/chruby.sh"
+# fi
 
-if [ -f "$(brew --prefix chruby)/share/chruby/chruby.sh" ]; then
-  # shellcheck source=/dev/null
-  source "$(brew --prefix chruby)/share/chruby/chruby.sh"
-
-  # if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
-  #   if [[ "$(uname -m)" == "x86_64" ]]; then
-  #   ruby_config_rosetta
-  #   fi
-  # fi
-fi
-
-if [ -f "$(brew --prefix chruby)/share/chruby/auto.sh" ]; then
-  # shellcheck source=/dev/null
-  source "$(brew --prefix chruby)/share/chruby/auto.sh"
-fi
+# if [ -f "$(brew --prefix chruby)/share/chruby/auto.sh" ]; then
+#   # shellcheck source=/dev/null
+#   source "$(brew --prefix chruby)/share/chruby/auto.sh"
+# fi
 
 if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
   # shellcheck source=/dev/null

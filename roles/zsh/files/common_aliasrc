@@ -4,10 +4,13 @@
 alias ezsh='code $DOT_SOURCE'
 alias rzsh='source ~/.zshrc'
 alias rtmux='tmux source ~/.tmux.conf'
+alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
 alias f='fuck'
 
 # General purpose alias
 alias tmuxls='tmux list-sessions'
+alias tmuxkillall='tmux kill-server'
+
 tmuxattach() {
   tmux attach-session -t "$1"
 }
@@ -16,8 +19,18 @@ tmuxkillsession() {
   tmux kill-session -t "$1"
 }
 
-alias tmuxkillall='tmux kill-server'
-alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
+tmuxs() {
+  tmuxinator start "$1"
+}
+
+tmuxx() {
+  tmuxinator stop "$1"
+}
+
+# 1Password zsh completions
+if command -v op &>/dev/null; then
+  eval "$(op completion zsh)"
+fi
 
 gitdelete() {
   git fetch -p
@@ -68,13 +81,6 @@ gitsquashinto() {
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
 alias rm='rm -i'
-tmuxs() {
-  tmuxinator start "$1"
-}
-
-tmuxx() {
-  tmuxinator stop "$1"
-}
 
 # Open bash in a docker container
 dbash() {
