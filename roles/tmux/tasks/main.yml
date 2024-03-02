@@ -1,5 +1,6 @@
 ---
 # ln -sf ~/Personal/dotfiles/roles/tmux/files/tmux.conf ~/.tmux.conf
+
 - name: Copy tmux configuration
   file:
     src: "{{ role_path }}/files/tmux.conf"
@@ -31,4 +32,5 @@
       tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins"
       "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
       tmux kill-session -t __noop >/dev/null 2>&1 || true
+      bash $DOT_SOURCE/roles/tmux/files/override_color.sh
     fi

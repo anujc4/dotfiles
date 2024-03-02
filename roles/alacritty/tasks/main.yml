@@ -37,6 +37,8 @@
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 # ln -sf ~/Personal/dotfiles/roles/alacritty/files/alacritty_mac.toml ~/.config/alacritty/alacritty.toml
+# mkdir -p ~/.config/alacritty/themes
+# git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 - name: Copy config file(Mac)
   file:
     src: "{{ role_path }}/files/alacritty_mac.yml"
