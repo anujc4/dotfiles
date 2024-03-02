@@ -10,12 +10,6 @@ function ruby_config_arm() {
   export RUBY_CONFIGURE_OPTS
 }
 
-# function ruby_config_rosetta() {
-#   RUBIES+=(
-#   "$HOME/.rubies_x86/*"
-# )
-# }
-
 # e.g. Apple M1 Max
 if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
   if [[ "$(uname -m)" == "arm64" ]]; then
@@ -35,10 +29,6 @@ else
   # MacOS on Intel
   export PATH="$PATH:$HOME/.local/bin"
 fi
-
-# function ruby-build() {
-#   command ruby-build "$1" ~/.rubies/ruby-"$1"
-# }
 
 # Mac OSX specific application alias.
 alias studio='open -a /Applications/Android\ Studio.app'
@@ -125,20 +115,9 @@ function securekb() {
     xargs -I{} ps -p {} -o comm=
 }
 
-# if [ -f "$(brew --prefix chruby)/share/chruby/chruby.sh" ]; then
-#   # shellcheck source=/dev/null
-#   source "$(brew --prefix chruby)/share/chruby/chruby.sh"
-# fi
-
-# if [ -f "$(brew --prefix chruby)/share/chruby/auto.sh" ]; then
-#   # shellcheck source=/dev/null
-#   source "$(brew --prefix chruby)/share/chruby/auto.sh"
-# fi
-
 if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
   # shellcheck source=/dev/null
   source "$(brew --prefix asdf)/libexec/asdf.sh"
-  #
   export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 
   # Set GOROOT
