@@ -15,9 +15,9 @@ show_ip_address() {
 
   # Alternatively, use this to display the IP address of the current network
   # text="$(get_tmux_option "@catppuccin_ip_address_text" "#{ip_address}")"
-  text="$(get_tmux_option "@catppuccin_ip_address_text" "#($HOME/.config/tmux/modules/network_speed.sh)")"
+  text="$(get_tmux_option "@catppuccin_ip_address_text" "#($DOT_SOURCE/roles/tmux/files/modules/network_speed.sh)")"
 
-  module=$( build_status_module "$index" "$icon" "$color" "$text" )
+  module=$(build_status_module "$index" "$icon" "$color" "$text")
 
   echo "$module"
 }

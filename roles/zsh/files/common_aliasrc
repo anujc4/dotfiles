@@ -80,7 +80,6 @@ gitsquashinto() {
 
 alias docker='nocorrect docker'
 alias dockerkillall='docker stop $(docker ps -a -q)'
-alias rm='rm -i'
 
 # Open bash in a docker container
 dbash() {
@@ -130,3 +129,12 @@ alias ga='git-forgit add'
 
 unalias gbd
 alias gbd='git-forgit branch_delete'
+
+function aua() {
+  asdf update && asdf plugin-update --all
+}
+
+# Helper function to pretty print the $PATH
+function _path() {
+  echo "$PATH" | tr ":" "\n" | nl
+}

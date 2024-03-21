@@ -33,30 +33,51 @@ plugins=(
   sudo
 )
 
-case $(uname) in
-Darwin)
-  # Get the absolute path of the symlinked zshrc to read the other rc files
-  ABSOLUTE_FILE_PATH="$(readlink /Users/"$(whoami)"/.zshrc)"
-  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-  # Path to your oh-my-zsh installation.
-  ZSH="/Users/$(whoami)/.oh-my-zsh"
-  export ZSH
-  source "$FILE_DIR/macosrc"
-  ;;
-Linux)
-  # Get the absolute path of the symlinked zshrc to read the other rc files
-  ABSOLUTE_FILE_PATH="$(readlink -f /home/"$(whoami)"/.zshrc)"
-  FILE_DIR=${ABSOLUTE_FILE_PATH%??????}
-  # Path to your oh-my-zsh installation.
-  ZSH="/home/$(whoami)/.oh-my-zsh"
-  export ZSH
-  source "$FILE_DIR/linuxrc"
-  ;;
-esac
+# This function will set up two important environment varialbles:
+# $FILE_DIR: Absolute path to the .zshrc file
+# $DOT_SOURCE: Absolute path where dotfiles repo is cloned
+# If the script fails to determine the path of dotfiles, it will print an error
+# since a lot of functionalities will start failing (tmux, yabai, skhd, etc)
+function _set_dot_source() {
+  local absolute_file_path
 
-# Export the directory where the dotfiles are stored
-# Hacky as fuck. There should be a better way to do this
-export DOT_SOURCE=${FILE_DIR%????????????????}
+  case $(uname) in
+  Darwin)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    absolute_file_path="$(readlink /Users/"$(whoami)"/.zshrc)"
+    FILE_DIR=${absolute_file_path%??????}
+    # Path to your oh-my-zsh installation.
+    ZSH="/Users/$(whoami)/.oh-my-zsh"
+    source "$FILE_DIR/macosrc"
+    ;;
+  Linux)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    absolute_file_path="$(readlink -f /home/"$(whoami)"/.zshrc)"
+    FILE_DIR=${absolute_file_path%??????}
+    # Path to your oh-my-zsh installation.
+    ZSH="/home/$(whoami)/.oh-my-zsh"
+    source "$FILE_DIR/linuxrc"
+    ;;
+  esac
+  export ZSH
+  export FILE_DIR
+
+  current_dir=$FILE_DIR
+  while [[ "$current_dir" != "/" && "$current_dir" != *"dotfiles" ]]; do
+    current_dir=$(dirname "$current_dir")
+  done
+
+  if [[ "$current_dir" == *"dotfiles" ]]; then
+    export DOT_SOURCE=${current_dir}
+  else
+    local message = "FATAL ERROR: Shell was not able to determine $DOT_SOURCE.
+      This will break other configurations. Check your zshrc configuration and
+      fix any errors."
+  fi
+}
+
+_set_dot_source
+unfunction _set_dot_source
 
 eval "$(zoxide init zsh)"
 

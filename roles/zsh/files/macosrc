@@ -92,20 +92,39 @@ function wip_unset() {
 
 alias b='bundle'
 alias bi='bundle install'
+alias ba='bundle add'
 alias bu='bundle update'
-alias rspec='bundle exec rspec'
-alias rails='bundle exec rails'
-alias rake='bundle exec rake'
-alias migrate='bundle exec rails db:migrate'
-alias rollback='bundle exec rails db:rollback'
+
+function rails() {
+  if [ -e "bin/rails" ]; then
+    bin/rails "$@"
+  elif [ -e "Gemfile" ]; then
+    bundle exec rails "$@"
+  else
+    command rails "$@"
+  fi
+}
+
+function rspec() {
+  if [ -e "bin/rspec" ]; then
+    bin/rspec "$@"
+  elif [ -e "Gemfile" ]; then
+    bundle exec rspec "$@"
+  else
+    command rspec "$@"
+  fi
+}
+
+alias migrate='rails db:migrate'
+alias rollback='rails db:rollback'
 alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
 alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
 function db_reset() {
   set +x
-  bundle exec rails db:drop
-  bundle exec rails db:create
-  bundle exec rails db:drop RAILS_ENV=test
-  bundle exec rails db:create RAILS_ENV=test
+  rails db:drop
+  rails db:create
+  rails db:drop RAILS_ENV=test
+  rails db:create RAILS_ENV=test
 }
 
 function securekb() {
