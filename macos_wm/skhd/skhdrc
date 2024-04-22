@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2094,SC2210,SC3028,SC2211,SC2171,SC2288
+# shellcheck disable=SC2094,SC2210,SC3028,SC2211,SC2171,SC2288,SC2238
 # Shellchecks disabled for this file
 # SC2094: Make sure not to read and write the same file in the same pipeline.
-# SC2210: This is a file redirection. Was it supposed to be a comparison or fd operation?
-# SC3028: In POSIX sh, VARIABLE is undefined.
-# SC2211: This is a glob used as a command name. Was it supposed to be in ${..}, array, or is it missing quoting?
 # SC2171: Found trailing ] outside test. Add missing [ or quote if intentional.
+# SC2210: This is a file redirection. Was it supposed to be a comparison or fd operation?
+# SC2211: This is a glob used as a command name. Was it supposed to be in ${..}, array, or is it missing quoting?
+# SC2238: Redirecting to/from command name instead of file. Did you want pipes/xargs (or quote to ignore)?
 # SC2288: This is interpreted as a command name ending with apostrophe. Double check syntax.
+# SC3028: In POSIX sh, VARIABLE is undefined.
 
 # This will fail until you run the post_yabai_installation script
 .load "sip_skhdrc"
@@ -35,8 +36,21 @@ resize < ctrl + shift - r [
   * : skhd -k "meh - r"
 ]
 
+# Override display mode
+default < ctrl + shift - d [
+  "rubymine"   ~
+  "code"   ~
+  * : skhd -k "meh - d"
+]
+
+resize < ctrl + shift - d [
+  "rubymine"   ~
+  "code"   ~
+  * : skhd -k "meh - d"
+]
+
 # Activate modes using the keybinding
-default < ctrl + shift - d ; display
+default < meh - d          ; display
 default < ctrl + shift - s ; stack
 default < ctrl + shift - w ; window
 default < meh - r          ; resize
@@ -46,7 +60,7 @@ default < ctrl + shift - x ; reload
 # De-activate modes
 display, window, resize, stack, inst, reload < escape ; default
 
-display < ctrl + shift - d ; default
+display < meh - d          ; default
 stack   < ctrl + shift - s ; default
 window  < ctrl + shift - w ; default
 resize  < meh - r          ; default
@@ -122,7 +136,7 @@ ctrl + shift - k     : open -na /Applications/Forklift.app
 # Close a window. Not the same as quit
 ctrl + shift - q     : yabai -m window --close
 
-# Focus window under mouse
+# Focus window under mouse (This overrides the default behaviour which minimizes the window)
 cmd - m              : yabai -m window --focus mouse
 
 # Toggle zen mode. zooms focused window, removes all margins
@@ -295,6 +309,16 @@ window < x            : index="$(yabai -m query --spaces --space | jq '.index - 
                         yabai -m space --destroy; \
                         yabai -m space --focus "${index}"; \
                         sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+
+# minimizes the selected window
+window < m            : yabai -m window --minimize; \
+                        skhd -k 'escape'
+
+# deminimizes all minimized windows
+window < shift - m    : yabai -m query --windows | \
+                        jq -re '.[] | select(."is-minimized" == true) | .id' | \
+                        xargs -I{} yabai -m window --deminimize {}; \
                         skhd -k 'escape'
 
 # toggle window native fullscreen

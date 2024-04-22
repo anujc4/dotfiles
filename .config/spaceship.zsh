@@ -1,5 +1,5 @@
 # Display time
-SPACESHIP_TIME_SHOW=true
+SPACESHIP_TIME_SHOW=false
 
 # Display username always
 # SPACESHIP_USER_SHOW=always

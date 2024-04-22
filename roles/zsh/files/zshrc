@@ -8,7 +8,7 @@
 # zmodload zsh/zprof
 # zprof
 
-export EDITOR="vim"
+export EDITOR="nvim"
 export LANG=en_US.UTF-8
 
 setopt EXTENDED_HISTORY
@@ -23,14 +23,15 @@ ZSH_THEME="spaceship"
 
 # shellcheck disable=SC2034
 plugins=(
+  autoupdate
   forgit
   git
+  sudo
   thefuck
   you-should-use
   zsh-autosuggestions
   zsh-completions
   zsh-syntax-highlighting
-  sudo
 )
 
 # This function will set up two important environment varialbles:
@@ -79,6 +80,16 @@ function _set_dot_source() {
 _set_dot_source
 unfunction _set_dot_source
 
+autoload -Uz compinit
+# zsh-specific code, disable all errors
+# shellcheck disable=SC1072,SC1073,SC1036,SC1058
+for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+done
+compinit -C
+zstyle ':completion:*' menu yes select
+# shellcheck enable=SC1072,SC1073,SC1036,SC1058
+
 eval "$(zoxide init zsh)"
 
 FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -100,7 +111,9 @@ prompt_context() { true; }
 prompt_aws() { true; }
 
 # shellcheck source=/dev/null
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+eval "$(fzf --zsh)"
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 
 # Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
 if type brew &>/dev/null; then
