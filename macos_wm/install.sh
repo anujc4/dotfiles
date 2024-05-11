@@ -28,6 +28,8 @@ if ! command -v sketchybar &>/dev/null; then
     brew install --cask sf-symbols
 fi
 
+(git clone https://github.com/FelixKratz/SbarLua.git /tmp/SbarLua && cd /tmp/SbarLua/ && make install && rm -rf /tmp/SbarLua/)
+
 if ! command -v borders &>/dev/null; then
     echo "missing borders. installing it now."
     brew install borders
