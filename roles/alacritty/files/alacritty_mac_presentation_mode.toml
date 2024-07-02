@@ -1,6 +1,6 @@
 import = [
   "~/Personal/dotfiles/roles/alacritty/files/alacritty_mac_base.toml",
-  "~/.config/alacritty/themes/themes/gruvbox_dark.toml",
+  "~/.config/alacritty/themes/themes/github_light.toml",
 ]
 
 live_config_reload = true

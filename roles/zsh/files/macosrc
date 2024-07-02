@@ -154,3 +154,30 @@ function suyabai() {
     echo "$(whoami) ALL=(root) NOPASSWD: sha256:${sha256} $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
   fi
 }
+
+function presentation_mode() {
+  local normal_mode_file="alacritty_mac.toml"
+  local presentation_mode_file="alacritty_mac_presentation_mode.toml"
+  local destination="$HOME/.config/alacritty/alacritty.toml"
+
+  local normal_mode_abs_file
+  local presentation_mode_abs_file
+  normal_mode_abs_file="$DOT_SOURCE/roles/alacritty/files/$normal_mode_file"
+  presentation_mode_abs_file="$DOT_SOURCE/roles/alacritty/files/$presentation_mode_file"
+
+  if [[ ! -f "$normal_mode_abs_file" || ! -f "$presentation_mode_abs_file" ]]; then
+    echo "alacritty files are not configured. check your dotfiles"
+    return 1
+  fi
+
+  local abs_path
+  local base_filename
+  abs_path=$(readlink -f "$HOME/.config/alacritty/alacritty.toml")
+  base_filename=$(basename "$abs_path")
+
+  if [[ $base_filename == "$normal_mode_file" ]]; then
+    ln -sf "$presentation_mode_abs_file" "$destination"
+  else
+    ln -sf "$normal_mode_abs_file" "$destination"
+  fi
+}

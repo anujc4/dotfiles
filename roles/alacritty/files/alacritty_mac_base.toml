@@ -1,0 +1,81 @@
+import = [
+    "~/.config/alacritty/themes/themes/github_light.toml"
+]
+
+live_config_reload = true
+working_directory = "None"
+
+[colors]
+draw_bold_text_with_bright_colors = true
+cursor = { text = "CellBackground", cursor = "CellForeground" }
+selection = { background = "CellForeground", text = "CellBackground" }
+vi_mode_cursor = { cursor = "CellForeground", text = "CellBackground" }
+
+[cursor]
+style = { shape = "Block", blinking = "Always" }
+unfocused_hollow = true
+
+[debug]
+log_level = "Warn"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+[env]
+LANG = "en_US.UTF-8"
+LC_ALL = "en_US.UTF-8"
+
+[font]
+size = 14
+normal = { family = "Hack Nerd Font", style = "Regular" }
+bold = { family = "Hack Nerd Font", style = "Bold" }
+italic = { family = "Hack Nerd Font", style = "Italic" }
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[mouse]
+hide_when_typing = false
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[window]
+decorations = "Buttonless"
+dynamic_padding = true
+dynamic_title = true
+opacity = 1.0
+blur = true
+startup_mode = "Windowed"
+padding = { x = 5, y = 20 }
+option_as_alt = "Both"
+
+[keyboard]
+bindings = [
+  { key = "Paste", action = "Paste" },
+  { key = "Copy", action = "Copy" },
+  { key = "L", mods = "Control", action = "ClearLogNotice" },
+  { key = "L", mods = "Control", action = "ClearLogNotice" },
+  { key = "PageUp", mods = "Shift", mode = "~Alt", action = "ScrollPageUp" },
+  { key = "PageDown", mods = "Shift", mode = "~Alt", action = "ScrollPageDown" },
+  { key = "Home", mods = "Shift", mode = "~Alt", action = "ScrollToTop" },
+  { key = "End", mods = "Shift", mode = "~Alt", action = "ScrollToBottom" },
+  { key = "Left", mods = "Alt", chars = "\u001BB" }, # Skip word left
+  { key = "Right", mods = "Alt", chars = "\u001BF" }, # Skip word right
+  { key = "Left", mods = "Command", chars = "\u001bOH", mode = "AppCursor" }, # Home
+  { key = "Right", mods = "Command", chars = "\u001bOF", mode = "AppCursor" }, # End
+  { key = "Back", mods = "Command", chars = "\u0015" }, # Delete line
+  { key = "Back", mods = "Alt", chars = "\u001b\u007f" }, # Delete word
+  { key = "c", mods = "Command", action = "Copy" }, # Copy to Clipboard
+  { key = "N", mods = "Command", action = "SpawnNewInstance" },
+  { key = "Comma", mods = "Command", command = { program = "sh", args = [
+    "-c",
+    "code ~/.config/alacritty/alacritty.toml",
+  ] } }, # Open Config
+]
