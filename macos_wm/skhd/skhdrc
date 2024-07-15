@@ -89,14 +89,25 @@ ctrl + shift - right  : yabai -m window --focus east || \
 ctrl + shift - left   : yabai -m window --focus west || \
                         yabai -m window --focus east; \
                         sketchybar --trigger window_focus
+
+# Up/Down actions uses multiple steps to focus window
+# First tries to focus the window in `north` direction
+# Else, tries to focus the window in `stack.prev` or `stack.last` direction
+# Else, tries to focus the first floating window (if any)
+# Else, gets the focus back from the `floating` window to the `managed` window
+
 ctrl + shift - up     : yabai -m window --focus north || \
                         yabai -m window --focus stack.prev || \
-                        yabai -m window --focus stack.last; \
+                        yabai -m window --focus stack.last || \
+                        yabai -m window --focus "$(yabai -m query --windows --space | jq -r 'map(select(.["has-focus"] == false and .["is-floating"] == true)) | .[0] | .id')" || \
+                        yabai -m window --focus "$(yabai -m query --windows --space | jq -r 'map(select(.["has-focus"] == false)) | .[0] | .id')"; \
                         sketchybar --trigger window_focus
 
 ctrl + shift - down   : yabai -m window --focus south || \
                         yabai -m window --focus stack.next || \
-                        yabai -m window --focus stack.first; \
+                        yabai -m window --focus stack.first || \
+                        yabai -m window --focus "$(yabai -m query --windows --space | jq -r 'map(select(.["has-focus"] == false and .["is-floating"] == true)) | .[0] | .id')" || \
+                        yabai -m window --focus "$(yabai -m query --windows --space | jq -r 'map(select(.["has-focus"] == false)) | .[0] | .id')"; \
                         sketchybar --trigger window_focus
 
 ctrl - down           : yabai -m window --focus mouse; \
