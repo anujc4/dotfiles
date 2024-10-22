@@ -1,12 +1,33 @@
 #!/bin/bash
 
 function ruby_config_arm() {
-  openssl="$(brew --prefix openssl@1.1)"
-  export LDFLAGS="-L$openssl/lib"
-  export CPPFLAGS="-I$openssl/include"
-  export PATH="$openssl/bin:$PATH"
+  # export PATH="$openssl/bin:$PATH"
   export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
-  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1) --with-arch=arm64"
+
+  # Get installation paths of ruby dependencies
+  openssl="$(brew --prefix openssl@1.1)"
+  readline="$(brew --prefix readline)"
+  libyaml="$(brew --prefix libyaml)"
+  llvm="$(brew --prefix llvm)"
+
+  cflags="-isysroot $(xcrun -show-sdk-path)"
+  export CFLAGS=$cflags
+
+  ldflags="-L$(xcrun -show-sdk-path)/usr/lib -L$openssl/lib -L$llvm/lib"
+  export LDFLAGS=$ldflags
+
+  cppflags="-I$(xcrun -show-sdk-path)/usr/include -I$openssl/include -I$llvm/include -I$llvm/include/c++/v1"
+  export CPPFLAGS=$cppflags
+
+  cxxflags="-isysroot $(xcrun -show-sdk-path)"
+  export CXXFLAGS=$cxxflags
+
+  sdkroot=$(xcrun -show-sdk-path)
+  export SDKROOT=$sdkroot
+
+  export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
+  export PATH="$openssl/bin:$llvm/bin:$PATH"
+  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl --with-opt-dir=$readline:$libyaml"
   export RUBY_CONFIGURE_OPTS
 }
 

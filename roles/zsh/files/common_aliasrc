@@ -11,6 +11,10 @@ alias f='fuck'
 alias tmuxls='tmux list-sessions'
 alias tmuxkillall='tmux kill-server'
 
+print_path() {
+  echo "$PATH" | tr ':' '\n'
+}
+
 tmuxattach() {
   tmux attach-session -t "$1"
 }
@@ -129,10 +133,6 @@ alias ga='git-forgit add'
 
 unalias gbd
 alias gbd='git-forgit branch_delete'
-
-function aua() {
-  asdf update && asdf plugin-update --all
-}
 
 # Helper function to pretty print the $PATH
 function _path() {
