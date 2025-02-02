@@ -6,30 +6,26 @@
 # yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 
 # global settings
-yabai -m config debug_output off
-yabai -m config mouse_follows_focus on
-yabai -m config focus_follows_mouse off
-yabai -m config window_origin_display cursor
-yabai -m config window_placement second_child
-yabai -m config window_zoom_persist off
-yabai -m config mouse_drop_action stack
-yabai -m config window_shadow float
-yabai -m config split_ratio 0.50
-yabai -m config auto_balance off
-yabai -m config mouse_modifier alt
-yabai -m config mouse_action1 move
-yabai -m config mouse_action2 resize
-
-# general space settings
-yabai -m config external_bar all:0:30
-yabai -m config layout bsp
-yabai -m config top_padding 10
-yabai -m config bottom_padding 10
-yabai -m config left_padding 10
-yabai -m config right_padding 10
-yabai -m config window_gap 10
-
-yabai -m config insert_feedback_color 0xffd65d0e
+yabai -m config mouse_follows_focus on \
+    config focus_follows_mouse off \
+    config window_origin_display cursor \
+    config window_placement second_child \
+    config window_zoom_persist off \
+    config mouse_drop_action stack \
+    config window_shadow float \
+    config split_ratio 0.50 \
+    config auto_balance off \
+    config mouse_modifier alt \
+    config mouse_action1 move \
+    config mouse_action2 resize \
+    config external_bar all:0:30 \
+    config layout bsp \
+    config top_padding 10 \
+    config bottom_padding 10 \
+    config left_padding 10 \
+    config right_padding 10 \
+    config window_gap 10 \
+    config insert_feedback_color 0xffd65d0e
 
 # Unmanaged apps
 app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Preferences"
@@ -42,14 +38,14 @@ app_names+="|Stats|SteelSeries GG Client|System Preferences|System Settings"
 app_names+="|Tailscale|VLC)$"
 yabai -m rule --add app="${app_names}" manage=off
 
-intellij_apps='^(IntelliJ IDEA|RubyMine|GoLand)$'
-yabai -m rule --add \
-    --label="disable intellij window management" \
-    app="${intellij_apps}" manage=off
-yabai -m signal --add \
-    --label="float sub-windows created by the same application" \
-    event=window_created app="${intellij_apps}" \
-    action="$HOME/.config/yabai/jetbrains.sh"
+# intellij_apps='^(IntelliJ IDEA|RubyMine|GoLand)$'
+# yabai -m rule --add \
+#     --label="disable intellij window management" \
+#     app="${intellij_apps}" manage=off
+# yabai -m signal --add \
+#     --label="float sub-windows created by the same application" \
+#     event=window_created app="${intellij_apps}" \
+#     action="$HOME/.config/yabai/jetbrains.sh"
 
 # Only used when SIP is enabled. This is a in-house replacement for
 # `yabai -m window --focus recent`, used with the `switch_space.sh` script
@@ -75,7 +71,7 @@ yabai -m signal --add event=space_changed action="sketchybar --trigger windows_o
 # app specific rules
 yabai -m rule --add label=vs_code_space_two app='Code' space='2'
 
-# Lauch borders as a background process
+# Launch borders as a background process
 borders &
 
 echo "yabai configuration loaded.."
