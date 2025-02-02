@@ -1,17 +1,13 @@
 #!/bin/bash
 
 function ruby_config_arm() {
-  # export PATH="$openssl/bin:$PATH"
-  export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
-
   # Get installation paths of ruby dependencies
   openssl="$(brew --prefix openssl@1.1)"
   readline="$(brew --prefix readline)"
   libyaml="$(brew --prefix libyaml)"
   llvm="$(brew --prefix llvm)"
 
-  cflags="-isysroot $(xcrun -show-sdk-path)"
-  export CFLAGS=$cflags
+  export PATH="$openssl/bin:$llvm/bin:$PATH"
 
   ldflags="-L$(xcrun -show-sdk-path)/usr/lib -L$openssl/lib -L$llvm/lib"
   export LDFLAGS=$ldflags
@@ -19,14 +15,8 @@ function ruby_config_arm() {
   cppflags="-I$(xcrun -show-sdk-path)/usr/include -I$openssl/include -I$llvm/include -I$llvm/include/c++/v1"
   export CPPFLAGS=$cppflags
 
-  cxxflags="-isysroot $(xcrun -show-sdk-path)"
-  export CXXFLAGS=$cxxflags
-
-  sdkroot=$(xcrun -show-sdk-path)
-  export SDKROOT=$sdkroot
-
   export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
-  export PATH="$openssl/bin:$llvm/bin:$PATH"
+
   RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl --with-opt-dir=$readline:$libyaml"
   export RUBY_CONFIGURE_OPTS
 }
@@ -42,9 +32,6 @@ if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
     eval "$(/usr/local/homebrew/bin/brew shellenv)"
     # Dir to store manual x86 binaries
     export PATH="$PATH:$HOME/.local_x86/bin"
-    # TODO: This doesn't work as gems are still installed in $GEM_HOME
-    # regardless of system architecture.
-    # ruby_config_rosetta
   fi
 else
   # MacOS on Intel
@@ -80,7 +67,7 @@ alias bsx='brew services stop'
 alias tf='terraform'
 alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-17.jdk/Contents/Home
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home
 
 # Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
 # cd /Library/Java/JavaVirtualMachines/
@@ -117,9 +104,7 @@ alias ba='bundle add'
 alias bu='bundle update'
 
 function rails() {
-  if [ -e "bin/rails" ]; then
-    bin/rails "$@"
-  elif [ -e "Gemfile" ]; then
+  if [ -e "Gemfile" ]; then
     bundle exec rails "$@"
   else
     command rails "$@"
@@ -127,9 +112,7 @@ function rails() {
 }
 
 function rspec() {
-  if [ -e "bin/rspec" ]; then
-    bin/rspec "$@"
-  elif [ -e "Gemfile" ]; then
+  if [ -e "Gemfile" ]; then
     bundle exec rspec "$@"
   else
     command rspec "$@"
@@ -176,7 +159,7 @@ function suyabai() {
   fi
 }
 
-function presentation_mode() {
+function presentation-mode() {
   local normal_mode_file="alacritty_mac.toml"
   local presentation_mode_file="alacritty_mac_presentation_mode.toml"
   local destination="$HOME/.config/alacritty/alacritty.toml"

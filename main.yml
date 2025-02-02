@@ -7,9 +7,6 @@
     - role: alacritty
       tags:
         - alacritty
-    - role: fusuma
-      tags:
-        - fusuma
     - role: tmux
       tags:
         - tmux

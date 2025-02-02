@@ -1,3 +1,4 @@
+[general]
 import = [
     "~/.config/alacritty/themes/themes/github_light.toml"
 ]
@@ -50,7 +51,7 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 decorations = "Buttonless"
 dynamic_padding = true
 dynamic_title = true
-opacity = 1.0
+opacity = 0.8
 blur = true
 startup_mode = "Windowed"
 padding = { x = 5, y = 20 }
