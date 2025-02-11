@@ -42,7 +42,6 @@ fi
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
 alias c='code .'
-alias goland='open -a /Applications/GoLand.app'
 alias fl='open -a ForkLift .'
 alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
 alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
@@ -125,10 +124,13 @@ alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
 alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
 function db_reset() {
   set +x
-  rails db:drop
-  rails db:create
-  rails db:drop RAILS_ENV=test
-  rails db:create RAILS_ENV=test
+  STATEMENT_TIMEOUT=0 bundle exec rails db:drop
+  STATEMENT_TIMEOUT=0 bundle exec rails db:create
+  STATEMENT_TIMEOUT=0 bundle exec rails db:migrate
+
+  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:drop
+  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:create
+  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:migrate
 }
 
 function securekb() {
@@ -143,7 +145,6 @@ if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
   source "$(brew --prefix asdf)/libexec/asdf.sh"
   export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 
-  # Set GOROOT
   # shellcheck source=/dev/null
   . ~/.asdf/plugins/golang/set-env.zsh
 fi
