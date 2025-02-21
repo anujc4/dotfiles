@@ -1,6 +1,0 @@
-#!/bin/bash
-
-alias open='xdg-open'
-alias wifi='nmtui'
-
-export PATH="$HOME/.local/bin:$PATH"
