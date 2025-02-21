@@ -1,0 +1,188 @@
+#!/bin/bash
+
+function ruby_config_arm() {
+  # Get installation paths of ruby dependencies
+  openssl="$(brew --prefix openssl@1.1)"
+  readline="$(brew --prefix readline)"
+  libyaml="$(brew --prefix libyaml)"
+  llvm="$(brew --prefix llvm)"
+
+  export PATH="$openssl/bin:$llvm/bin:$PATH"
+
+  ldflags="-L$(xcrun -show-sdk-path)/usr/lib -L$openssl/lib -L$llvm/lib"
+  export LDFLAGS=$ldflags
+
+  cppflags="-I$(xcrun -show-sdk-path)/usr/include -I$openssl/include -I$llvm/include -I$llvm/include/c++/v1"
+  export CPPFLAGS=$cppflags
+
+  export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
+
+  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl --with-opt-dir=$readline:$libyaml"
+  export RUBY_CONFIGURE_OPTS
+}
+
+# e.g. Apple M1 Max
+if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
+  if [[ "$(uname -m)" == "arm64" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    ruby_config_arm
+    # Dir to store manual arm binaries
+    export PATH="$PATH:$HOME/.local/bin"
+  else
+    eval "$(/usr/local/homebrew/bin/brew shellenv)"
+    # Dir to store manual x86 binaries
+    export PATH="$PATH:$HOME/.local_x86/bin"
+  fi
+else
+  # MacOS on Intel
+  export PATH="$PATH:$HOME/.local/bin"
+fi
+
+# Mac OSX specific application alias.
+alias studio='open -a /Applications/Android\ Studio.app'
+alias rmine='open -a /Applications/RubyMine.app'
+alias c='code .'
+alias fl='open -a ForkLift .'
+alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
+alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
+
+export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+
+FORGIT_INSTALL_DIR="/Users/$(whoami)/.oh-my-zsh/custom/plugins/forgit/bin"
+if [ -d "$FORGIT_INSTALL_DIR" ]; then
+  export PATH="$PATH:$FORGIT_INSTALL_DIR"
+  export FORGIT_FZF_DEFAULT_OPTS
+  export FORGIT_INSTALL_DIR
+fi
+
+# shellcheck disable=SC2155
+export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
+export THOR_MERGE="code -d $1 $2"
+
+alias bsl='brew services ls'
+alias bsr='brew services restart'
+alias bss='brew services start'
+alias bsx='brew services stop'
+alias tf='terraform'
+alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home
+
+# Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
+# cd /Library/Java/JavaVirtualMachines/
+# sudo rm -rf amazon-corretto-17.jdk
+
+path+=/usr/local/bin
+
+function portscan() {
+  lsof -i :"$1"
+}
+
+function rsp() {
+  local spec_file
+  spec_file="$(echo "$1" | sed 's/^spec\///')"
+  RACK_SERVICE_TIMEOUT=0 bundle exec rspec ./spec/"$spec_file"
+}
+
+alias wip='git add . && git commit -m "WIP Commit"'
+
+function wip_unset() {
+  local msg
+  msg="$(git log -1 --pretty=%B)"
+  if [ "$msg" = "WIP Commit" ]; then
+    git reset HEAD~1
+  else
+    echo "No WIP commit found. Check your git log"
+    return 1
+  fi
+}
+
+alias b='bundle'
+alias bi='bundle install'
+alias ba='bundle add'
+alias bu='bundle update'
+
+function rails() {
+  if [ -e "Gemfile" ]; then
+    bundle exec rails "$@"
+  else
+    command rails "$@"
+  fi
+}
+
+function rspec() {
+  if [ -e "Gemfile" ]; then
+    bundle exec rspec "$@"
+  else
+    command rspec "$@"
+  fi
+}
+
+alias migrate='rails db:migrate'
+alias rollback='rails db:rollback'
+alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
+alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
+function db_reset() {
+  set +x
+  STATEMENT_TIMEOUT=0 bundle exec rails db:drop
+  STATEMENT_TIMEOUT=0 bundle exec rails db:create
+  STATEMENT_TIMEOUT=0 bundle exec rails db:migrate
+
+  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:drop
+  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:create
+  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:migrate
+}
+
+function securekb() {
+  ioreg -l -w 0 |
+    perl -nle 'print $1 if /"kCGSSessionSecureInputPID"=(\d+)/' |
+    uniq |
+    xargs -I{} ps -p {} -o comm=
+}
+
+if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+  # shellcheck source=/dev/null
+  source "$(brew --prefix asdf)/libexec/asdf.sh"
+  export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+
+  # shellcheck source=/dev/null
+  . ~/.asdf/plugins/golang/set-env.zsh
+fi
+
+function suyabai() {
+  local sha256
+  sha256=$(shasum -a 256 "$(which yabai)" | awk "{print \$1;}")
+  if [ -f "/private/etc/sudoers.d/yabai" ]; then
+    sudo sed -i '' -e 's/sha256:[[:alnum:]]*/sha256:'"${sha256}"'/' /private/etc/sudoers.d/yabai
+  else
+    echo "sudoers file does not exist yet. creating one now"
+    echo "$(whoami) ALL=(root) NOPASSWD: sha256:${sha256} $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+  fi
+}
+
+function presentation-mode() {
+  local normal_mode_file="alacritty_mac.toml"
+  local presentation_mode_file="alacritty_mac_presentation_mode.toml"
+  local destination="$HOME/.config/alacritty/alacritty.toml"
+
+  local normal_mode_abs_file
+  local presentation_mode_abs_file
+  normal_mode_abs_file="$DOT_SOURCE/roles/alacritty/files/$normal_mode_file"
+  presentation_mode_abs_file="$DOT_SOURCE/roles/alacritty/files/$presentation_mode_file"
+
+  if [[ ! -f "$normal_mode_abs_file" || ! -f "$presentation_mode_abs_file" ]]; then
+    echo "alacritty files are not configured. check your dotfiles"
+    return 1
+  fi
+
+  local abs_path
+  local base_filename
+  abs_path=$(readlink -f "$HOME/.config/alacritty/alacritty.toml")
+  base_filename=$(basename "$abs_path")
+
+  if [[ $base_filename == "$normal_mode_file" ]]; then
+    ln -sf "$presentation_mode_abs_file" "$destination"
+  else
+    ln -sf "$normal_mode_abs_file" "$destination"
+  fi
+}

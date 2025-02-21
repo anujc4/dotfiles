@@ -1,0 +1,140 @@
+# To use this zshrc as your default zshrc file, create a symlink of this file
+# in your home folder. Just create  a symlink of the zshrc file and it will
+# source the other files on it's own. The command usually looks like
+# ln -s ~/Personal/dotfiles/zsh/zshrc ~/.zshrc
+
+# To profile zsh in case of slow startup, uncomment the line below and move the
+# second command to the bottom of this file
+# zmodload zsh/zprof
+# zprof
+
+export EDITOR="nvim"
+export LANG=en_US.UTF-8
+
+setopt EXTENDED_HISTORY
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
+
+# shellcheck disable=SC2034
+ZSH_THEME="spaceship"
+
+# shellcheck disable=SC2034
+plugins=(
+  autoupdate
+  forgit
+  fzf-tab
+  git
+  sudo
+  thefuck
+  you-should-use
+  zsh-autosuggestions
+  zsh-completions
+  zsh-syntax-highlighting
+)
+
+# This function will set up two important environment varialbles:
+# $FILE_DIR: Absolute path to the .zshrc file
+# $DOT_SOURCE: Absolute path where dotfiles repo is cloned
+# If the script fails to determine the path of dotfiles, it will print an error
+# since a lot of functionalities will start failing (tmux, yabai, skhd, etc)
+function _set_dot_source() {
+  local absolute_file_path
+
+  case $(uname) in
+  Darwin)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    absolute_file_path="$(readlink /Users/"$(whoami)"/.zshrc)"
+    FILE_DIR=${absolute_file_path%??????}
+    # Path to your oh-my-zsh installation.
+    ZSH="/Users/$(whoami)/.oh-my-zsh"
+    source "$FILE_DIR/macosrc"
+    ;;
+  Linux)
+    # Get the absolute path of the symlinked zshrc to read the other rc files
+    absolute_file_path="$(readlink -f /home/"$(whoami)"/.zshrc)"
+    FILE_DIR=${absolute_file_path%??????}
+    # Path to your oh-my-zsh installation.
+    ZSH="/home/$(whoami)/.oh-my-zsh"
+    source "$FILE_DIR/linuxrc"
+    ;;
+  esac
+  export ZSH
+  export FILE_DIR
+
+  current_dir=$FILE_DIR
+  while [[ "$current_dir" != "/" && "$current_dir" != *"dotfiles" ]]; do
+    current_dir=$(dirname "$current_dir")
+  done
+
+  if [[ "$current_dir" == *"dotfiles" ]]; then
+    export DOT_SOURCE=${current_dir}
+  else
+    local message = "FATAL ERROR: Shell was not able to determine $DOT_SOURCE.
+      This will break other configurations. Check your zshrc configuration and
+      fix any errors."
+  fi
+}
+
+_set_dot_source
+unfunction _set_dot_source
+
+autoload -Uz compinit
+# zsh-specific code, disable all errors
+# shellcheck disable=SC1072,SC1073,SC1036,SC1058
+for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+done
+compinit -C
+zstyle ':completion:*' menu yes select
+# shellcheck enable=SC1072,SC1073,SC1036,SC1058
+
+eval "$(zoxide init zsh)"
+
+FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+
+# don't expand aliases _before_ completion has finished
+setopt complete_aliases
+bindkey "^Xa" _expand_alias
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+zstyle ':completion:*' regular true
+
+# shellcheck disable=SC2034
+DISABLE_MAGIC_FUNCTIONS=true
+
+# shellcheck source=/dev/null
+source "$ZSH/oh-my-zsh.sh"
+
+# Prevent zsh from showing the system name before each command
+prompt_context() { true; }
+prompt_aws() { true; }
+
+# shellcheck source=/dev/null
+eval "$(fzf --zsh)"
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
+if type brew &>/dev/null; then
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+fi
+
+# shellcheck source=/dev/null
+source "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
+
+# Disable that pesky auto correct
+unsetopt correct_all
+unsetopt nomatch
+
+# shellcheck source=/dev/null
+source "$FILE_DIR/common_aliasrc"
+
+# shellcheck source=/dev/null
+source "$FILE_DIR/secretsrc"
+
+eval "$(thefuck --alias)"
+
+typeset -U path
+export PATH
