@@ -2,7 +2,4 @@
 .vscode
 .DS_Store
 
-macos_wm/skhd/sip_skhdrc
-roles/zsh/files/secretsrc
-
 zsh/secretsrc
