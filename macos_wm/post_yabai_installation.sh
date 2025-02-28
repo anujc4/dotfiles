@@ -5,10 +5,10 @@
 
 echo "Attempting to load yabai scripting addition"
 
-if sudo yabai --load-sa; then
-  echo "SIP Disabled: Linking sip_disabled_skhdrc"
-  ln -sf "$DOT_SOURCE/macos_wm/skhd/sip_disabled_skhdrc" "$HOME/.config/skhd/sip_skhdrc"
-else
+if csrutil status | grep -q "System Integrity Protection status: enabled"; then
   echo "SIP Enabled: Linking sip_enabled_skhdrc"
   ln -sf "$DOT_SOURCE/macos_wm/skhd/sip_enabled_skhdrc" "$HOME/.config/skhd/sip_skhdrc"
+else
+  echo "SIP Disabled: Linking sip_disabled_skhdrc"
+  ln -sf "$DOT_SOURCE/macos_wm/skhd/sip_disabled_skhdrc" "$HOME/.config/skhd/sip_skhdrc"
 fi

@@ -1,6 +1,7 @@
 brew "asdf"
 brew "yt-dlp"
 brew "jq"
+brew "tldr"
 
 cask "1password-cli"
 cask "1password"

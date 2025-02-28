@@ -2,3 +2,11 @@
 
 # Hack to access the last used space
 ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat /tmp/recent_space)"
+
+# Focus on the first space running a native fullscreen app
+# - key
+ctrl - 0x1B            :  "$HOME/.config/skhd/sip_enabled_focus_fullscreen_app.sh" "1"
+
+# Focus on the second space running a native fullscreen app
+# = key
+ctrl - 0x18            :  "$HOME/.config/skhd/sip_enabled_focus_fullscreen_app.sh" "2"
