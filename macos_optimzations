@@ -44,9 +44,6 @@ defaults write NSGlobalDomain KeyRepeat -int 1
 # Disable automatic spelling correction
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-# Show all file extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-
 # Disable shadow in screenshots
 defaults write com.apple.screencapture disable-shadow -bool true
 
@@ -76,16 +73,5 @@ defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
 
 # Enable Dock autohide
 defaults write com.apple.dock autohide -bool true
-
-
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 118 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 119 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 120 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 121 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 122 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 123 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 124 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 125 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
-defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 126 "{enabled = 0; value = { parameters = (65535, 49, 1048576); type = standard; }; }"
 
 killall Dock
