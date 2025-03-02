@@ -3,22 +3,26 @@
 function ruby_config_arm() {
   # Get installation paths of ruby dependencies
   openssl="$(brew --prefix openssl@1.1)"
-  readline="$(brew --prefix readline)"
-  libyaml="$(brew --prefix libyaml)"
-  llvm="$(brew --prefix llvm)"
+  export PATH="$openssl/bin:$PATH"
 
-  export PATH="$openssl/bin:$llvm/bin:$PATH"
-
-  ldflags="-L$(xcrun -show-sdk-path)/usr/lib -L$openssl/lib -L$llvm/lib"
-  export LDFLAGS=$ldflags
-
-  cppflags="-I$(xcrun -show-sdk-path)/usr/include -I$openssl/include -I$llvm/include -I$llvm/include/c++/v1"
-  export CPPFLAGS=$cppflags
-
-  export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
-
-  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl --with-opt-dir=$readline:$libyaml"
+  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl"
   export RUBY_CONFIGURE_OPTS
+
+  # Extra libraries if some gems don't compile
+  # Be careful using llvm can break a lot of other things
+
+  # readline="$(brew --prefix readline)"
+  # libyaml="$(brew --prefix libyaml)"
+  # llvm="$(brew --prefix llvm)"
+  # export PATH="$openssl/bin:$llvm/bin:$PATH"
+
+  # ldflags="-L$(xcrun -show-sdk-path)/usr/lib -L$openssl/lib -L$llvm/lib"
+  # export LDFLAGS=$ldflags
+  # cppflags="-I$(xcrun -show-sdk-path)/usr/include -I$openssl/include -I$llvm/include -I$llvm/include/c++/v1"
+  # export CPPFLAGS=$cppflags
+
+  # export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
+  # RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl --with-opt-dir=$readline:$libyaml"
 }
 
 # e.g. Apple M1 Max
