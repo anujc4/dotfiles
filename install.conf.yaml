@@ -1,0 +1,138 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ["~"]
+
+- create:
+    - ~/.config/alacritty/themes
+
+- link:
+    ~/.zshrc:
+      path: zsh/zshrc
+      force: true
+    ~/.config/.tmux.conf:
+      path: tmux/tmux.conf
+      create: true
+    ~/.config/alacritty/alacritty.toml:
+      path: alacritty/alacritty_mac.toml
+      create: true
+    ~/.config/common_wm/:
+      path: macos_wm/common
+    ~/.config/sketchybar/:
+      path: macos_wm/sketchybar
+    ~/.config/borders/:
+      path: macos_wm/borders
+    ~/.config/yabai/:
+      path: macos_wm/yabai
+    ~/.config/skhd/:
+      path: macos_wm/skhd
+
+- shell:
+    - [git submodule update --init --recursive, Installing submodules]
+
+    - # Homebrew
+      command: |
+        if [[ $OSTYPE == darwin* ]] && ! which brew &>/dev/null; then
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+      description: Checking Homebrew installation
+      quiet: true
+
+    - # Oh My Zsh
+      command: |
+        if [[ ! -d ~/.oh-my-zsh ]]; then
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        fi
+      description: Checking Oh My Zsh
+      quiet: true
+
+    - # omz plugins
+      command: |
+        source internal/helper.sh
+
+        git clone https://github.com/changyuheng/zsh-interactive-cd.git     "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/zsh-interactive-cd"
+        git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins   "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate"
+        git clone https://github.com/Aloxaf/fzf-tab                         "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+        git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"
+        git clone https://github.com/zsh-users/zsh-autosuggestions          "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+        git clone https://github.com/zsh-users/zsh-completions              "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins/zsh-completions"
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
+        git clone https://github.com/wfxr/forgit.git                        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/forgit"
+        git clone https://github.com/spaceship-prompt/spaceship-prompt.git  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/spaceship-prompt" --depth=1
+
+        ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme"     "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+        is_installed zoxide || brew install zoxide fzf thefuck
+        is_installed fzf || brew install fzf
+        is_installed thefuck || brew install thefuck
+      description: Installing Oh My Zsh plugins
+      quiet: true
+
+    - # Tmux
+      command: |
+        source internal/helper.sh
+        is_installed tmux || brew install tmux
+      description: Installing Tmux
+      quiet: true
+
+    - # Tmux plugins
+      command: |
+        if [ ! -e "$HOME/.tmux/plugins/tpm" ]; then
+          git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+          # Install TPM plugins.
+          # TPM requires running tmux server, as soon as `tmux start-server` does not work
+          # create dump __noop session in detached mode, and kill it when plugins are installed
+          tmux new -d -s __noop >/dev/null 2>&1 || true
+          tmux set-environment -g TMUX_PLUGIN_MANAGER_PATH "$HOME/.tmux/plugins"
+          "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
+          tmux kill-session -t __noop >/dev/null 2>&1 || true
+        fi
+      quiet: true
+
+    - # Alacritty
+      command: brew install --cask alacritty
+      description: Installing Alacritty
+      quiet: true
+
+    - # Alacritty themes
+      command: git clone https://github.com/alacritty/alacritty-theme "$HOME/.config/alacritty/themes" >/dev/null 2>&1 || true
+      description: Installing Alacritty themes
+      quiet: true
+
+    - # Font
+      command: brew install --cask font-hack-nerd-font
+      description: Installing Hack Nerd Font
+      quiet: true
+
+    - # MacOS Window Management
+      command: |
+        brew tap koekeishiya/formulae
+        brew install yabai skhd jq
+
+        brew tap FelixKratz/formulae
+        brew install sketchybar borders
+        brew services start sketchybar
+        curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.32/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+        brew install --cask sf-symbols
+      description: Installing Yabai
+      quiet: true
+
+    - # Post-yabai install
+      command: |
+        macos_wm/post_yabai_installation.sh
+      description: Configuring Yabai
+      quiet: true
+
+    - # MacOS Optimizations
+      command: |
+        macos_optimizations
+      description: Configuring MacOS
+      quiet: true
+
+    # Commented out because it takes too long. Only run this on a fresh install.
+    # - # Brew
+    #   command: brew bundle --file=Brewfile
+    #   description: Installing Brew packages
+    #   quiet: true
+    #   stdout: true

@@ -33,7 +33,7 @@ app_titles+="|QuickTime Player)"
 yabai -m rule --add title="${app_titles}" manage=off
 
 app_names="^(1Password|AppCleaner|Calculator|Contexts|JetBrains Gateway"
-app_names+="|JetBrains Toolbox|Logi Options|Logi Options\+|Postgres"
+app_names+="|JetBrains Toolbox|Logi Options|Logi Options\+|Postgres|Proton\sVPN"
 app_names+="|Stats|SteelSeries GG Client|System Preferences|System Settings"
 app_names+="|Tailscale|VLC)$"
 yabai -m rule --add app="${app_names}" manage=off

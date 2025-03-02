@@ -23,8 +23,10 @@ ZSH_THEME="spaceship"
 
 # shellcheck disable=SC2034
 plugins=(
+  asdf
   autoupdate
   forgit
+  fzf-tab
   git
   sudo
   thefuck
