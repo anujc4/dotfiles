@@ -3,3 +3,6 @@
 .DS_Store
 
 zsh/secretsrc
+
+# Ignore this file as this will be created by post_yabai_installation.sh
+macos_wm/skhd/sip_skhdrc

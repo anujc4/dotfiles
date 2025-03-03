@@ -11,22 +11,29 @@
     ~/.zshrc:
       path: zsh/zshrc
       force: true
-    ~/.config/.tmux.conf:
+    ~/.config/tmux/tmux.conf:
       path: tmux/tmux.conf
       create: true
+      force: true
     ~/.config/alacritty/alacritty.toml:
       path: alacritty/alacritty_mac.toml
       create: true
+      force: true
     ~/.config/common_wm/:
       path: macos_wm/common
+      force: true
     ~/.config/sketchybar/:
       path: macos_wm/sketchybar
+      force: true
     ~/.config/borders/:
       path: macos_wm/borders
+      force: true
     ~/.config/yabai/:
       path: macos_wm/yabai
+      force: true
     ~/.config/skhd/:
       path: macos_wm/skhd
+      force: true
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
