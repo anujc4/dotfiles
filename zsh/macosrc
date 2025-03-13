@@ -7,6 +7,7 @@ function ruby_config_arm() {
 
   RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl"
   export RUBY_CONFIGURE_OPTS
+  export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
   # Extra libraries if some gems don't compile
   # Be careful using llvm can break a lot of other things
@@ -177,8 +178,8 @@ function presentation-mode() {
 
   local normal_mode_abs_file
   local presentation_mode_abs_file
-  normal_mode_abs_file="$DOT_SOURCE/roles/alacritty/files/$normal_mode_file"
-  presentation_mode_abs_file="$DOT_SOURCE/roles/alacritty/files/$presentation_mode_file"
+  normal_mode_abs_file="$DOT_SOURCE/alacritty/$normal_mode_file"
+  presentation_mode_abs_file="$DOT_SOURCE/alacritty/$presentation_mode_file"
 
   if [[ ! -f "$normal_mode_abs_file" || ! -f "$presentation_mode_abs_file" ]]; then
     echo "alacritty files are not configured. check your dotfiles"
