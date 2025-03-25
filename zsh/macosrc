@@ -47,6 +47,7 @@ fi
 alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
 alias c='code .'
+alias cc='cursor .'
 alias fl='open -a ForkLift .'
 alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
 alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
@@ -156,8 +157,11 @@ fi
 
 # For newer versions of asdf >=0.16
 if [ -d "$HOME/.asdf" ]; then
+  # shellcheck source=/dev/null
+  . ~/.asdf/plugins/golang/set-env.zsh
   export ASDF_DATA_DIR="$HOME/.asdf"
   export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+  export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 fi
 
 function suyabai() {

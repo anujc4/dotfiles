@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+target=$1
+
+if ! [[ $target =~ ^[1-9]$ ]]; then
+  echo "Error: Please provide a number between 1 and 9. Invalid $1"
+  exit 1
+fi
+
+yabai -m space "$target" --layout bsp
+
+# Get all windows in the target space and group by app
+windows=$(yabai -m query --windows id,app,title,space --space "$target")
+
+# Get unique apps in the space
+apps=$(echo "$windows" | jq -r '.[].app' | sort | uniq)
+echo "Unique Apps: $apps"
+
+# Process each app
+echo "$apps" | while read -r app; do
+    echo "Processing app $app"
+    # Get window IDs for this app
+    ids=$(echo "$windows" | jq -r --arg app "$app" '.[] | select(.app == $app) | .id')
+
+    # Convert string of IDs to array
+    readarray -t id_array < <(echo "$ids" | tr ' ' '\n' | grep .)
+
+    # Skip if only one window
+    if [ ${#id_array[@]} -le 1 ]; then
+      continue
+    fi
+    first_id=${id_array[0]}
+    for window_id in "${id_array[@]:1}"; do
+        yabai -m window "$first_id" --stack "$window_id"
+    done
+done

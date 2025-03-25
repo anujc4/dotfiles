@@ -27,12 +27,14 @@
 default < ctrl + shift - r [
   "rubymine"   ~
   "code"   ~
+  "cursor"   ~
   * : skhd -k "meh - r"
 ]
 
 resize < ctrl + shift - r [
   "rubymine"   ~
   "code"   ~
+  "cursor"   ~
   * : skhd -k "meh - r"
 ]
 
@@ -40,12 +42,14 @@ resize < ctrl + shift - r [
 default < ctrl + shift - d [
   "rubymine"   ~
   "code"   ~
+  "cursor"   ~
   * : skhd -k "meh - d"
 ]
 
 resize < ctrl + shift - d [
   "rubymine"   ~
   "code"   ~
+  "cursor"   ~
   * : skhd -k "meh - d"
 ]
 
@@ -324,6 +328,10 @@ window < x            : index="$(yabai -m query --spaces --space | jq '.index - 
 
 # minimizes the selected window
 window < m            : yabai -m window --minimize; \
+                        skhd -k 'escape'
+
+# organize windows in the current space. windows belonging to the same app will be stacked
+window < o            : ~/.config/skhd/organize "$(yabai -m query --spaces index --space | jq -r .index)"; \
                         skhd -k 'escape'
 
 # deminimizes all minimized windows

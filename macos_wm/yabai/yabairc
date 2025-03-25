@@ -28,7 +28,7 @@ yabai -m config mouse_follows_focus on \
     config insert_feedback_color 0xffd65d0e
 
 # Unmanaged apps
-app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Preferences"
+app_titles="(Copy|Bin|About This Mac|Info|Finder Preferences|Nightly|Preferences"
 app_titles+="|QuickTime Player)"
 yabai -m rule --add title="${app_titles}" manage=off
 
@@ -69,7 +69,7 @@ yabai -m signal --add event=window_focused action="sketchybar --trigger window_f
 yabai -m signal --add event=space_changed action="sketchybar --trigger windows_on_spaces"
 
 # app specific rules
-yabai -m rule --add label=vs_code_space_two app='Code' space='2'
+yabai -m rule --add label=vs_code_space_two app='(Code|Cursor)' space='2'
 
 # Launch borders as a background process
 borders &
