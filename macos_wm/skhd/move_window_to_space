@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# Check if the argument is provided and is between 1-9
+if [[ "$1" =~ ^[1-9]$ ]]; then
+    TARGET_SPACE=$1
+else
+    echo "Usage: $0 <space_number (1-9)>"
+    exit 1
+fi
+
+WINDOW_JSON=$(yabai -m query --windows id,app,title,frame  --window)
+
+ID=$(echo "$WINDOW_JSON" | jq -r '.id')
+APP=$(echo "$WINDOW_JSON" | jq -r '.app')
+TITLE=$(echo "$WINDOW_JSON" | jq -r '.title')
+
+echo "Moving ${APP}-${TITLE} (${ID}) to space ${TARGET_SPACE}"
+
+X=$(echo "$WINDOW_JSON" | jq '.frame.x')
+Y=$(echo "$WINDOW_JSON" | jq '.frame.y')
+
+CLICK_X=$(echo "$X + 100" | bc)
+CLICK_Y=$(echo "$Y + 10" | bc)
+
+echo "CLICK_X: $CLICK_X | CLICK_Y: $CLICK_Y | TARGET_SPACE: $TARGET_SPACE"
+
+"$HOME/.config/skhd/move_window" "$CLICK_X" "$CLICK_Y" "$TARGET_SPACE"
