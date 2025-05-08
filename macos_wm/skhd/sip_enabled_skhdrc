@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2094,SC2210,SC3028,SC2211,SC2171,SC2288,SC2238
+# Shellchecks disabled for this file
+# SC2094: Make sure not to read and write the same file in the same pipeline.
+# SC2171: Found trailing ] outside test. Add missing [ or quote if intentional.
+# SC2210: This is a file redirection. Was it supposed to be a comparison or fd operation?
+# SC2211: This is a glob used as a command name. Was it supposed to be in ${..}, array, or is it missing quoting?
+# SC2238: Redirecting to/from command name instead of file. Did you want pipes/xargs (or quote to ignore)?
+# SC2288: This is interpreted as a command name ending with apostrophe. Double check syntax.
+# SC3028: In POSIX sh, VARIABLE is undefined.
 
 # Hack to access the last used space
 ctrl - z               : "$HOME/.config/skhd/switch_space.sh" "$(cat /tmp/recent_space)"
@@ -10,3 +19,47 @@ ctrl - 0x1B            :  "$HOME/.config/skhd/sip_enabled_focus_fullscreen_app.s
 # Focus on the second space running a native fullscreen app
 # = key
 ctrl - 0x18            :  "$HOME/.config/skhd/sip_enabled_focus_fullscreen_app.sh" "2"
+
+##################### Window mode ##############################################
+
+# send window to specified space
+window < 1            : ~/.config/skhd/move_window_to_space 1; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 2            : ~/.config/skhd/move_window_to_space 2; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 3            : ~/.config/skhd/move_window_to_space 3; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 4            : ~/.config/skhd/move_window_to_space 4; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 5            : ~/.config/skhd/move_window_to_space 5; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 6            : ~/.config/skhd/move_window_to_space 6; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 7            : ~/.config/skhd/move_window_to_space 7; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 8            : ~/.config/skhd/move_window_to_space 8; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 9            : ~/.config/skhd/move_window_to_space 9; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 0            : ~/.config/skhd/move_window_to_space 10; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+
+window < alt - 1      : ~/.config/skhd/move_window_to_space 11; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < alt - 2      : ~/.config/skhd/move_window_to_space 12; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < alt - 3      : ~/.config/skhd/move_window_to_space 13; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'

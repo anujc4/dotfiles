@@ -1,4 +1,14 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2094,SC2210,SC3028,SC2211,SC2171,SC2288,SC2238
+# Shellchecks disabled for this file
+# SC2094: Make sure not to read and write the same file in the same pipeline.
+# SC2171: Found trailing ] outside test. Add missing [ or quote if intentional.
+# SC2210: This is a file redirection. Was it supposed to be a comparison or fd operation?
+# SC2211: This is a glob used as a command name. Was it supposed to be in ${..}, array, or is it missing quoting?
+# SC2238: Redirecting to/from command name instead of file. Did you want pipes/xargs (or quote to ignore)?
+# SC2288: This is interpreted as a command name ending with apostrophe. Double check syntax.
+# SC3028: In POSIX sh, VARIABLE is undefined.
+
 
 # Switch to space with window running in native full-screen mode. Only works with SIP disabled.
 # - key
@@ -37,3 +47,47 @@ ctrl + alt - 9         : yabai -m space --focus 19
 ctrl + alt - 0         : yabai -m space --focus 20
 
 ctrl - z               : yabai -m window --focus recent
+
+##################### Window mode ##############################################
+
+# send window to specified space
+window < 1            : yabai -m window --space 1; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 2            : yabai -m window --space 2; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 3            : yabai -m window --space 3; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 4            : yabai -m window --space 4; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 5            : yabai -m window --space 5; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 6            : yabai -m window --space 6; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 7            : yabai -m window --space 7; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 8            : yabai -m window --space 8; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 9            : yabai -m window --space 9; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < 0            : yabai -m window --space 10; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+
+window < alt - 1      : yabai -m window --space 11; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < alt - 2      : yabai -m window --space 12; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
+window < alt - 3      : yabai -m window --space 13; \
+                        sketchybar --trigger windows_on_spaces; \
+                        skhd -k 'escape'
