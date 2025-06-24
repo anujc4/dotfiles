@@ -21,9 +21,9 @@ setopt HIST_SAVE_NO_DUPS
 # shellcheck disable=SC2034
 ZSH_THEME="spaceship"
 
+# asdf
 # shellcheck disable=SC2034
 plugins=(
-  asdf
   autoupdate
   forgit
   fzf-tab
@@ -135,7 +135,18 @@ source "$FILE_DIR/common_aliasrc"
 # shellcheck source=/dev/null
 source "$FILE_DIR/secretsrc"
 
+# Add git-scripts to PATH if it exists
+if [ -d "$HOME/Personal/git-scripts" ]; then
+  export PATH="$HOME/Personal/git-scripts:$PATH"
+fi
+
 eval "$(thefuck --alias)"
 
 typeset -U path
 export PATH
+
+# Added by Windsurf
+export PATH="/Users/anujchandra/.codeium/windsurf/bin:$PATH"
+
+# Added by Windsurf
+export PATH="/Users/anujchandra/.codeium/windsurf/bin:$PATH"

@@ -28,6 +28,7 @@ default < ctrl + shift - r [
   "rubymine"   ~
   "code"   ~
   "cursor"   ~
+  "windsurf"   ~
   * : skhd -k "meh - r"
 ]
 
@@ -35,6 +36,7 @@ resize < ctrl + shift - r [
   "rubymine"   ~
   "code"   ~
   "cursor"   ~
+  "windsurf"   ~
   * : skhd -k "meh - r"
 ]
 
@@ -43,6 +45,7 @@ default < ctrl + shift - d [
   "rubymine"   ~
   "code"   ~
   "cursor"   ~
+  "windsurf"   ~
   * : skhd -k "meh - d"
 ]
 
@@ -50,6 +53,7 @@ resize < ctrl + shift - d [
   "rubymine"   ~
   "code"   ~
   "cursor"   ~
+  "windsurf"   ~
   * : skhd -k "meh - d"
 ]
 
@@ -157,6 +161,9 @@ cmd - m              : yabai -m window --focus mouse
 # Toggle zen mode. zooms focused window, removes all margins
 # and hides status bar
 ctrl + shift - z      : ~/.config/skhd/toggle_zen_mode.sh; \
+                        skhd -k 'escape'
+
+ctrl + shift - p      : ~/Personal/scripts/sp.sh; \
                         skhd -k 'escape'
 
 

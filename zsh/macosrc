@@ -2,11 +2,22 @@
 
 function ruby_config_arm() {
   # Get installation paths of ruby dependencies
-  openssl="$(brew --prefix openssl@1.1)"
-  export PATH="$openssl/bin:$PATH"
+  # openssl="$(brew --prefix openssl@1.1)"
+  # export PATH="$openssl/bin:$PATH"
+  # RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl"
+  # export RUBY_CONFIGURE_OPTS
 
-  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl"
+  # ldflags="-L$openssl/lib"
+  # export LDFLAGS=$ldflags
+  # cppflags="-I$openssl/include"
+  # export CPPFLAGS=$cppflags
+
+
+  openssl3="$(brew --prefix openssl)"
+  export PATH="$openssl3/bin:$PATH"
+  RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl3"
   export RUBY_CONFIGURE_OPTS
+
   export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
   # Extra libraries if some gems don't compile
@@ -14,12 +25,11 @@ function ruby_config_arm() {
 
   # readline="$(brew --prefix readline)"
   # libyaml="$(brew --prefix libyaml)"
-  # llvm="$(brew --prefix llvm)"
   # export PATH="$openssl/bin:$llvm/bin:$PATH"
 
-  # ldflags="-L$(xcrun -show-sdk-path)/usr/lib -L$openssl/lib -L$llvm/lib"
+  # ldflags="-L$libyaml/lib -L$openssl3/lib -L$readline/lib"
   # export LDFLAGS=$ldflags
-  # cppflags="-I$(xcrun -show-sdk-path)/usr/include -I$openssl/include -I$llvm/include -I$llvm/include/c++/v1"
+  # cppflags="-I$openssl3/include -I$libyaml/include -I$readline/include"
   # export CPPFLAGS=$cppflags
 
   # export PKG_CONFIG_PATH="$openssl/lib/pkgconfig"
@@ -48,6 +58,7 @@ alias studio='open -a /Applications/Android\ Studio.app'
 alias rmine='open -a /Applications/RubyMine.app'
 alias c='code .'
 alias cc='cursor .'
+alias ss='surf .'
 alias fl='open -a ForkLift .'
 alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
 alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
@@ -65,6 +76,8 @@ fi
 export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
 export THOR_MERGE="code -d $1 $2"
 
+alias bri='brew install'
+alias bru='brew uninstall'
 alias bsl='brew services ls'
 alias bsr='brew services restart'
 alias bss='brew services start'
@@ -146,14 +159,14 @@ function securekb() {
     xargs -I{} ps -p {} -o comm=
 }
 
-if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
-  # shellcheck source=/dev/null
-  source "$(brew --prefix asdf)/libexec/asdf.sh"
-  export ASDF_GOLANG_MOD_VERSION_ENABLED=true
+# if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+#   # shellcheck source=/dev/null
+#   source "$(brew --prefix asdf)/libexec/asdf.sh"
+#   export ASDF_GOLANG_MOD_VERSION_ENABLED=true
 
-  # shellcheck source=/dev/null
-  . ~/.asdf/plugins/golang/set-env.zsh
-fi
+#   # shellcheck source=/dev/null
+#   . ~/.asdf/plugins/golang/set-env.zsh
+# fi
 
 # For newer versions of asdf >=0.16
 if [ -d "$HOME/.asdf" ]; then
@@ -199,5 +212,10 @@ function presentation-mode() {
     ln -sf "$presentation_mode_abs_file" "$destination"
   else
     ln -sf "$normal_mode_abs_file" "$destination"
+  fi
+
+  # Change VS Code theme too
+  if [[ -f "$HOME/Personal/scripts/presentation_mode_vs_code.sh" ]]; then
+    "$HOME/Personal/scripts/presentation_mode_vs_code.sh"
   fi
 }
