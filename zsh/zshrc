@@ -21,7 +21,6 @@ setopt HIST_SAVE_NO_DUPS
 # shellcheck disable=SC2034
 ZSH_THEME="spaceship"
 
-# asdf
 # shellcheck disable=SC2034
 plugins=(
   autoupdate
