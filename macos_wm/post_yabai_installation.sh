@@ -10,7 +10,7 @@ if csrutil status | grep -q "System Integrity Protection status: enabled"; then
   ln -sf "$DOT_SOURCE/macos_wm/skhd/sip_enabled_skhdrc" "$HOME/.config/skhd/sip_skhdrc"
 
   echo "Building move_window script"
-  clang -framework Foundation -framework CoreGraphics \
+  clang -framework Foundation -framework CoreGraphics -framework ApplicationServices \
     "$DOT_SOURCE/macos_wm/move_window.m" \
     -o "$DOT_SOURCE/macos_wm/skhd/move_window"
   chmod +x "$DOT_SOURCE/macos_wm/skhd/move_window"
