@@ -143,9 +143,3 @@ eval "$(thefuck --alias)"
 
 typeset -U path
 export PATH
-
-# Added by Windsurf
-export PATH="/Users/anujchandra/.codeium/windsurf/bin:$PATH"
-
-# Added by Windsurf
-export PATH="/Users/anujchandra/.codeium/windsurf/bin:$PATH"

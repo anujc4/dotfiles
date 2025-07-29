@@ -19,7 +19,7 @@ yabai -m config mouse_follows_focus on \
     config mouse_action1 move \
     config mouse_action2 resize \
     config external_bar all:0:30 \
-    config layout bsp \
+    config layout stack \
     config top_padding 10 \
     config bottom_padding 10 \
     config left_padding 10 \
@@ -37,15 +37,6 @@ app_names+="|JetBrains Toolbox|Logi Options|Logi Options\+|Postgres|Proton\sVPN"
 app_names+="|Stats|SteelSeries GG Client|System Preferences|System Settings"
 app_names+="|Tailscale|VLC)$"
 yabai -m rule --add app="${app_names}" manage=off
-
-# intellij_apps='^(IntelliJ IDEA|RubyMine|GoLand)$'
-# yabai -m rule --add \
-#     --label="disable intellij window management" \
-#     app="${intellij_apps}" manage=off
-# yabai -m signal --add \
-#     --label="float sub-windows created by the same application" \
-#     event=window_created app="${intellij_apps}" \
-#     action="$HOME/.config/yabai/jetbrains.sh"
 
 # Only used when SIP is enabled. This is a in-house replacement for
 # `yabai -m window --focus recent`, used with the `switch_space.sh` script
@@ -73,5 +64,7 @@ yabai -m rule --add label=vs_code_space_two app='(Code|Cursor)' space='2'
 
 # Launch borders as a background process
 borders &
+
+"$HOME/.config/yabai/hooks/post_yabai_bootup.sh" &
 
 echo "yabai configuration loaded.."

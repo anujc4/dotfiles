@@ -64,6 +64,7 @@ alias tail_yabai='tail -f $HOMEBREW_PREFIX/var/log/yabai/*.log'
 alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
 
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+export PATH="$PATH:/Users/anujchandra/.codeium/windsurf/bin"
 
 FORGIT_INSTALL_DIR="/Users/$(whoami)/.oh-my-zsh/custom/plugins/forgit/bin"
 if [ -d "$FORGIT_INSTALL_DIR" ]; then
@@ -74,7 +75,7 @@ fi
 
 # shellcheck disable=SC2155
 export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
-export THOR_MERGE="code -d $1 $2"
+export THOR_MERGE="surf -d $1 $2"
 
 alias bri='brew install'
 alias bru='brew uninstall'

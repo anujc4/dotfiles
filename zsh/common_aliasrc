@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Common aliases
-alias ezsh='code $DOT_SOURCE'
+alias ezsh='surf $DOT_SOURCE'
 alias rzsh='source ~/.zshrc'
 alias rtmux='tmux source ~/.tmux.conf'
 alias brewup='brew update; brew upgrade; brew cleanup; brew doctor'
