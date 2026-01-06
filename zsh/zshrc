@@ -143,3 +143,12 @@ eval "$(thefuck --alias)"
 
 typeset -U path
 export PATH
+
+
+ssm-ec2() {
+        INSTANCE="${1}"
+        shift
+        EXTRA_ARGS=("${@}")
+
+        AWS_PROFILE=saml aws ssm start-session "${EXTRA_ARGS[@]}" --target "${INSTANCE}" --document-name DeliverooSSM
+}

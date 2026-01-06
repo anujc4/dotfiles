@@ -138,18 +138,18 @@ function rspec() {
   fi
 }
 
-alias migrate='rails db:migrate'
-alias rollback='rails db:rollback'
-alias migrate_test='bundle exec rails db:migrate RAILS_ENV=test'
-alias rollback_test='bundle exec rails db:rollback RAILS_ENV=test'
+alias migrate='STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 rails db:migrate'
+alias rollback='STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 rails db:rollback'
+alias migrate_test='STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 bundle exec rails db:migrate RAILS_ENV=test'
+alias rollback_test='STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 bundle exec rails db:rollback RAILS_ENV=test'
 function db_reset() {
   set +x
-  STATEMENT_TIMEOUT=0 bundle exec rails db:drop
-  STATEMENT_TIMEOUT=0 bundle exec rails db:create
-  STATEMENT_TIMEOUT=0 bundle exec rails db:migrate
+  STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 bundle exec rails db:drop
+  STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 bundle exec rails db:create
+  STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 bundle exec rails db:migrate
 
-  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:drop
-  STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:create
+  STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:drop
+  STATEMENT_TIMEOUT=0 DATABASE_STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:create
   STATEMENT_TIMEOUT=0 RAILS_ENV="test" bundle exec rails db:migrate
 }
 
