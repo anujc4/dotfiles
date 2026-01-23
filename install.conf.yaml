@@ -11,6 +11,10 @@
     ~/.zshrc:
       path: zsh/zshrc
       force: true
+    ~/.config/atuin/config.toml:
+      path: atuin/config.toml
+      create: true
+      force: true
     ~/.config/tmux/tmux.conf:
       path: tmux/tmux.conf
       create: true

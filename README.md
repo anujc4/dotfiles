@@ -26,6 +26,14 @@ Then run the install command
 ./install
 ```
 
+### Selective Installation
+
+Install specific configs using profile flags:
+
+```bash
+./install -c keyboard.conf.yaml  # Key remapping only (Caps→Esc, §→`)
+```
+
 ## License
 
 This project is no license. Do whatever the f**k you want to do with it.

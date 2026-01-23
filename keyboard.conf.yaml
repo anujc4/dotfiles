@@ -1,0 +1,13 @@
+- link:
+    ~/Library/LaunchAgents/com.user.keyremapping.plist:
+      path: macos_keyboard/com.user.keyremapping.plist
+      create: true
+      force: true
+
+- shell:
+    - # Load key remapping LaunchAgent
+      command: |
+        launchctl unload ~/Library/LaunchAgents/com.user.keyremapping.plist 2>/dev/null || true
+        launchctl load ~/Library/LaunchAgents/com.user.keyremapping.plist
+      description: Loading key remapping LaunchAgent
+      quiet: true
