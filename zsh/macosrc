@@ -211,7 +211,3 @@ function presentation-mode() {
     "$HOME/Personal/scripts/presentation_mode_vs_code.sh"
   fi
 }
-
-if command -v atuin &>/dev/null; then
-  eval "$(atuin init zsh)"
-fi

@@ -111,10 +111,10 @@ source "$ZSH/oh-my-zsh.sh"
 prompt_context() { true; }
 prompt_aws() { true; }
 
-# shellcheck source=/dev/null
-eval "$(fzf --zsh)"
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+if command -v atuin &>/dev/null; then
+  eval "$(atuin init zsh --disable-up-arrow)"
+  bindkey '^R' atuin-search
+fi
 
 # Homebrew completions. Refer https://docs.brew.sh/Shell-Completion
 if type brew &>/dev/null; then
