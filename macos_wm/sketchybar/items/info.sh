@@ -1,0 +1,44 @@
+#!/bin/bash
+
+source "$HOME/.config/common_wm/colors.sh"
+
+POPUP_SCRIPT="sketchybar --set info.anchor popup.drawing=toggle"
+
+info_anchor=(
+  icon=􀅴
+  icon.font="SF Pro:Regular:18.0"
+  icon.color=$WHITE
+  label.drawing=off
+  click_script="$POPUP_SCRIPT"
+  popup.align=right
+  popup.height=35
+  script="$PLUGIN_DIR/info.sh"
+)
+
+info_restart_yabai=(
+  icon=􀅈
+  icon.font="SF Pro:Regular:14.0"
+  icon.color=$YELLOW
+  label="Restart yabai"
+  label.font="SF Pro:Regular:14.0"
+  click_script="yabai --restart-service; sketchybar --set info.anchor popup.drawing=off"
+)
+
+info_restart_all=(
+  icon=􀊄
+  icon.font="SF Pro:Regular:14.0"
+  icon.color=$RED
+  label="Restart everything"
+  label.font="SF Pro:Regular:14.0"
+  click_script="yabai --restart-service; skhd --restart-service; sketchybar --reload"
+)
+
+sketchybar --add item info.anchor right                          \
+           --set info.anchor "${info_anchor[@]}"                 \
+           --subscribe info.anchor mouse.exited.global           \
+                                                                 \
+           --add item info.restart_yabai popup.info.anchor       \
+           --set info.restart_yabai "${info_restart_yabai[@]}"   \
+                                                                 \
+           --add item info.restart_all popup.info.anchor         \
+           --set info.restart_all "${info_restart_all[@]}"
