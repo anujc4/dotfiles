@@ -86,8 +86,6 @@ alias bsx='brew services stop'
 alias tf='terraform'
 alias gbc="git branch | grep '^\*' | cut -d' ' -f2 | pbcopy"
 
-export JAVA_HOME=/Library/Java/JavaVirtualMachines/amazon-corretto-21.jdk/Contents/Home
-
 # Uninstallation command for Corretto https://docs.aws.amazon.com/corretto/latest/corretto-11-ug/macos-install.html
 # cd /Library/Java/JavaVirtualMachines/
 # sudo rm -rf amazon-corretto-17.jdk
@@ -164,6 +162,9 @@ function securekb() {
 if [ -d "$HOME/.asdf" ]; then
   # shellcheck source=/dev/null
   . ~/.asdf/plugins/golang/set-env.zsh
+  # shellcheck source=/dev/null
+  . ~/.asdf/plugins/java/set-java-home.zsh
+
   export ASDF_DATA_DIR="$HOME/.asdf"
   export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
   export ASDF_GOLANG_MOD_VERSION_ENABLED=true

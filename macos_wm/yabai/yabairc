@@ -62,6 +62,14 @@ yabai -m signal --add event=space_changed action="sketchybar --trigger windows_o
 # app specific rules
 yabai -m rule --add label=vs_code_space_two app='(Code|Cursor)' space='2'
 
+
+JB_Apps='^(RubyMine|IntelliJ IDEA|Android Studio)$'
+yabai -m rule --add app="${JB_Apps}" manage=off
+# If `Open last project when launch` is checked, add this rule.
+# And make sure `always show project path` is also checked.
+yabai -m rule --add app="${JB_Apps}" title=".*\[.*\].*" manage=on
+yabai -m rule --add app="${JB_Apps}" title="^$"  manage=on
+
 # Launch borders as a background process
 borders &
 

@@ -123,9 +123,13 @@
 
         brew tap FelixKratz/formulae
         brew install sketchybar borders
+
         brew services start sketchybar
-        curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.32/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+
+        curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.50/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
         brew install --cask sf-symbols
+        brew install --cask font-sf-mono
+        brew install --cask font-sf-pro
       description: Installing Yabai
       quiet: true
 
