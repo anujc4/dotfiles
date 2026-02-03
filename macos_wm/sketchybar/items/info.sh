@@ -6,8 +6,11 @@ POPUP_SCRIPT="sketchybar --set info.anchor popup.drawing=toggle"
 
 info_anchor=(
   icon=􀅴
-  icon.font="SF Pro:Regular:18.0"
+  icon.font="SF Pro:Regular:14.0"
   icon.color=$WHITE
+  icon.padding_left=0
+  icon.padding_right=2
+  padding_right=10
   label.drawing=off
   click_script="$POPUP_SCRIPT"
   popup.align=right

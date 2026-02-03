@@ -29,7 +29,7 @@ stack)
               --set front_app label.color=$BLACK                       \
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
-              --set mode_indicator label="[STACK]"
+              --set mode_indicator label="[S]"
   ;;
 display)
   sketchybar  --bar           color=$PURPLE_STRONG                     \
@@ -42,7 +42,7 @@ display)
               --set front_app label.color=$BLACK                       \
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
-              --set mode_indicator label="[DISPLAY]"
+              --set mode_indicator label="[D]"
   ;;
 window)
   sketchybar  --bar           color=$YELLOW_STRONG                     \
@@ -55,7 +55,7 @@ window)
               --set front_app label.color=$BLACK                       \
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
-              --set mode_indicator label="[WINDOW]"
+              --set mode_indicator label="[W]"
   ;;
 resize)
   sketchybar  --bar           color=$GREEN_STRONG                      \
@@ -68,7 +68,7 @@ resize)
               --set front_app label.color=$BLACK                       \
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
-              --set mode_indicator label="[RESIZE]"
+              --set mode_indicator label="[Z]"
   ;;
 inst)
   sketchybar  --bar           color=$BLUE_STRONG                       \
@@ -81,18 +81,6 @@ inst)
               --set front_app label.color=$BLACK                       \
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
-              --set mode_indicator label="[INSERT]"
-  ;;
-reload)
-  sketchybar  --bar           color=$RED_STRONG                        \
-              --set /space.*/ label.background.color=$RED              \
-              --set /space.*/ icon.color=$BLACK                        \
-              --set system.yabai label.color=$BLACK                    \
-              --set separator icon.color=$BLACK                        \
-              --set front_app label.color=$BLACK                       \
-              --set mode_indicator drawing=on                          \
-              --set brew icon.color=$BLACK                             \
-              --set brew label.color=$BLACK                            \
-              --set mode_indicator label="[RELOAD] 1:YABAI, 2:SKHD, 3:SKETCHYBAR, 0:ALL"
+              --set mode_indicator label="[I]"
   ;;
 esac

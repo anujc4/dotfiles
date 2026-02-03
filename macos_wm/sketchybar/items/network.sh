@@ -6,10 +6,10 @@ POPUP_SCRIPT="sketchybar --set network.anchor popup.drawing=toggle"
 
 network_anchor=(
   icon=􀤆
-  icon.font="SF Pro:Regular:18.0"
+  icon.font="SF Pro:Regular:14.0"
   icon.color=$WHITE
   icon.padding_left=2
-  icon.padding_right=2
+  icon.padding_right=0
   label.drawing=off
   label.padding_left=5
   label.padding_right=5

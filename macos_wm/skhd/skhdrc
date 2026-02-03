@@ -19,7 +19,6 @@
 :: window  @         : ~/.config/skhd/mode_controller.sh window # window mode: manipulate windows and spaces
 :: resize  @         : ~/.config/skhd/mode_controller.sh resize # resize mode: resize windows in current space
 :: inst    @         : ~/.config/skhd/mode_controller.sh inst # insert mode: tell yabai where to insert the new window
-:: reload  @         : ~/.config/skhd/mode_controller.sh reload # reload mode: restart services
 
 # Hack to use "ctrl + shift - r" keybinding in RubyMine
 # to run tests but trigger resize mode everywhere else
@@ -72,12 +71,10 @@ default < ctrl + shift - w ; window
 default < meh - r          ; resize
 # Enter insert mode to control window insertion direction
 default < ctrl + shift - i ; inst
-# Enter reload mode to restart services
-default < ctrl + shift - x ; reload
 
 # De-activate modes
 # Exit any mode and return to default mode
-display, window, resize, stack, inst, reload < escape ; default
+display, window, resize, stack, inst < escape ; default
 
 # Exit display mode and return to default
 display < meh - d          ; default
@@ -89,21 +86,19 @@ window  < ctrl + shift - w ; default
 resize  < meh - r          ; default
 # Exit insert mode and return to default
 inst    < ctrl + shift - i ; default
-# Exit reload mode and return to default
-reload  < ctrl + shift - x ; default
 
 # Launch other modes from within a mode
-# display, stack, window, resize, inst, reload
+# display, stack, window, resize, inst
 # Switch to display mode from other modes
-stack, window, resize, inst, reload    < d ; display
+stack, window, resize, inst    < d ; display
 # Switch to stack mode from other modes
-display, window, resize, inst, reload  < s ; stack
+display, window, resize, inst  < s ; stack
 # Switch to window mode from other modes
-display, stack, resize, inst, reload   < w ; window
+display, stack, resize, inst   < w ; window
 # Switch to resize mode from other modes
-display, stack, window, inst, reload   < r ; resize
+display, stack, window, inst   < r ; resize
 # Switch to insert mode from other modes
-display, stack, window, resize, reload < i ; inst
+display, stack, window, resize < i ; inst
 
 ############################# Global modifiers ##################################
 # The aim is to not have too many global key-bindings because it will clash with
@@ -438,22 +433,3 @@ window < space        : yabai -m query --spaces --space | \
                         fi"; \
                         skhd -k 'escape'
 
-##################### Reload mode ##############################################
-
-# Restart all services (yabai, sketchybar, skhd)
-reload < 0            : skhd -k 'escape'; \
-                        yabai --restart-service; \
-                        launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
-                        skhd --restart-service
-
-# Restart only yabai service
-reload < 1            : yabai --restart-service; \
-                        skhd -k 'escape'
-
-# Restart only skhd service
-reload < 2            : skhd -k 'escape'; \
-                        skhd --restart-service
-
-# Restart only sketchybar service
-reload < 3            : launchctl kickstart -k "gui/${UID}/homebrew.mxcl.sketchybar"; \
-                        skhd -k 'escape'
