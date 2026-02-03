@@ -1,10 +1,22 @@
 #!/bin/bash
 
 CAFFEINATE_FILE="/tmp/caffeinate_end_time"
+CAFFEINATE_PID_FILE="/tmp/caffeinate_pid"
 CAFFEINATE_DURATION=14400  # 4 hours in seconds
 
+is_our_caffeinate_running() {
+  # Check if our specific caffeinate process is still running
+  if [ -f "$CAFFEINATE_PID_FILE" ]; then
+    PID=$(cat "$CAFFEINATE_PID_FILE")
+    if ps -p "$PID" >/dev/null 2>&1; then
+      return 0
+    fi
+  fi
+  return 1
+}
+
 update_caffeinate() {
-  if pgrep -x caffeinate >/dev/null && [ -f "$CAFFEINATE_FILE" ]; then
+  if is_our_caffeinate_running && [ -f "$CAFFEINATE_FILE" ]; then
     # Caffeinate is running - show remaining time
     END_TIME=$(cat "$CAFFEINATE_FILE")
     NOW=$(date +%s)
@@ -22,8 +34,9 @@ update_caffeinate() {
         label="Stop Caffeinate ($TIME_STR)"
     else
       # Time expired, clean up
-      pkill caffeinate
-      rm -f "$CAFFEINATE_FILE"
+      PID=$(cat "$CAFFEINATE_PID_FILE")
+      kill "$PID" 2>/dev/null
+      rm -f "$CAFFEINATE_FILE" "$CAFFEINATE_PID_FILE"
       sketchybar --set info.caffeinate \
         icon=􀀹 \
         icon.color=0xb3b8bb26 \
@@ -31,7 +44,7 @@ update_caffeinate() {
     fi
   else
     # Caffeinate not running
-    rm -f "$CAFFEINATE_FILE"
+    rm -f "$CAFFEINATE_FILE" "$CAFFEINATE_PID_FILE"
     sketchybar --set info.caffeinate \
       icon=􀀹 \
       icon.color=0xb3b8bb26 \
@@ -40,15 +53,17 @@ update_caffeinate() {
 }
 
 toggle_caffeinate() {
-  if pgrep -x caffeinate >/dev/null; then
-    # Stop caffeinate
-    pkill caffeinate
-    rm -f "$CAFFEINATE_FILE"
+  if is_our_caffeinate_running; then
+    # Stop our caffeinate
+    PID=$(cat "$CAFFEINATE_PID_FILE")
+    kill "$PID" 2>/dev/null
+    rm -f "$CAFFEINATE_FILE" "$CAFFEINATE_PID_FILE"
   else
     # Start caffeinate
     END_TIME=$(($(date +%s) + CAFFEINATE_DURATION))
     echo "$END_TIME" > "$CAFFEINATE_FILE"
     caffeinate -d -t $CAFFEINATE_DURATION &
+    echo $! > "$CAFFEINATE_PID_FILE"
   fi
   update_caffeinate
   sketchybar --set info.anchor popup.drawing=off
