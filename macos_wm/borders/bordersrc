@@ -2,11 +2,11 @@
 
 options=(
   style=round
-  width=6.0
+  width=5.0
   hidpi=off
   active_color=0xb3fe8019
   inactive_color=0xff414550
-  blacklist="RubyMine"
+  blacklist="RubyMine,IntelliJ IDEA,Android Studio,jetbrains-toolbox,System Settings,Stats"
 )
 
 borders "${options[@]}"
