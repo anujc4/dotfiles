@@ -19,7 +19,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 
 # shellcheck disable=SC2034
-ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
 
 # shellcheck disable=SC2034
 plugins=(
@@ -153,5 +153,4 @@ ssm-ec2() {
         AWS_PROFILE=saml aws ssm start-session "${EXTRA_ARGS[@]}" --target "${INSTANCE}" --document-name DeliverooSSM
 }
 
-# Added by devbox to ensure ~/.local/bin is on PATH
-export PATH="/Users/anuj/.local/bin:$PATH"
+eval "$(starship init zsh)"

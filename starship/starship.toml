@@ -1,0 +1,19 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = true
+
+[character]
+success_symbol = '[➜](bold green)'
+
+[package]
+disabled = true
+
+[docker_context]
+disabled = true
+
+[gradle]
+disabled = true
+
+[aws]
+disabled = true

@@ -192,11 +192,6 @@ cmd - m              : yabai -m window --focus mouse
 ctrl + shift - z      : ~/.config/skhd/toggle_zen_mode.sh; \
                         skhd -k 'escape'
 
-# Run personal script (sp.sh)
-ctrl + shift - p      : ~/Personal/scripts/sp.sh; \
-                        skhd -k 'escape'
-
-
 ######################## Insert mode ###########################################
 
 # Set next window insertion point to the left
@@ -432,4 +427,3 @@ window < space        : yabai -m query --spaces --space | \
                         else yabai -m space --layout stack; \
                         fi"; \
                         skhd -k 'escape'
-

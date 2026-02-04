@@ -15,6 +15,10 @@
       path: atuin/config.toml
       create: true
       force: true
+    ~/.config/starship.toml:
+      path: starship/starship.toml
+      create: true
+      force: true
     ~/.config/tmux/tmux.conf:
       path: tmux/tmux.conf
       create: true
@@ -70,13 +74,11 @@
         git clone https://github.com/zsh-users/zsh-completions              "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins/zsh-completions"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         git clone https://github.com/wfxr/forgit.git                        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/forgit"
-        git clone https://github.com/spaceship-prompt/spaceship-prompt.git  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/spaceship-prompt" --depth=1
 
-        ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme"     "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
-        is_installed zoxide || brew install zoxide fzf thefuck
+        is_installed zoxide || brew install zoxide
         is_installed fzf || brew install fzf
         is_installed thefuck || brew install thefuck
+        is_installed starship || brew install starship
       description: Installing Oh My Zsh plugins
       quiet: true
 
