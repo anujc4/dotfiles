@@ -54,32 +54,57 @@
       description: Checking Homebrew installation
       quiet: true
 
-    - # Oh My Zsh
+    - # Clean up old oh-my-zsh installation (optional)
       command: |
-        if [[ ! -d ~/.oh-my-zsh ]]; then
-          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        if [[ -d ~/.oh-my-zsh ]] && [[ -d ~/.config/zsh/plugins ]]; then
+          echo "Note: oh-my-zsh detected at ~/.oh-my-zsh"
+          echo "You can safely remove it with: rm -rf ~/.oh-my-zsh"
+          echo "Standalone plugins are now used from ~/.config/zsh/plugins"
         fi
-      description: Checking Oh My Zsh
+      description: Checking for oh-my-zsh migration
+      stdout: true
       quiet: true
 
-    - # omz plugins
+    - # Zsh plugins directory
+      command: mkdir -p "$HOME/.config/zsh/plugins"
+      description: Creating zsh plugins directory
+      quiet: true
+
+    - # Standalone zsh plugins
+      command: |
+        PLUGIN_DIR="$HOME/.config/zsh/plugins"
+
+        # Clone plugin if it doesn't exist
+        clone_plugin() {
+          local repo=$1
+          local name=$2
+          if [[ ! -d "$PLUGIN_DIR/$name" ]]; then
+            echo "Installing $name..."
+            git clone --depth=1 "https://github.com/$repo.git" "$PLUGIN_DIR/$name"
+          else
+            echo "$name already installed"
+          fi
+        }
+
+        clone_plugin "changyuheng/zsh-interactive-cd" "zsh-interactive-cd"
+        clone_plugin "Aloxaf/fzf-tab" "fzf-tab"
+        clone_plugin "MichaelAquilina/zsh-you-should-use" "you-should-use"
+        clone_plugin "zsh-users/zsh-autosuggestions" "zsh-autosuggestions"
+        clone_plugin "zsh-users/zsh-completions" "zsh-completions"
+        clone_plugin "zsh-users/zsh-syntax-highlighting" "zsh-syntax-highlighting"
+        clone_plugin "wfxr/forgit" "forgit"
+      description: Installing standalone zsh plugins
+      stdout: true
+      stderr: true
+
+    - # Shell utilities
       command: |
         source internal/helper.sh
-
-        git clone https://github.com/changyuheng/zsh-interactive-cd.git     "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/zsh-interactive-cd"
-        git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins   "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/autoupdate"
-        git clone https://github.com/Aloxaf/fzf-tab                         "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
-        git clone https://github.com/MichaelAquilina/zsh-you-should-use.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use"
-        git clone https://github.com/zsh-users/zsh-autosuggestions          "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-        git clone https://github.com/zsh-users/zsh-completions              "${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins/zsh-completions"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git  "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-        git clone https://github.com/wfxr/forgit.git                        "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/forgit"
-
         is_installed zoxide || brew install zoxide
         is_installed fzf || brew install fzf
         is_installed thefuck || brew install thefuck
         is_installed starship || brew install starship
-      description: Installing Oh My Zsh plugins
+      description: Installing shell utilities
       quiet: true
 
     - # Tmux

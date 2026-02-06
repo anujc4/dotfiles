@@ -1,5 +1,9 @@
 #!/bin/bash
 
+git_current_branch() {
+  git symbolic-ref --quiet --short HEAD 2> /dev/null || git rev-parse --short HEAD 2> /dev/null
+}
+
 # Common aliases
 alias ezsh='surf $DOT_SOURCE'
 alias rzsh='source ~/.zshrc'
@@ -116,25 +120,77 @@ bindkey '^s' pet-select
 
 # Alias for git-forgit
 alias gcoo='git-forgit checkout_branch'
-
-unalias gcp
 alias gcp='git-forgit cherry_pick'
-
-unalias gd
 alias gd='git-forgit diff'
-
-unalias gss
 alias gss='git-forgit stash_show'
-
 alias gll='git log'
-
-unalias ga
 alias ga='git-forgit add'
-
-unalias gbd
 alias gbd='git-forgit branch_delete'
 
 # Helper function to pretty print the $PATH
 function _path() {
   echo "$PATH" | tr ":" "\n" | nl
+}
+
+# Update all zsh plugins
+# Usage: zsh_update [--force]
+# --force: Reset plugins to clean state before updating (discards local changes)
+function zsh_update() {
+  local plugin_dir="${PLUGIN_DIR:-$HOME/.config/zsh/plugins}"
+  local force_update=false
+
+  if [[ "$1" == "--force" ]]; then
+    force_update=true
+    echo "Force update enabled - local changes will be discarded"
+  fi
+
+  if [[ ! -d "$plugin_dir" ]]; then
+    echo "Plugin directory not found: $plugin_dir"
+    return 1
+  fi
+
+  echo "Updating zsh plugins in $plugin_dir..."
+  echo ""
+
+  local updated=0
+  local failed=0
+  local skipped=0
+
+  for plugin in "$plugin_dir"/*(/); do
+    local plugin_name="${plugin:t}"
+
+    if [[ -d "$plugin/.git" ]]; then
+      echo "→ Updating $plugin_name..."
+
+      if $force_update; then
+        if (cd "$plugin" && git fetch && git reset --hard origin/HEAD); then
+          ((updated++))
+        else
+          echo "  ✗ Failed to update $plugin_name"
+          ((failed++))
+        fi
+      else
+        if (cd "$plugin" && git pull --rebase --autostash); then
+          ((updated++))
+        else
+          echo "  ✗ Failed to update $plugin_name (try 'zsh_update --force' to reset)"
+          ((failed++))
+        fi
+      fi
+    else
+      echo "→ Skipping $plugin_name (not a git repository)"
+      ((skipped++))
+    fi
+  done
+
+  echo ""
+  echo "Summary:"
+  echo "  Updated: $updated"
+  [[ $failed -gt 0 ]] && echo "  Failed: $failed"
+  [[ $skipped -gt 0 ]] && echo "  Skipped: $skipped"
+
+  if [[ $updated -gt 0 ]]; then
+    echo ""
+    echo "Restart your shell or run 'rzsh' to apply updates"
+  fi
 }

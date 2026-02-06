@@ -12,8 +12,10 @@ function ruby_config_arm() {
   # cppflags="-I$openssl/include"
   # export CPPFLAGS=$cppflags
 
-
-  openssl3="$(brew --prefix openssl)"
+  # Optimized: use hardcoded path instead of $(brew --prefix openssl) which is slow
+  # The brew prefix is stable and rarely changes
+  # On ARM Macs, Homebrew is installed at /opt/homebrew
+  local openssl3="$HOMEBREW_PREFIX/opt/openssl"
   export PATH="$openssl3/bin:$PATH"
   RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl3"
   export RUBY_CONFIGURE_OPTS
@@ -36,20 +38,21 @@ function ruby_config_arm() {
   # RUBY_CONFIGURE_OPTS="--with-openssl-dir=$openssl --with-opt-dir=$readline:$libyaml"
 }
 
-# e.g. Apple M1 Max
-if [[ "$(sysctl -n machdep.cpu.brand_string)" =~ M[[:digit:]] ]]; then
-  if [[ "$(uname -m)" == "arm64" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-    ruby_config_arm
-    # Dir to store manual arm binaries
-    export PATH="$PATH:$HOME/.local/bin"
-  else
-    eval "$(/usr/local/homebrew/bin/brew shellenv)"
-    # Dir to store manual x86 binaries
-    export PATH="$PATH:$HOME/.local_x86/bin"
-  fi
+# Optimized: Check architecture using built-in $CPUTYPE instead of subprocess calls
+# This avoids calling sysctl and uname -m which are slow
+if [[ "$CPUTYPE" == "arm64" ]] || [[ -d "/opt/homebrew" ]]; then
+  # Apple Silicon (M1/M2/M3/etc)
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  ruby_config_arm
+  # Dir to store manual arm binaries
+  export PATH="$PATH:$HOME/.local/bin"
+elif [[ -d "/usr/local/homebrew" ]]; then
+  # Intel Mac with custom homebrew path
+  eval "$(/usr/local/homebrew/bin/brew shellenv)"
+  # Dir to store manual x86 binaries
+  export PATH="$PATH:$HOME/.local_x86/bin"
 else
-  # MacOS on Intel
+  # MacOS on Intel (default homebrew location)
   export PATH="$PATH:$HOME/.local/bin"
 fi
 
@@ -66,15 +69,8 @@ alias tail_sketchybar='tail -f $HOMEBREW_PREFIX/var/log/sketchybar/*.log'
 export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 export PATH="$PATH:/Users/anujchandra/.codeium/windsurf/bin"
 
-FORGIT_INSTALL_DIR="/Users/$(whoami)/.oh-my-zsh/custom/plugins/forgit/bin"
-if [ -d "$FORGIT_INSTALL_DIR" ]; then
-  export PATH="$PATH:$FORGIT_INSTALL_DIR"
-  export FORGIT_FZF_DEFAULT_OPTS
-  export FORGIT_INSTALL_DIR
-fi
-
 # shellcheck disable=SC2155
-export ANDROID_SDK_ROOT="/Users/$(whoami)/Library/Android/sdk"
+export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
 export THOR_MERGE="surf -d $1 $2"
 
 alias bri='brew install'
@@ -177,7 +173,7 @@ function suyabai() {
     sudo sed -i '' -e 's/sha256:[[:alnum:]]*/sha256:'"${sha256}"'/' /private/etc/sudoers.d/yabai
   else
     echo "sudoers file does not exist yet. creating one now"
-    echo "$(whoami) ALL=(root) NOPASSWD: sha256:${sha256} $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
+    echo "$USER ALL=(root) NOPASSWD: sha256:${sha256} $(which yabai) --load-sa" | sudo tee /private/etc/sudoers.d/yabai
   fi
 }
 
