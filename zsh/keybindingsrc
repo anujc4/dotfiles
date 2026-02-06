@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+# Use emacs keybindings (default, but explicitly set for clarity)
+bindkey -e
+
+# Word deletion keybindings
+bindkey '^W' backward-kill-word   # Ctrl-W: delete previous word
+bindkey '^[^?' backward-kill-word # Alt-Backspace: delete previous word (macOS)
+bindkey '^[^H' backward-kill-word # Alt-Backspace: delete previous word (alternative)
+
+# Custom functions
+bindkey '^y' copypwd      # Ctrl-Y: copy current directory to clipboard
+bindkey -s '^[R' "rzsh\n" # Alt-R: reload zsh config
+bindkey '^s' pet-select   # Ctrl-S: pet snippet search
+
+# Disable flow control (Ctrl-S/Ctrl-Q)
+stty -ixon

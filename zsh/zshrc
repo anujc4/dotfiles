@@ -1,8 +1,3 @@
-# To use this zshrc as your default zshrc file, create a symlink of this file
-# in your home folder. Just create  a symlink of the zshrc file and it will
-# source the other files on it's own. The command usually looks like
-# ln -s ~/Personal/dotfiles/zsh/zshrc ~/.zshrc
-
 # To profile zsh in case of slow startup, uncomment the line below and move the
 # second command to the bottom of this file
 # zmodload zsh/zprof
@@ -18,33 +13,37 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_SAVE_NO_DUPS
 
-# Plugin directory for standalone plugins
 PLUGIN_DIR="$HOME/.config/zsh/plugins"
+_load_plugin() {
+  local plugin_path="$1"
+  if [[ -f "$plugin_path" ]]; then
+    # shellcheck source=/dev/null
+    source "$plugin_path"
+  fi
+}
 
-# This function will set up two important environment varialbles:
+# This function will set up two important environment variables:
 # $FILE_DIR: Absolute path to the .zshrc file
 # $DOT_SOURCE: Absolute path where dotfiles repo is cloned
 # If the script fails to determine the path of dotfiles, it will print an error
 # since a lot of functionalities will start failing (tmux, yabai, skhd, etc)
 function _set_dot_source() {
   local absolute_file_path
-
   case ${OSTYPE} in
   darwin*)
-    # Get the absolute path of the symlinked zshrc to read the other rc files
-    absolute_file_path="$(readlink $HOME/.zshrc)"
+    absolute_file_path="$(readlink "$HOME"/.zshrc)"
     FILE_DIR=${absolute_file_path%??????}
+    # shellcheck source=/dev/null
     source "$FILE_DIR/macosrc"
     ;;
   linux*)
-    # Get the absolute path of the symlinked zshrc to read the other rc files
-    absolute_file_path="$(readlink -f $HOME/.zshrc)"
+    absolute_file_path="$(readlink -f "$HOME"/.zshrc)"
     FILE_DIR=${absolute_file_path%??????}
+    # shellcheck source=/dev/null
     source "$FILE_DIR/linuxrc"
     ;;
   esac
   export FILE_DIR
-
   export DOT_SOURCE="${FILE_DIR%/*}"
 }
 
@@ -53,22 +52,18 @@ unfunction _set_dot_source
 
 # Setup completion system
 # Add plugin directories to fpath before compinit
-fpath=($PLUGIN_DIR/zsh-completions/src $fpath)
-
-# Initialize completion system with optimization
-# Only do full check if dump is older than 24 hours
+# shellcheck disable=SC2206
+fpath=("$PLUGIN_DIR/zsh-completions/src" $fpath)
 autoload -Uz compinit
-# zsh-specific code, disable all errors
-# shellcheck disable=SC1072,SC1073,SC1036,SC1058
-if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
-  # Dump is old, do full compinit with security checks
-  compinit
+if [ -f ~/.zcompdump ]; then
+  if [ -n "$(find ~/.zcompdump -mtime +0 2>/dev/null)" ]; then
+    compinit
+  else
+    compinit -C
+  fi
 else
-  # Dump is fresh, skip security checks for faster startup
-  compinit -C
+  compinit
 fi
-# shellcheck enable=SC1072,SC1073,SC1036,SC1058
-
 zstyle ':completion:*' menu yes select
 
 eval "$(zoxide init zsh)"
@@ -77,33 +72,19 @@ FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 
 # don't expand aliases _before_ completion has finished
 setopt complete_aliases
-bindkey "^Xa" _expand_alias
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 zstyle ':completion:*' regular true
 
-# Load standalone plugins
-# fzf-tab - must be loaded before zsh-autosuggestions and zsh-syntax-highlighting
-[[ -f "$PLUGIN_DIR/fzf-tab/fzf-tab.plugin.zsh" ]] && source "$PLUGIN_DIR/fzf-tab/fzf-tab.plugin.zsh"
+eval "$(starship init zsh)"
+_load_plugin "$PLUGIN_DIR/fzf-tab/fzf-tab.plugin.zsh"
+_load_plugin "$PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
+_load_plugin "$PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+_load_plugin "$PLUGIN_DIR/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
 
-# zsh-autosuggestions
-[[ -f "$PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh" ]] && source "$PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-# zsh-syntax-highlighting - must be loaded last
-[[ -f "$PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]] && source "$PLUGIN_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-
-# zsh-interactive-cd
-[[ -f "$PLUGIN_DIR/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh" ]] && source "$PLUGIN_DIR/zsh-interactive-cd/zsh-interactive-cd.plugin.zsh"
-
-# Load lazy plugins on first prompt
 function _load_lazy_plugins() {
-  # forgit
-  if [[ -d "$PLUGIN_DIR/forgit" ]]; then
-    export FORGIT_INSTALL_DIR="$PLUGIN_DIR/forgit"
-    [[ -f "$PLUGIN_DIR/forgit/forgit.plugin.zsh" ]] && source "$PLUGIN_DIR/forgit/forgit.plugin.zsh"
-  fi
-
-  # you-should-use
-  [[ -f "$PLUGIN_DIR/you-should-use/you-should-use.plugin.zsh" ]] && source "$PLUGIN_DIR/you-should-use/you-should-use.plugin.zsh"
+  export FORGIT_INSTALL_DIR="$PLUGIN_DIR/forgit"
+  _load_plugin "$PLUGIN_DIR/forgit/forgit.plugin.zsh"
+  _load_plugin "$PLUGIN_DIR/you-should-use/you-should-use.plugin.zsh"
 
   # Remove this hook after loading once
   add-zsh-hook -d precmd _load_lazy_plugins
@@ -132,12 +113,10 @@ unsetopt nomatch
 source "$FILE_DIR/common_aliasrc"
 
 # shellcheck source=/dev/null
-source "$FILE_DIR/secretsrc"
+source "$FILE_DIR/keybindingsrc"
 
-# Add git-scripts to PATH if it exists
-if [ -d "$HOME/Personal/git-scripts" ]; then
-  export PATH="$HOME/Personal/git-scripts:$PATH"
-fi
+# shellcheck source=/dev/null
+source "$FILE_DIR/secretsrc"
 
 # Lazy-load thefuck on first use
 fuck() {
@@ -146,7 +125,7 @@ fuck() {
   fuck "$@"
 }
 
+# Remove duplicate entries from PATH (zsh-specific)
+# shellcheck disable=SC2034
 typeset -U path
 export PATH
-
-eval "$(starship init zsh)"
