@@ -115,10 +115,10 @@ function securekb() {
 
 # For newer versions of asdf >=0.16
 if [ -d "$HOME/.asdf" ]; then
-	# shellcheck source=/dev/null
-	. ~/.asdf/plugins/golang/set-env.zsh
-	# shellcheck source=/dev/null
-	. ~/.asdf/plugins/java/set-java-home.zsh
+  # shellcheck source=/dev/null
+  [ -f ~/.asdf/plugins/golang/set-env.zsh ] && . ~/.asdf/plugins/golang/set-env.zsh
+  # shellcheck source=/dev/null
+	[ -f ~/.asdf/plugins/java/set-java-home.zsh ] && . ~/.asdf/plugins/java/set-java-home.zsh
 
 	export ASDF_DATA_DIR="$HOME/.asdf"
 	export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"

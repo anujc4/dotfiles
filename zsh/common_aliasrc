@@ -118,6 +118,10 @@ alias gss='git-forgit stash_show'
 alias gll='git log'
 alias ga='git-forgit add'
 alias gbd='git-forgit branch_delete'
+alias gst='git status'
+alias gl='git pull'
+alias gp='git push'
+alias gpf!='git push --force'
 
 # Helper function to pretty print the $PATH
 function _path() {
