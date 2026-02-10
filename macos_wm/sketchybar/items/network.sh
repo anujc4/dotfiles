@@ -47,14 +47,12 @@ network_external=(
 
 sketchybar --add item network.anchor right                          \
            --set network.anchor "${network_anchor[@]}"              \
-           --subscribe network.anchor mouse.exited mouse.exited.global \
+           --subscribe network.anchor mouse.exited.global           \
                                                                     \
            --add item network.internal popup.network.anchor         \
            --set network.internal "${network_internal[@]}"          \
                        script="$PLUGIN_DIR/network.sh"              \
-           --subscribe network.internal mouse.exited                \
                                                                     \
            --add item network.external popup.network.anchor         \
            --set network.external "${network_external[@]}"          \
-                       script="$PLUGIN_DIR/network.sh"              \
-           --subscribe network.external mouse.exited
+                       script="$PLUGIN_DIR/network.sh"

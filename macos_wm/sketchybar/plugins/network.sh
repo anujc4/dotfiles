@@ -21,6 +21,6 @@ update_ips() {
 }
 
 case "$SENDER" in
-  "mouse.exited"|"mouse.exited.global") sketchybar --set network.anchor popup.drawing=off ;;
+  "mouse.exited.global") sketchybar --set network.anchor popup.drawing=off ;;
   *) update_ips ;;
 esac

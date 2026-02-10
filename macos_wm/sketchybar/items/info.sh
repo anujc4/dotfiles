@@ -36,21 +36,7 @@ info_restart_all=(
   click_script="yabai --restart-service; skhd --restart-service; sketchybar --reload"
 )
 
-info_caffeinate=(
-  icon=􀀹
-  icon.font="SF Pro:Regular:14.0"
-  icon.color=$GREEN
-  label="Caffeinate 4h"
-  label.font="SF Pro:Regular:14.0"
-  script="$PLUGIN_DIR/info.sh"
-  click_script="sketchybar --trigger caffeinate_toggle"
-  update_freq=1
-  updates=when_shown
-)
-
-sketchybar --add event caffeinate_toggle                         \
-                                                                 \
-           --add item info.anchor right                          \
+sketchybar --add item info.anchor right                          \
            --set info.anchor "${info_anchor[@]}"                 \
            --subscribe info.anchor mouse.exited.global           \
                                                                  \
@@ -58,8 +44,4 @@ sketchybar --add event caffeinate_toggle                         \
            --set info.restart_yabai "${info_restart_yabai[@]}"   \
                                                                  \
            --add item info.restart_all popup.info.anchor         \
-           --set info.restart_all "${info_restart_all[@]}"       \
-                                                                 \
-           --add item info.caffeinate popup.info.anchor          \
-           --set info.caffeinate "${info_caffeinate[@]}"         \
-           --subscribe info.caffeinate caffeinate_toggle
+           --set info.restart_all "${info_restart_all[@]}"

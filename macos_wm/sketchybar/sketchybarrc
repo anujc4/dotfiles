@@ -49,11 +49,12 @@ source "$ITEM_DIR/front_app.sh"
 # Right
 # source "$ITEM_DIR/spotify.sh"
 # source "$ITEM_DIR/brew.sh"
-source "$ITEM_DIR/mode_indicator.sh"
-source "$ITEM_DIR/info.sh"
 source "$ITEM_DIR/network.sh"
+source "$ITEM_DIR/info.sh"
+source "$ITEM_DIR/caffeinate.sh"
+source "$ITEM_DIR/mode_indicator.sh"
 
-sketchybar --add bracket right_g info.anchor network.anchor mode_indicator    \
+sketchybar --add bracket right_g mode_indicator caffeinate info.anchor network.anchor    \
            --set         right_g background.color=$BACKGROUND_2               \
                                  background.border_color=$BACKGROUND_2        \
                                  background.border_width=2                    \
