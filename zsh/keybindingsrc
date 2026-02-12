@@ -3,6 +3,9 @@
 # Use emacs keybindings (default, but explicitly set for clarity)
 bindkey -e
 
+# Configure word characters (removing -/. so backward-kill-word stops at them)
+WORDCHARS='*?_[]~=&;!#$%^(){}<>'
+
 # Word deletion keybindings
 bindkey '^W' backward-kill-word   # Ctrl-W: delete previous word
 bindkey '^[^?' backward-kill-word # Alt-Backspace: delete previous word (macOS)

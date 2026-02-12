@@ -111,6 +111,7 @@ function pet-select() {
 zle -N pet-select
 
 # Alias for git-forgit
+alias gg='git-forgit'
 alias gcoo='git-forgit checkout_branch'
 alias gcp='git-forgit cherry_pick'
 alias gd='git-forgit diff'
@@ -120,8 +121,16 @@ alias ga='git-forgit add'
 alias gbd='git-forgit branch_delete'
 alias gst='git status'
 alias gl='git pull'
+alias gf='git fetch'
+alias gcp='git cherry-pick'
 alias gp='git push'
 alias gpf!='git push --force'
+
+alias -g ..='cd ./..'
+alias -g ...='cd ../..'
+alias -g ....='cd ../../..'
+alias -g .....='cd ../../../..'
+alias -g ......='cd ../../../../..'
 
 # Helper function to pretty print the $PATH
 function _path() {
