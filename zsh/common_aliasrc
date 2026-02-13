@@ -1,5 +1,11 @@
 #!/usr/bin/env zsh
 
+# ls -> eza
+alias ls='eza --color=auto'
+alias ll='eza -l --color=auto'
+alias la='eza -la --color=auto'
+alias lt='eza --tree --level=2'
+
 # Common aliases
 alias ezsh='surf $DOT_SOURCE'
 alias rzsh='source ~/.zshrc'
