@@ -117,22 +117,27 @@ function pet-select() {
 zle -N pet-select
 
 # Alias for git-forgit
-alias gg='git-forgit'
+alias ga='git-forgit add'
+alias gbd='git-forgit branch_delete'
 alias gcoo='git-forgit checkout_branch'
 alias gcp='git-forgit cherry_pick'
 alias gd='git-forgit diff'
+alias gg='git-forgit'
 alias gss='git-forgit stash_show'
-alias gll='git log'
-alias ga='git-forgit add'
-alias gbd='git-forgit branch_delete'
-alias gst='git status'
-alias gl='git pull'
-alias gf='git fetch'
+
+# Alias for git
+alias gcb='git checkout -b'
+alias gco='git checkout'
 alias gcp='git cherry-pick'
+alias gf='git fetch'
+alias gl='git pull'
+alias gll='git log'
 alias gp='git push'
 alias gpf!='git push --force'
+alias grhh='git reset --hard'
+alias gst='git status'
 
-alias -g ..='cd ./..'
+alias -g ..='cd ..'
 alias -g ...='cd ../..'
 alias -g ....='cd ../../..'
 alias -g .....='cd ../../../..'
