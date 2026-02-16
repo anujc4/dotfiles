@@ -3,13 +3,17 @@
 # Use emacs keybindings (default, but explicitly set for clarity)
 bindkey -e
 
-# Configure word characters (removing -/. so backward-kill-word stops at them)
-WORDCHARS='*?_[]~=&;!#$%^(){}<>'
+# Configure word characters (removing -/.= so backward-kill-word stops at them)
+WORDCHARS='*?[]~&;!#$%^(){}<>'
 
 # Word deletion keybindings
 bindkey '^W' backward-kill-word   # Ctrl-W: delete previous word
 bindkey '^[^?' backward-kill-word # Alt-Backspace: delete previous word (macOS)
 bindkey '^[^H' backward-kill-word # Alt-Backspace: delete previous word (alternative)
+
+# Line navigation (Cmd-Left / Cmd-Right → Home / End)
+bindkey '\e[1~' beginning-of-line # Home
+bindkey '\e[4~' end-of-line       # End
 
 # Custom functions
 bindkey '^y' copypwd      # Ctrl-Y: copy current directory to clipboard

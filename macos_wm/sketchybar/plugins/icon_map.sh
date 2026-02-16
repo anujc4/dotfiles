@@ -142,6 +142,9 @@ case $@ in
 "Code" | "Code - Insiders")
   icon_result=":code:"
   ;;
+"Cursor")
+  icon_result=":cursor:"
+  ;;
 "VSCodium")
   icon_result=":vscodium:"
   ;;
@@ -156,6 +159,9 @@ case $@ in
   ;;
 "Alacritty")
   icon_result=":alacritty:"
+  ;;
+"Postman")
+  icon_result=":postman:"
   ;;
 "Default")
   icon_result=":default:"

@@ -69,10 +69,11 @@ bindings = [
   { key = "End", mods = "Shift", mode = "~Alt", action = "ScrollToBottom" },
   { key = "Left", mods = "Alt", chars = "\u001BB" }, # Skip word left
   { key = "Right", mods = "Alt", chars = "\u001BF" }, # Skip word right
-  { key = "Left", mods = "Command", chars = "\u001bOH", mode = "AppCursor" }, # Home
-  { key = "Right", mods = "Command", chars = "\u001bOF", mode = "AppCursor" }, # End
+  { key = "Left", mods = "Command", chars = "\u001bOH" }, # Home
+  { key = "Right", mods = "Command", chars = "\u001bOF" }, # End
   { key = "Back", mods = "Command", chars = "\u0015" }, # Delete line
   { key = "Back", mods = "Alt", chars = "\u001b\u007f" }, # Delete word
+  { key = "Return", mods = "Shift", chars = "\u001b\r" }, # Shift-Enter: newline (for Claude Code)
   { key = "c", mods = "Command", action = "Copy" }, # Copy to Clipboard
   { key = "N", mods = "Command", action = "SpawnNewInstance" },
   { key = "Comma", mods = "Command", command = { program = "sh", args = [
