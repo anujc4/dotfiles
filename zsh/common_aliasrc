@@ -137,11 +137,12 @@ alias gpf!='git push --force'
 alias grhh='git reset --hard'
 alias gst='git status'
 
-alias -g ..='cd ..'
-alias -g ...='cd ../..'
-alias -g ....='cd ../../..'
-alias -g .....='cd ../../../..'
-alias -g ......='cd ../../../../..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias ......='cd ../../../../..'
+alias -- -='cd -'
 
 # Helper function to pretty print the $PATH
 function _path() {
