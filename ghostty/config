@@ -1,0 +1,3 @@
+# Daily driver - Gruvbox Dark
+config-file = ~/Personal/dotfiles/ghostty/config_base
+theme = Gruvbox Dark

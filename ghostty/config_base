@@ -1,0 +1,49 @@
+# Font
+font-family = "Hack Nerd Font"
+font-style = Regular
+font-style-bold = Bold
+font-style-italic = Italic
+font-size = 14
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+cursor-color = cell-foreground
+cursor-text = cell-background
+
+# Window
+macos-titlebar-style = hidden
+window-padding-x = 5
+window-padding-y = 20
+window-padding-balance = true
+background-opacity = 0.8
+background-blur = true
+macos-option-as-alt = true
+
+# Colors
+bold-is-bright = true
+selection-foreground = cell-background
+selection-background = cell-foreground
+
+# Mouse
+mouse-hide-while-typing = false
+mouse-scroll-multiplier = 3
+
+# Clipboard & Selection
+copy-on-select = clipboard
+selection-word-chars = ,│`|:"' ()[]{}<>
+
+# Environment
+env = LANG=en_US.UTF-8
+env = LC_ALL=en_US.UTF-8
+
+# Keybindings
+keybind = alt+left=text:\x1bB
+keybind = alt+right=text:\x1bF
+keybind = cmd+left=text:\x1bOH
+keybind = cmd+right=text:\x1bOF
+keybind = cmd+backspace=text:\x15
+keybind = alt+backspace=text:\x1b\x7f
+keybind = shift+enter=text:\x1b\r
+keybind = cmd+alt+left=text:\x1b[77~
+keybind = cmd+alt+right=text:\x1b[78~

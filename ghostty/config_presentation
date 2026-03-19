@@ -1,0 +1,3 @@
+# Presentation mode - GitHub Light
+config-file = ~/Personal/dotfiles/ghostty/config_base
+theme = GitHub Light Default
