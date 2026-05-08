@@ -53,6 +53,9 @@ source "$ITEM_DIR/network.sh"
 source "$ITEM_DIR/info.sh"
 source "$ITEM_DIR/caffeinate.sh"
 source "$ITEM_DIR/mode_indicator.sh"
+# help_anchor must be sourced last so it is the rightmost right-side item;
+# this anchors the popup against the bar's right edge.
+source "$ITEM_DIR/help.sh"
 
 sketchybar --add bracket right_g mode_indicator caffeinate info.anchor network.anchor    \
            --set         right_g background.color=$BACKGROUND_2               \

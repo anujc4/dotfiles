@@ -160,13 +160,6 @@
       description: Installing Yabai
       quiet: true
 
-    - # Post-yabai install
-      command: |
-        export DOT_SOURCE="$(pwd)"
-        macos_wm/post_yabai_installation.sh
-      description: Configuring Yabai
-      quiet: true
-
     - # MacOS Optimizations
       command: |
         macos_optimizations

@@ -3,6 +3,8 @@
 
 source "$HOME/.config/common_wm/colors.sh"
 
+HELP="$HOME/.config/sketchybar/plugins/help/toggle_help.sh"
+
 case "$1" in
 default)
   sketchybar  --bar           color=$BAR_COLOR                         \
@@ -17,6 +19,7 @@ default)
               --set brew icon.color=$WHITE                             \
               --set brew label.color=$WHITE                            \
               --set mode_indicator drawing=off
+  "$HELP" hide
   ;;
 stack)
   sketchybar  --bar           color=$AQUA_STRONG                       \
@@ -30,6 +33,7 @@ stack)
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
               --set mode_indicator label="[S]"
+  "$HELP" refresh stack
   ;;
 display)
   sketchybar  --bar           color=$PURPLE_STRONG                     \
@@ -43,6 +47,7 @@ display)
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
               --set mode_indicator label="[D]"
+  "$HELP" refresh display
   ;;
 window)
   sketchybar  --bar           color=$YELLOW_STRONG                     \
@@ -56,6 +61,7 @@ window)
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
               --set mode_indicator label="[W]"
+  "$HELP" refresh window
   ;;
 resize)
   sketchybar  --bar           color=$GREEN_STRONG                      \
@@ -69,6 +75,7 @@ resize)
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
               --set mode_indicator label="[Z]"
+  "$HELP" refresh resize
   ;;
 inst)
   sketchybar  --bar           color=$BLUE_STRONG                       \
@@ -82,5 +89,6 @@ inst)
               --set brew icon.color=$BLACK                             \
               --set brew label.color=$BLACK                            \
               --set mode_indicator label="[I]"
+  "$HELP" refresh inst
   ;;
 esac

@@ -38,12 +38,6 @@ app_names+="|Stats|SteelSeries GG Client|System Preferences|System Settings"
 app_names+="|Tailscale|VLC)$"
 yabai -m rule --add app="${app_names}" manage=off
 
-# Only used when SIP is enabled. This is a in-house replacement for
-# `yabai -m window --focus recent`, used with the `switch_space.sh` script
-yabai -m signal --add \
-    label=space_changed event=space_changed \
-    action="$HOME/.config/yabai/save_recent_space.sh"
-
 # when a new window is created, stack it on top of the window of the same
 # application, if exists
 yabai -m signal --add \
@@ -72,7 +66,5 @@ yabai -m rule --add app="${JB_Apps}" title="^$"  manage=on
 
 # Launch borders as a background process
 borders &
-
-"$HOME/.config/yabai/hooks/post_yabai_bootup.sh" &
 
 echo "yabai configuration loaded.."
