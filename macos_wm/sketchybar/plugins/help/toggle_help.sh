@@ -12,10 +12,11 @@ SWITCHES="$CACHE_DIR/switches.tsv"
 STAMP_FILE="$CACHE_DIR/sources.mtime"
 SKHDRC="$HOME/.config/skhd/skhdrc"
 
-KEY_FONT="SF Mono:Bold:14.0"
-LABEL_FONT="SF Pro:Regular:14.0"
-KEY_WIDTH=190
-ROW_HEIGHT=26
+KEY_FONT="SF Mono:Bold:13.0"
+LABEL_FONT="SF Pro:Light:14.0"
+ROW_HEIGHT=28
+CHIP_HEIGHT=20
+CHIP_INNER_PAD=6
 
 sources_mtime() {
   [[ -f "$SKHDRC" ]] || { printf 'no-sources'; return; }
@@ -67,20 +68,28 @@ build_items() {
   local idx=0
   local name keys desc m to
 
+  local rendered
   while IFS=$'\t' read -r m keys desc; do
     [[ "$m" == "$mode" ]] || continue
     [[ -n "${desc:-}" ]] || continue
     name="help.row.$idx"
+    rendered="$(render_keys "$keys")"
     args+=( --add item "$name" "popup.$ANCHOR" \
             --set "$name" \
-                  icon="$(render_keys "$keys")" \
-                  icon.color="$AQUA" \
+                  icon="$rendered" \
+                  icon.color="$WHITE" \
                   icon.color.alpha=1.0 \
                   icon.font="$KEY_FONT" \
-                  icon.width="$KEY_WIDTH" \
-                  icon.align=left \
-                  icon.padding_left=14 \
-                  icon.padding_right=10 \
+                  icon.padding_left="$CHIP_INNER_PAD" \
+                  icon.padding_right="$CHIP_INNER_PAD" \
+                  icon.background.drawing=on \
+                  icon.background.color="$BACKGROUND_2" \
+                  icon.background.color.alpha=1.0 \
+                  icon.background.border_color="$GREY" \
+                  icon.background.border_color.alpha=1.0 \
+                  icon.background.border_width=1 \
+                  icon.background.corner_radius=4 \
+                  icon.background.height="$CHIP_HEIGHT" \
                   label="$desc" \
                   label.color="$WHITE" \
                   label.color.alpha=1.0 \
@@ -97,16 +106,23 @@ build_items() {
       [[ "$m" == "$mode" ]] || continue
       [[ -n "${to:-}" ]] || continue
       name="help.row.$idx"
+      rendered="$(render_keys "$keys")"
       args+=( --add item "$name" "popup.$ANCHOR" \
               --set "$name" \
-                    icon="$(render_keys "$keys")" \
-                    icon.color="$AQUA" \
+                    icon="$rendered" \
+                    icon.color="$WHITE" \
                     icon.color.alpha=1.0 \
                     icon.font="$KEY_FONT" \
-                    icon.width="$KEY_WIDTH" \
-                    icon.align=left \
-                    icon.padding_left=14 \
-                    icon.padding_right=10 \
+                    icon.padding_left="$CHIP_INNER_PAD" \
+                    icon.padding_right="$CHIP_INNER_PAD" \
+                    icon.background.drawing=on \
+                    icon.background.color="$BACKGROUND_2" \
+                    icon.background.color.alpha=1.0 \
+                    icon.background.border_color="$GREY" \
+                    icon.background.border_color.alpha=1.0 \
+                    icon.background.border_width=1 \
+                    icon.background.corner_radius=4 \
+                    icon.background.height="$CHIP_HEIGHT" \
                     label="Switch to $(capitalize "$to") mode" \
                     label.color="$WHITE" \
                     label.color.alpha=1.0 \
