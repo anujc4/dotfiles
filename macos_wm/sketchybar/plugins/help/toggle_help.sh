@@ -75,6 +75,7 @@ build_items() {
             --set "$name" \
                   icon="$(render_keys "$keys")" \
                   icon.color="$AQUA" \
+                  icon.color.alpha=1.0 \
                   icon.font="$KEY_FONT" \
                   icon.width="$KEY_WIDTH" \
                   icon.align=left \
@@ -82,6 +83,7 @@ build_items() {
                   icon.padding_right=10 \
                   label="$desc" \
                   label.color="$WHITE" \
+                  label.color.alpha=1.0 \
                   label.font="$LABEL_FONT" \
                   label.padding_left=8 \
                   label.padding_right=14 \
@@ -99,6 +101,7 @@ build_items() {
               --set "$name" \
                     icon="$(render_keys "$keys")" \
                     icon.color="$AQUA" \
+                    icon.color.alpha=1.0 \
                     icon.font="$KEY_FONT" \
                     icon.width="$KEY_WIDTH" \
                     icon.align=left \
@@ -106,6 +109,7 @@ build_items() {
                     icon.padding_right=10 \
                     label="Switch to $(capitalize "$to") mode" \
                     label.color="$WHITE" \
+                    label.color.alpha=1.0 \
                     label.font="$LABEL_FONT" \
                     label.padding_left=8 \
                     label.padding_right=14 \

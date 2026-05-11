@@ -13,6 +13,9 @@ help_anchor=(
   popup.align=right
   popup.height=28
   popup.y_offset=0
+  popup.blur_radius=0
+  popup.background.color.alpha=1.0
+  popup.background.border_color.alpha=1.0
 )
 
 sketchybar --add item help_anchor right \

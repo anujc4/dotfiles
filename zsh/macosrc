@@ -37,7 +37,8 @@ export ANDROID_SDK_ROOT="$HOME/Library/Android/sdk"
 export THOR_MERGE="surf -d $1 $2"
 
 alias bri='brew install'
-alias bru='brew uninstall'
+alias bru='brew upgrade'
+alias brx='brew uninstall'
 alias bsl='brew services ls'
 alias bsr='brew services restart'
 alias bss='brew services start'
