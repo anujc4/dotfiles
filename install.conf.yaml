@@ -23,6 +23,10 @@
       path: tmux/tmux.conf
       create: true
       force: true
+    ~/.config/tmux/active_theme.conf:
+      path: tmux/gruvbox-dark256.conf
+      create: true
+      force: true
     ~/.config/alacritty/alacritty.toml:
       path: alacritty/alacritty_mac.toml
       create: true
