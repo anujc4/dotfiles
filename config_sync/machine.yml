@@ -1,0 +1,10 @@
+machines:
+  MN2VR2WMQG:
+    vault_id: cbge6coehffx5nbvclbfqfwh5y
+    files:
+      - ~/.claude.json
+      - ~/.claude/settings.json
+      - ~/.claude/CLAUDE.md
+      - ~/.gitignore_global
+      - ~/.gitconfig
+      - ~/.tool-versions

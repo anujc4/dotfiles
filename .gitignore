@@ -2,4 +2,6 @@
 .vscode
 .DS_Store
 
+# unencrypted/**
+
 zsh/secretsrc
