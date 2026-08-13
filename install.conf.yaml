@@ -27,6 +27,10 @@
       path: tmux/gruvbox-dark256.conf
       create: true
       force: true
+    ~/.config/herdr/config.toml:
+      path: herdr/config.toml
+      create: true
+      force: true
     ~/.config/alacritty/alacritty.toml:
       path: alacritty/alacritty_mac.toml
       create: true
@@ -130,6 +134,22 @@
           "$HOME"/.tmux/plugins/tpm/bin/install_plugins || true
           tmux kill-session -t __noop >/dev/null 2>&1 || true
         fi
+      quiet: true
+
+    - # Herdr
+      command: |
+        source internal/helper.sh
+        is_installed herdr || curl -fsSL https://herdr.dev/install.sh | sh
+      description: Installing herdr
+      quiet: true
+
+    - # Herdr Claude Code
+      command: |
+        source internal/helper.sh
+        if is_installed herdr && [ -d "${CLAUDE_CONFIG_DIR:-$HOME/.claude}" ]; then
+          herdr integration install claude
+        fi
+      description: Installing herdr Claude integration
       quiet: true
 
     - # Alacritty

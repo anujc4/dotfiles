@@ -1,0 +1,76 @@
+# herdr configuration — https://herdr.dev/docs/configuration/
+# https://herdr.dev/docs/config-reference/
+
+[theme]
+name = "gruvbox"
+auto_switch = false
+dark_name = "gruvbox"
+light_name = "gruvbox-light"
+
+[terminal]
+new_cwd = "follow"
+shell_mode = "auto"
+
+[keys]
+prefix = "ctrl+a"
+
+# --- Panes: navigation ---
+focus_pane_left = ["prefix+h", "shift+left"]
+focus_pane_down = ["prefix+j", "shift+down"]
+focus_pane_up = ["prefix+k", "shift+up"]
+focus_pane_right = ["prefix+l", "shift+right"]
+
+swap_pane_left = ["prefix+shift+h"]
+swap_pane_down = ["prefix+shift+j"]
+swap_pane_up = ["prefix+shift+k"]
+swap_pane_right = ["prefix+shift+l"]
+
+# --- Panes: splits ---
+split_vertical = ["prefix+backslash", "alt+backslash"]
+split_horizontal = ["prefix+minus", "alt+minus"]
+close_pane = ["prefix+ctrl+w"]
+zoom = ["prefix+z", "alt+z"]
+
+# --- Tabs (tmux windows) ---
+new_tab = ["prefix+c", "prefix+ctrl+c"]
+rename_tab = ["prefix+ctrl+n"]
+previous_tab = ["alt+["]
+next_tab = ["alt+]"]
+switch_tab = ["alt+1..9"]
+close_tab = ["prefix+shift+x"]
+
+# --- Workspaces (tmux sessions) ---
+new_workspace = ["prefix+shift+n"]
+close_workspace = ["prefix+shift+d"]
+switch_workspace = ["prefix+shift+1..9"]
+previous_workspace = ["alt+shift+["]
+next_workspace = ["alt+shift+]"]
+rename_workspace = ["prefix+shift+w"]
+goto = ["prefix+g"]
+
+# --- Git worktrees
+new_worktree = ["prefix+shift+g"]
+open_worktree = ["prefix+shift+o"]
+
+# --- Session / client ---
+detach = ["prefix+d"]
+reload_config = ["prefix+shift+r"]
+help = ["prefix+?"]
+settings = ["prefix+s"]
+toggle_sidebar = ["prefix+b"]
+
+# --- Agents ---
+focus_agent = ["prefix+alt+1..9"]
+
+[ui]
+mouse_capture = true
+copy_on_select = true
+mouse_scroll_lines = 2
+prompt_new_tab_name = false
+show_agent_labels_on_pane_borders = true
+
+[session]
+resume_agents_on_restore = true
+
+[ui.toast]
+delivery = "system"

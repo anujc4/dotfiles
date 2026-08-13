@@ -1,1 +1,4 @@
 enter_accept=false
+
+[ai]
+enabled = false

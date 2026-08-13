@@ -75,6 +75,7 @@ setopt complete_aliases
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 zstyle ':completion:*' regular true
 
+export STARSHIP_LOG=error
 eval "$(starship init zsh)"
 _load_plugin "$PLUGIN_DIR/fzf-tab/fzf-tab.plugin.zsh"
 _load_plugin "$PLUGIN_DIR/zsh-autosuggestions/zsh-autosuggestions.zsh"
