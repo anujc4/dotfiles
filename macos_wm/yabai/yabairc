@@ -70,4 +70,11 @@ yabai -m rule --add app="${JB_Apps}" title="^$"  manage=on
 # Launch borders as a background process
 borders &
 
+yabai-stacks \
+    --icon-size 40 \
+    --corner-radius 12 \
+    --active-color 0xffd65d0e \
+    --hide-on-hover \
+    --position right &
+
 echo "yabai configuration loaded.."
